@@ -1,2 +1,3 @@
 # FifaManager
-Projet pour le cours de SGBD
+Projet d'examen pour le cours de SGBD à l'EPHEC
+
