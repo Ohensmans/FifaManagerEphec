@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MatchManagement
 {
-    public partial class Form1 : Form
+    public partial class FormMDI : Form
     {
-        public Form1()
+        public FormMDI()
         {
             InitializeComponent();
         }

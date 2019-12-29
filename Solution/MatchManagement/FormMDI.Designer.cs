@@ -1,6 +1,6 @@
 ﻿namespace MatchManagement
 {
-    partial class Form1
+    partial class FormMDI
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FormMDI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(1212, 583);
+            this.IsMdiContainer = true;
+            this.Name = "FormMDI";
+            this.Text = "MatchManagement";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
