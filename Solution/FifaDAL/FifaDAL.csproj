@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MatchManagement\FifaManagementService.cs" />
+    <Compile Include="MatchManagement\FifaManagementData.cs" />
     <Compile Include="BackEnd\FifaManagerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

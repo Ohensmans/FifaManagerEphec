@@ -52,6 +52,12 @@
     <Compile Include="FormAccueil.Designer.cs">
       <DependentUpon>FormAccueil.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormFeuilleDeMatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFeuilleDeMatch.Designer.cs">
+      <DependentUpon>FormFeuilleDeMatch.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMDI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormAccueil.resx">
       <DependentUpon>FormAccueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFeuilleDeMatch.resx">
+      <DependentUpon>FormFeuilleDeMatch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMDI.resx">
       <DependentUpon>FormMDI.cs</DependentUpon>
