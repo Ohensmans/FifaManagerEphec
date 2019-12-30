@@ -97,5 +97,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FifaError\FifaError.csproj">
+      <Project>{7d0a839a-e4c9-4593-ba47-ef6eb94a0690}</Project>
+      <Name>FifaError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FifaModeles\FifaModeles.csproj">
+      <Project>{aca796c1-fa88-412f-b79a-bbf87a0f052c}</Project>
+      <Name>FifaModeles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MatchManagementBL\MatchManagementBL.csproj">
+      <Project>{ce284515-a8c3-4a5a-b275-c6179e2e9b2c}</Project>
+      <Name>MatchManagementBL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

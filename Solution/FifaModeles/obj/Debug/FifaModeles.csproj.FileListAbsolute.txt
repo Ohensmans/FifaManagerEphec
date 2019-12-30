@@ -1,0 +1,5 @@
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.csprojAssemblyReference.cache
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\bin\Debug\FifaModeles.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\bin\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.pdb

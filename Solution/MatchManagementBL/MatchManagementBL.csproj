@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ce284515-a8c3-4a5a-b275-c6179e2e9b2c</ProjectGuid>
+    <ProjectGuid>{CE284515-A8C3-4A5A-B275-C6179E2E9B2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MatchManagementBL</RootNamespace>
@@ -31,24 +31,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ChampionnatsService.cs" />
+    <Compile Include="EquipesService.cs" />
+    <Compile Include="GenerationTableaux.cs" />
+    <Compile Include="GoalsService.cs" />
+    <Compile Include="JoueursService.cs" />
+    <Compile Include="MatchManagementService.cs" />
+    <Compile Include="MatchsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FifaDAL\FifaDAL.csproj">
+      <Project>{6e50d77c-dfed-41e8-803c-aa364e940ae6}</Project>
+      <Name>FifaDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FifaError\FifaError.csproj">
+      <Project>{7d0a839a-e4c9-4593-ba47-ef6eb94a0690}</Project>
+      <Name>FifaError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FifaModeles\FifaModeles.csproj">
+      <Project>{aca796c1-fa88-412f-b79a-bbf87a0f052c}</Project>
+      <Name>FifaModeles</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
- </Project>
+</Project>

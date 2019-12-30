@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FifaDAL.BackEnd
+namespace FifaDAL.MatchManagement
 {
-    public class FifaManagementService
+    public class FifaManagementData
     {
         protected String _Connection;
         public List<dynamic> lRead;
         protected static String ROLE = "MatchManagement.";
 
         //Reçoit la connection string qui sera dans le constructeur dans le BL
-        public FifaManagementService(String _Connection)
+        public FifaManagementData(String _Connection)
         {
             this._Connection = _Connection;
         }

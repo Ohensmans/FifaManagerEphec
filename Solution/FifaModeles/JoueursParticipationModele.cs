@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FifaModeles
+{ 
 
     [Table("JoueursParticipationHistory")]
 public class JoueursParticipationModele

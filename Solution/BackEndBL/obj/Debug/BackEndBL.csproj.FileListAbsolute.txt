@@ -1,0 +1,4 @@
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\BackEndBL.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\BackEndBL.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.pdb

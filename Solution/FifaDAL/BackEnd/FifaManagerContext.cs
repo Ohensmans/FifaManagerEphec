@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FifaModeles;
 
-namespace FifaDAL.MatchManagement
+namespace FifaDAL.BackEnd
 {
     public class FifaManagerContext : DbContext
     {

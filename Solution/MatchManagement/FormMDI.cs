@@ -16,5 +16,21 @@ namespace MatchManagement
         {
             InitializeComponent();
         }
+
+        private void FormMDI_Load(object sender, EventArgs e)
+        {
+            FormAccueil oForm = new FormAccueil();
+            oForm.MdiParent = this;
+
+            oForm.Show();
+        }
+
+        private void accueilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAccueil oForm = new FormAccueil();
+            oForm.MdiParent = this;
+
+            oForm.Show();
+        }
     }
 }
