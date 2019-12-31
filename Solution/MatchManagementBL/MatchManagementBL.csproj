@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,14 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartesJaunesService.cs" />
+    <Compile Include="CartesRougesService.cs" />
     <Compile Include="ChampionnatsService.cs" />
     <Compile Include="EquipesService.cs" />
-    <Compile Include="GenerationTableaux.cs" />
+    <Compile Include="FeuillesMatchService.cs" />
+    <Compile Include="GenerationTableauxAccueil.cs" />
+    <Compile Include="GenerationTableauxFeuille.cs" />
     <Compile Include="GoalsService.cs" />
+    <Compile Include="JoueursParticipationService.cs" />
     <Compile Include="JoueursService.cs" />
     <Compile Include="MatchManagementService.cs" />
     <Compile Include="MatchsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransfertsHistoryService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FifaDAL\FifaDAL.csproj">

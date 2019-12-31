@@ -1,4 +1,5 @@
 ﻿using FifaError;
+using FifaModeles;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MatchManagementBL
 {
-    public static class GenerationTableaux
+    public static class GenerationTableauxAccueil
     {
 
         public static DataTable getMatchEquipe(int annee)
@@ -22,40 +23,8 @@ namespace MatchManagementBL
                 DataView ev = es.loadAllData();
                 DataView gv = gs.loadAllData();
 
-                DataTable tableNettoyee = new DataTable();
+                DataTable tableNettoyee = new TableAccueilMatchs().getTable();
                 DataRow row;
-
-
-                DataColumn date = new DataColumn();
-                date.DataType = System.Type.GetType("System.DateTime");
-                date.ColumnName = "Date du Match :";
-                tableNettoyee.Columns.Add(date);
-
-                DataColumn equipeA = new DataColumn();
-                equipeA.DataType = System.Type.GetType("System.String");
-                equipeA.ColumnName = "Equipe A :";
-                tableNettoyee.Columns.Add(equipeA);
-
-                DataColumn equipeB = new DataColumn();
-                equipeB.DataType = System.Type.GetType("System.String");
-                equipeB.ColumnName = "Equipe B :";
-                tableNettoyee.Columns.Add(equipeB);
-
-                DataColumn resultat = new DataColumn();
-                resultat.DataType = System.Type.GetType("System.String");
-                resultat.ColumnName = "Résultat :";
-                tableNettoyee.Columns.Add(resultat);
-
-                DataColumn matchJoue = new DataColumn();
-                matchJoue.DataType = System.Type.GetType("System.Boolean");
-                matchJoue.ColumnName = "Match Joué : ";
-                tableNettoyee.Columns.Add(matchJoue);
-
-                DataColumn matchId = new DataColumn();
-                matchId.DataType = System.Type.GetType("System.Guid");
-                matchId.ColumnName = "matchId";
-                tableNettoyee.Columns.Add(matchId);
-
 
                 foreach (DataRowView dr in mv)
                 {

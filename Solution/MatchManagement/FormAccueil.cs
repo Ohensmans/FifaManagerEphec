@@ -22,7 +22,18 @@ namespace MatchManagement
 
         private void b_FeuMatch_Click(object sender, EventArgs e)
         {
+            if ((Boolean)dataGridListeMatchs.SelectedRows[0].Cells[4].Value)
+            {
+                MessageBox.Show("Ce match est déjà joué");
+            }
+            else
+            { 
+                
+                FormFeuilleDeMatch oForm = new FormFeuilleDeMatch((Guid)dataGridListeMatchs.SelectedRows[0].Cells[5].Value);
+                oForm.MdiParent = this.MdiParent;
 
+                oForm.Show();
+            }
         }
 
         private void FormAccueil_Load(object sender, EventArgs e)
@@ -51,6 +62,8 @@ namespace MatchManagement
             {
                 throw ex;
             }
+
+            cb_Champ.SelectedIndex = 0;
         }
 
 
@@ -59,7 +72,7 @@ namespace MatchManagement
             try
             {
                 MatchsService matchs = new MatchsService();
-                dataGridListeMatchs.DataSource = GenerationTableaux.getMatchEquipe(System.Convert.ToInt32(cb_Champ.SelectedItem.ToString()));
+                dataGridListeMatchs.DataSource = GenerationTableauxAccueil.getMatchEquipe(System.Convert.ToInt32(cb_Champ.SelectedItem.ToString()));
                 dataGridListeMatchs.Columns["matchId"].Visible = false;
             }
             catch (CustomsError ce)
@@ -72,5 +85,7 @@ namespace MatchManagement
                 throw ex;
             }
         }
+
+
     }
 }

@@ -94,6 +94,48 @@ namespace FifaDAL.MatchManagement
             }
         }
 
+        //lance la procédure stockée avec lecture pStoredName et une liste de sql paramètres lstParamIn et renvoie un DataSet avec une table du nom newTableName
+        public DataSet LoadOne(string pStoredName, List<SqlParameter> lstParamIn, string newTableName)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection())
+                {
+                    con.ConnectionString = _Connection;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+
+                        cmd.Connection = con;
+                        cmd.CommandText = ROLE + pStoredName;
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        foreach (SqlParameter oParam in lstParamIn)
+                        {
+                            cmd.Parameters.Add(oParam);
+                        }
+
+                        adapter.SelectCommand = cmd;
+
+                        DataSet data = new DataSet();
+                        adapter.Fill(data, newTableName);
+                        return data;
+                    }
+                }
+            }
+
+            catch (SqlException exsql)
+            {
+                CustomsError oErreur = new CustomsError(exsql);
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

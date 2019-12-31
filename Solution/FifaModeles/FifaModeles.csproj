@@ -55,6 +55,8 @@
     <Compile Include="MatchsModele.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuartersModele.cs" />
+    <Compile Include="TableAccueilMatchs.cs" />
+    <Compile Include="TableFeuilleMatch.cs" />
     <Compile Include="TransfertsModele.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

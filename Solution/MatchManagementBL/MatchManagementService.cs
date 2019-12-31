@@ -20,6 +20,7 @@ namespace MatchManagementBL
 
         public string name { get; set; }
 
+        //transforme une datatable en liste typée
         protected static List<T> ConvertDataTable<T>(DataTable dt)
         {
             List<T> data = new List<T>();
@@ -31,6 +32,7 @@ namespace MatchManagementBL
             return data;
         }
 
+        // vérifie que toutes les propriétés correspondent bien avec le type de l'objet cible
         protected static T GetItem<T>(DataRow dr)
         {
             Type temp = typeof(T);
@@ -49,7 +51,7 @@ namespace MatchManagementBL
             return obj;
         }
 
-
+        //utilise les procédures stockées de lecture GetAll
         public DataView loadAllData ()
         {
             try
@@ -70,6 +72,7 @@ namespace MatchManagementBL
 
         }
 
+        //utilise les procédures stockées de lecture procedureName
         public DataView loadSpecificTable(string newTableName, string procedureName)
         {
             try
@@ -88,5 +91,7 @@ namespace MatchManagementBL
                 throw ex;
             }
         }
+
+
     }
 }
