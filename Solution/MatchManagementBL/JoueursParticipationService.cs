@@ -63,6 +63,8 @@ namespace MatchManagementBL
         {
             try
             {
+
+
                 using (TransactionScope scope = new TransactionScope())
                 {
                     FeuillesMatchService fs = new FeuillesMatchService();
@@ -91,25 +93,8 @@ namespace MatchManagementBL
         {
             try
             {
-                oView.RowStateFilter = DataViewRowState.ModifiedOriginal;
+                oView.RowStateFilter = DataViewRowState.Added;
                 if (oView.Count>0)
-                {
-                    foreach (DataRowView rowView in oView)
-                    {
-                        if ((Boolean)rowView[4])
-                        {
-                            List<dynamic> lstParam = new List<dynamic>();
-                            lstParam.Add(rowView[5]);
-                            lstParam.Add(feuilleId);
-
-                            JoueursParticipationData jpd = new JoueursParticipationData(_Connection);
-                            jpd.AddParticipants(lstParam);
-                        }
-                    }
-                }
-
-                oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
-                if (oView.Count > 0)
                 {
                     foreach (DataRowView rowView in oView)
                     {
@@ -143,24 +128,7 @@ namespace MatchManagementBL
         {
             try
             {
-                oView.RowStateFilter = DataViewRowState.ModifiedOriginal;
-                if (oView.Count > 0)
-                {
-                    foreach (DataRowView rowView in oView)
-                    {
-                        if (!(Boolean)rowView[4])
-                        {
-                            List<dynamic> lstParam = new List<dynamic>();
-                            lstParam.Add(rowView[5]);
-                            lstParam.Add(feuilleId);
-
-                            JoueursParticipationData jpd = new JoueursParticipationData(_Connection);
-                            jpd.DeleteParticipants(lstParam);
-                        }
-                    }
-                }
-
-                oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
+                oView.RowStateFilter = DataViewRowState.Deleted;
                 if (oView.Count > 0)
                 {
                     foreach (DataRowView rowView in oView)

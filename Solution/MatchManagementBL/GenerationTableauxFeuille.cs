@@ -30,7 +30,7 @@ namespace MatchManagementBL
                 }
                 EquipeAID = (Guid)mv[i]["equipe1Id"];
 
-                return getMatchEquipe((Guid)mv[i]["equipe1Id"], matchId, (DateTime)mv[i]["matchDate"]);
+                return getMatchEquipe((Guid)mv[i]["equipe1Id"], matchId, (DateTime)mv[i]["matchDate"]).DefaultView;
             }
             catch (CustomsError ce)
             {
@@ -57,7 +57,7 @@ namespace MatchManagementBL
                     i++;
                 }
                 EquipeBID = (Guid)mv[i]["equipe2Id"];
-                return getMatchEquipe((Guid)mv[i]["equipe2Id"], matchId, (DateTime)mv[i]["matchDate"]);
+                return getMatchEquipe((Guid)mv[i]["equipe2Id"], matchId, (DateTime)mv[i]["matchDate"]).DefaultView;
             }
             catch (CustomsError ce)
             {
@@ -71,7 +71,7 @@ namespace MatchManagementBL
         }
 
         // A partir de l'equipeID et du matchID renvoie la feuille de match existante ou un vide si jamais elle n'existe pas
-        public static DataView getMatchEquipe(Guid equipeId, Guid matchId, DateTime matchDate)
+        public static DataTable getMatchEquipe(Guid equipeId, Guid matchId, DateTime matchDate)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace MatchManagementBL
 
                     feuille.Rows.Add(row);
                 }
-                return feuille.DefaultView;
+                return feuille;
             }
 
             catch (CustomsError ce)

@@ -133,9 +133,11 @@
             this.dg_Equipe1.Location = new System.Drawing.Point(27, 220);
             this.dg_Equipe1.MultiSelect = false;
             this.dg_Equipe1.Name = "dg_Equipe1";
+            this.dg_Equipe1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dg_Equipe1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dg_Equipe1.Size = new System.Drawing.Size(550, 267);
             this.dg_Equipe1.TabIndex = 7;
+            this.dg_Equipe1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dg_Equipe1_DataBindingComplete);
             // 
             // dg_Equipe2
             // 
@@ -165,6 +167,7 @@
             this.dg_Equipe2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dg_Equipe2.Size = new System.Drawing.Size(550, 267);
             this.dg_Equipe2.TabIndex = 8;
+            this.dg_Equipe2.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dg_Equipe2_DataBindingComplete);
             // 
             // b_Save
             // 
@@ -190,6 +193,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(1248, 684);
             this.Controls.Add(this.b_back);
             this.Controls.Add(this.b_Save);

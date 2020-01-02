@@ -210,7 +210,8 @@ namespace MatchManagement
             {
                 JoueursParticipationService jps = new JoueursParticipationService();
                 jps.SaveAll((DataView)dg_Equipe1.DataSource, matchId, equipeAId);
-                jps.SaveAll((DataView)dg_Equipe2.DataSource, matchId, equipeAId);
+                jps.SaveAll((DataView)dg_Equipe2.DataSource, matchId, equipeBId);
+
             }
             catch (Exception ex)
             {
