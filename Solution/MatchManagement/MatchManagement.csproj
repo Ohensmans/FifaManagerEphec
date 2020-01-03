@@ -66,6 +66,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resultats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resultats.Designer.cs">
+      <DependentUpon>Resultats.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormAccueil.resx">
       <DependentUpon>FormAccueil.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +90,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resultats.resx">
+      <DependentUpon>Resultats.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\MatchManagementBL.GenerationTablesResults.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -110,6 +120,9 @@
       <Project>{ce284515-a8c3-4a5a-b275-c6179e2e9b2c}</Project>
       <Name>MatchManagementBL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

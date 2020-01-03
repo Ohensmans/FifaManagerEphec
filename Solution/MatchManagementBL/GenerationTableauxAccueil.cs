@@ -18,10 +18,13 @@ namespace MatchManagementBL
                 MatchsService ms = new MatchsService();
                 EquipesService es = new EquipesService();
                 GoalsService gs = new GoalsService();
+                JoueursParticipationService jps = new JoueursParticipationService();
+                FeuillesMatchService fms = new FeuillesMatchService();
 
                 DataView mv = ms.loadAllData();
                 DataView ev = es.loadAllData();
                 DataView gv = gs.loadAllData();
+                DataView fmv = fms.loadAllData();
 
                 DataTable tableNettoyee = new TableAccueilMatchs().getTable();
                 DataRow row;
@@ -32,8 +35,12 @@ namespace MatchManagementBL
                     if (dt.Year == annee)
                     {
                         row = tableNettoyee.NewRow();
+
+                        // rempli la colonne des dates de match
                         row[0] = dr["matchDate"];
 
+
+                        // rempli la colonne du nom de l'équipe A
                         Boolean trouve = false;
                         int i = 0;
                         while (trouve == false)
@@ -46,9 +53,9 @@ namespace MatchManagementBL
                             i++;
                         }
 
+                        // rempli la colonne du nom de l'équipe B
                         trouve = false;
                         i = 0;
-
                         while (trouve == false)
                         {
                             if ((Guid)dr["equipe2Id"] == (Guid)ev[i]["equipeId"])
@@ -59,14 +66,16 @@ namespace MatchManagementBL
                             i++;
                         }
 
+
+                        // rempli la colonne du nombre de goal (en string)
                         int goalA = 0;
                         int goalB = 0;
 
                         for (int j = 0; j < gv.Count; j++)
                         {
-                            if (dr["matchId"] == gv[j]["matchId"])
+                            if ((Guid)dr["matchId"] == (Guid)gv[j]["matchId"])
                             {
-                                if (gv[j]["equipeId"] == dr["equipe1Id"])
+                                if ((Guid)gv[j]["equipeId"] == (Guid)dr["equipe1Id"])
                                 {
                                     goalA++;
                                 }
@@ -75,9 +84,9 @@ namespace MatchManagementBL
 
                         for (i = 0; i < gv.Count; i++)
                         {
-                            if (dr["matchId"] == gv[i]["matchId"])
+                            if ((Guid)dr["matchId"] == (Guid)gv[i]["matchId"])
                             {
-                                if (gv[i]["equipeId"] == dr["equipe2Id"])
+                                if ((Guid)gv[i]["equipeId"] == (Guid)dr["equipe2Id"])
                                 {
                                     goalB++;
                                 }
@@ -86,9 +95,47 @@ namespace MatchManagementBL
 
                         row[3] = goalA + " - " + goalB;
 
-                        row[4] = dr["isPlayed"];
+                        // rempli la colonne pour savoir si les feuilles de matchs sont bien remplies
+                        row[4] = false;
 
-                        row[5] = dr["matchId"];
+                        int countA = 0;
+                        int countB = 0;
+
+                        List<dynamic> lstParamA = new List<dynamic>();
+                        List<dynamic> lstParamB = new List<dynamic>();
+
+
+                        for (i = 0; i<fmv.Count; i++)
+                        {
+                            if ((Guid)dr["matchId"] == (Guid)fmv[i]["matchId"])
+                            {
+                                if ((Guid)dr["equipe1Id"] == (Guid)fmv[i]["equipeId"])
+                                {
+                                    lstParamA.Add((Guid)fmv[i]["feuilleId"]);
+                                    DataView oView = jps.loadWithParameter("PartA", lstParamA);
+                                    countA = oView.Count;
+                                }
+
+                                if ((Guid)dr["equipe2Id"] == (Guid)fmv[i]["equipeId"])
+                                {
+                                    lstParamB.Add((Guid)fmv[i]["feuilleId"]);
+                                    DataView oView = jps.loadWithParameter("PartB", lstParamB);
+                                    countB = oView.Count;
+                                }
+                            }
+                        }
+
+
+                        if (countA >4 && countB>4)
+                        {
+                            row[4] = true;
+                        }
+
+                        // rempli la colonne pour savoir si les matchs sont joués ou forfaits
+                        row[5] = dr["isPlayed"];
+
+                        // rempli la colonne des matchId
+                        row[6] = dr["matchId"];
 
                         tableNettoyee.Rows.Add(row);
                     }

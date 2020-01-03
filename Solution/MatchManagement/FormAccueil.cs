@@ -24,12 +24,12 @@ namespace MatchManagement
         {
             if ((Boolean)dataGridListeMatchs.SelectedRows[0].Cells[4].Value)
             {
-                MessageBox.Show("Ce match est déjà joué");
+                MessageBox.Show("Ce match a déjà une feuille de match remplie");
             }
             else
-            { 
-                
-                FormFeuilleDeMatch oForm = new FormFeuilleDeMatch((Guid)dataGridListeMatchs.SelectedRows[0].Cells[5].Value);
+            {
+
+                FormFeuilleDeMatch oForm = new FormFeuilleDeMatch((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value);
                 oForm.MdiParent = this.MdiParent;
 
                 oForm.Show();
@@ -42,13 +42,13 @@ namespace MatchManagement
 
         }
 
-        private void getChampionnats ()
+        private void getChampionnats()
         {
             cb_Champ.Items.Clear();
             try
             {
-               ChampionnatsService champServ = new ChampionnatsService();
-                foreach(ChampionnatsModele champModel in champServ.GetListeObject())
+                ChampionnatsService champServ = new ChampionnatsService();
+                foreach (ChampionnatsModele champModel in champServ.GetListeObject())
                 {
                     cb_Champ.Items.Add(champModel.annee);
                 }
@@ -69,11 +69,18 @@ namespace MatchManagement
 
         private void cb_Champ_SelectedIndexChanged(object sender, EventArgs e)
         {
+            reload();
+        }
+
+
+        private void reload()
+        {
             try
             {
-                MatchsService matchs = new MatchsService();
                 dataGridListeMatchs.DataSource = GenerationTableauxAccueil.getMatchEquipe(System.Convert.ToInt32(cb_Champ.SelectedItem.ToString()));
                 dataGridListeMatchs.Columns["matchId"].Visible = false;
+                dataGridListeMatchs.Sort(this.dataGridListeMatchs.Columns[0], ListSortDirection.Ascending);
+
             }
             catch (CustomsError ce)
             {
@@ -86,6 +93,17 @@ namespace MatchManagement
             }
         }
 
+        private void b_Refresh_Click(object sender, EventArgs e)
+        {
+            reload();
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Resultats oForm = new Resultats((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value);
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
     }
 }

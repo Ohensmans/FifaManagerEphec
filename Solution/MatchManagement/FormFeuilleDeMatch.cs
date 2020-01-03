@@ -54,12 +54,12 @@ namespace MatchManagement
         {
             try
             {
-                l_NomEquipe1.Text = GenerationTableauxFeuille.getEquipeAName(matchId);
-                l_NomEquipe2.Text = GenerationTableauxFeuille.getEquipeBName(matchId);
-                l_dateMatch.Text = "Match du : " + GenerationTableauxFeuille.getDateMatch(matchId).ToString("dd/MM/yyyy");
+                l_NomEquipe1.Text = GenerationInfosMatchs.getEquipeAName(matchId);
+                l_NomEquipe2.Text = GenerationInfosMatchs.getEquipeBName(matchId);
+                l_dateMatch.Text = "Match du : " + GenerationInfosMatchs.getDateMatch(matchId).ToString("dd/MM/yyyy");
                 String pathpb = "./logos/";
-                pb_Equipe1.Load(pathpb + GenerationTableauxFeuille.getlogoEquipeA(matchId));
-                pb_Equipe2.Load(pathpb + GenerationTableauxFeuille.getlogoEquipeB(matchId));
+                pb_Equipe1.Load(pathpb + GenerationInfosMatchs.getlogoEquipeA(matchId));
+                pb_Equipe2.Load(pathpb + GenerationInfosMatchs.getlogoEquipeB(matchId));
 
             }
 

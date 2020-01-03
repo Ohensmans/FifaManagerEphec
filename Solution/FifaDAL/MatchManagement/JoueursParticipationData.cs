@@ -36,12 +36,13 @@ namespace FifaDAL.MatchManagement
             }
         }
 
+
         public int AddParticipants (List<dynamic> lst)
         {
             List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-            lstSqlParam.Add(new SqlParameter("joueurId", lst[0]));
-            lstSqlParam.Add(new SqlParameter("feuilleId", lst[1]));
+            lstSqlParam.Add(new SqlParameter("@joueurId", lst[0]));
+            lstSqlParam.Add(new SqlParameter("@feuilleId", lst[1]));
 
             return Execute("JoueursParticipation_Add", lstSqlParam);
         }
@@ -50,8 +51,8 @@ namespace FifaDAL.MatchManagement
         {
             List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-            lstSqlParam.Add(new SqlParameter("joueurId", lst[0]));
-            lstSqlParam.Add(new SqlParameter("feuilleId", lst[1]));
+            lstSqlParam.Add(new SqlParameter("@joueurId", lst[0]));
+            lstSqlParam.Add(new SqlParameter("@feuilleId", lst[1]));
 
             return Execute("JoueursParticipation_Delete", lstSqlParam);
         }

@@ -35,6 +35,27 @@ namespace MatchManagementBL
             }
         }
 
+        public DateTime getMatchDate(Guid matchId)
+        {
+            try
+            {
+                DataView mv = this.loadAllData();
+
+                int i = 0;
+
+                while ((Guid)mv[i]["matchId"] != matchId || i <= mv.Count)
+                {
+                    i++;
+                }
+
+                return (DateTime)mv[i]["matchDate"];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

@@ -63,9 +63,7 @@ namespace MatchManagementBL
         {
             try
             {
-
-
-                using (TransactionScope scope = new TransactionScope())
+             using (TransactionScope scope = new TransactionScope())
                 {
                     FeuillesMatchService fs = new FeuillesMatchService();
                     Guid feuilleID = fs.UpdateFeuille(matchId,equipeId);
@@ -93,7 +91,7 @@ namespace MatchManagementBL
         {
             try
             {
-                oView.RowStateFilter = DataViewRowState.Added;
+                oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
                 if (oView.Count>0)
                 {
                     foreach (DataRowView rowView in oView)
@@ -128,7 +126,7 @@ namespace MatchManagementBL
         {
             try
             {
-                oView.RowStateFilter = DataViewRowState.Deleted;
+                oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
                 if (oView.Count > 0)
                 {
                     foreach (DataRowView rowView in oView)

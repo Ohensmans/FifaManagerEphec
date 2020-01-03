@@ -3,3 +3,5 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\bin\Debug\FifaM
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\bin\Debug\FifaModeles.pdb
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.TableResultats.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaModeles\obj\Debug\FifaModeles.csproj.GenerateResource.cache

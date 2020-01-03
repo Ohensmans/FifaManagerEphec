@@ -36,6 +36,7 @@
             this.b_FeuMatch = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridListeMatchs = new System.Windows.Forms.DataGridView();
+            this.b_Refresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridListeMatchs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +72,7 @@
             // b_FeuMatch
             // 
             this.b_FeuMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.b_FeuMatch.Location = new System.Drawing.Point(150, 373);
+            this.b_FeuMatch.Location = new System.Drawing.Point(27, 445);
             this.b_FeuMatch.Name = "b_FeuMatch";
             this.b_FeuMatch.Size = new System.Drawing.Size(94, 65);
             this.b_FeuMatch.TabIndex = 5;
@@ -81,13 +82,15 @@
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(350, 373);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(344, 445);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 65);
             this.button1.TabIndex = 6;
             this.button1.Text = "Inscrire/Modifier les résultats";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridListeMatchs
             // 
@@ -119,14 +122,26 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridListeMatchs.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridListeMatchs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridListeMatchs.Size = new System.Drawing.Size(535, 176);
+            this.dataGridListeMatchs.Size = new System.Drawing.Size(746, 248);
             this.dataGridListeMatchs.TabIndex = 7;
+            // 
+            // b_Refresh
+            // 
+            this.b_Refresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.b_Refresh.Location = new System.Drawing.Point(679, 445);
+            this.b_Refresh.Name = "b_Refresh";
+            this.b_Refresh.Size = new System.Drawing.Size(94, 65);
+            this.b_Refresh.TabIndex = 8;
+            this.b_Refresh.Text = "Refresh";
+            this.b_Refresh.UseVisualStyleBackColor = true;
+            this.b_Refresh.Click += new System.EventHandler(this.b_Refresh_Click);
             // 
             // FormAccueil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 461);
+            this.ClientSize = new System.Drawing.Size(795, 533);
+            this.Controls.Add(this.b_Refresh);
             this.Controls.Add(this.dataGridListeMatchs);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.b_FeuMatch);
@@ -150,5 +165,6 @@
         private System.Windows.Forms.Button b_FeuMatch;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridListeMatchs;
+        private System.Windows.Forms.Button b_Refresh;
     }
 }

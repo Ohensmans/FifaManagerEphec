@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatchManagement\CartesRougesData.cs" />
+    <Compile Include="MatchManagement\CartonsJaunesData.cs" />
     <Compile Include="MatchManagement\FeuilleMatchData.cs" />
     <Compile Include="MatchManagement\FifaManagementData.cs" />
     <Compile Include="BackEnd\FifaManagerContext.cs" />
+    <Compile Include="MatchManagement\GoalsData.cs" />
     <Compile Include="MatchManagement\JoueursParticipationData.cs" />
     <Compile Include="MatchManagement\TransfertsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
