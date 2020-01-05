@@ -2,6 +2,7 @@
 using FifaModeles;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,5 +34,26 @@ namespace MatchManagementBL
                 throw ex;
             }
         }
+
+        public List<JoueursModele> GetListeObject(DataTable oTable)
+        {
+            try
+            {
+                List<JoueursModele> listeJoueurs = new List<JoueursModele>();
+                return listeJoueurs = ConvertDataTable<JoueursModele>(oTable);
+            }
+
+            catch (CustomsError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }

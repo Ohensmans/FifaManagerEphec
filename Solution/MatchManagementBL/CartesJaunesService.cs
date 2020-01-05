@@ -126,7 +126,7 @@ namespace MatchManagementBL
                         lstParam.Add(rowView[0]);
                         lstParam.Add(matchId);
                         lstParam.Add(rowView[2]);
-                        lstParam.Add(Maint);
+                        lstParam.Add(rowView["lastUpdate"]);
 
                         CartonsJaunesData cjd = new CartonsJaunesData(_Connection);
                         cjd.UpdateCarte(lstParam);

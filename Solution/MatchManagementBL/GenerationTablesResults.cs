@@ -115,6 +115,10 @@ namespace MatchManagementBL
 
                         row[3] = (Guid)dr["goalId"];
 
+                        DateTime date = DateTime.Now;
+
+                        row[4] = date;
+
                         tableResults.Rows.Add(row);
                     }
                     
@@ -176,6 +180,10 @@ namespace MatchManagementBL
 
                         row[3] = (Guid)dr["carteJauneId"];
 
+                        DateTime date = DateTime.Now;
+
+                        row[4] = date;
+
                         tableResults.Rows.Add(row);
                     }
 
@@ -234,6 +242,10 @@ namespace MatchManagementBL
 
                         row[3] = (Guid)dr["carteRougeId"];
 
+                        DateTime date = DateTime.Now;
+
+                        row[4] = date;
+
                         tableResults.Rows.Add(row);
                     }
 
@@ -252,7 +264,7 @@ namespace MatchManagementBL
         }
 
 
-        public static DataView getJoueurs(Guid matchId, Guid equipeId)
+        public static List<JoueursModele> getJoueurs(Guid matchId, Guid equipeId)
         {
             try
             {
@@ -271,35 +283,37 @@ namespace MatchManagementBL
                 DataRow row;
 
 
-                int i = 0;
-                while ((Guid)fmv[i]["matchId"] != matchId && (Guid)fmv[i]["equipeId"] != equipeId && i < fmv.Count)
+                for(int i = 0;i<fmv.Count;i++)
                 {
-                    i++;
-                }
-                if (i != fmv.Count)
-                {
-                    for (int j = 0; j < jpv.Count; j++)
+                    if ((Guid)fmv[i]["matchId"] == matchId && (Guid)fmv[i]["equipeId"] == equipeId)
                     {
-                        if ((Guid)fmv[i]["feuilleId"] == (Guid)jpv[j]["feuilleId"])
-
+                        for (int j = 0; j < jpv.Count; j++)
                         {
-                            int k = 0;
+                            if ((Guid)fmv[i]["feuilleId"] == (Guid)jpv[j]["feuilleId"])
 
-                            while ((Guid)jpv[j]["joueurid"]!=(Guid)jv[k]["joueurId"]&& k<jv.Count)
                             {
-                                k++;
+                                int k = 0;
+
+                                while ((Guid)jpv[j]["joueurid"] != (Guid)jv[k]["joueurId"] && k < jv.Count)
+                                {
+                                    k++;
+                                }
+
+                                row = tableResults.NewRow();
+
+                                row[0] = (jv[k]["joueurId"]);
+                                row[1] = (jv[k]["nom"]);
+                                row[2] = (jv[k]["prenom"]);
+                                row[3] = (jv[k]["lastUpdate"]);
+
+                                tableResults.Rows.Add(row);
                             }
-
-                            row = tableResults.NewRow();
-
-                            row[0] = (jv[k]["prenom"] + " " + jv[k]["nom"]);
-
-                            tableResults.Rows.Add(row);
                         }
                     }
                 }
+
                 tableResults.AcceptChanges();
-                return tableResults.DefaultView;
+                return js.GetListeObject(tableResults);
             }
             catch (CustomsError ce)
             {

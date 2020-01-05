@@ -145,7 +145,7 @@ namespace MatchManagementBL
                         lstParam.Add(rowView[0]);
                         lstParam.Add(matchId);
                         lstParam.Add(rowView[2]);
-                        lstParam.Add(Maint);
+                        lstParam.Add(rowView["lastUpdate"]);
 
                         GoalsData gd = new GoalsData(_Connection);
                         gd.UpdateGoal(lstParam);

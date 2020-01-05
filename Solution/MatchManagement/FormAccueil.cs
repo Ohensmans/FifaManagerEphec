@@ -100,7 +100,7 @@ namespace MatchManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Resultats oForm = new Resultats((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value);
+            Resultats oForm = new Resultats((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value, (Boolean)dataGridListeMatchs.SelectedRows[0].Cells[5].Value);
             oForm.MdiParent = this.MdiParent;
 
             oForm.Show();

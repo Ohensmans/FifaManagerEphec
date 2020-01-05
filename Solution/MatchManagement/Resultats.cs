@@ -1,8 +1,10 @@
-﻿using MatchManagementBL;
+﻿using FifaModeles;
+using MatchManagementBL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,42 +18,65 @@ namespace MatchManagement
         private Guid matchId;
         private Guid equipeAId;
         private Guid equipeBId;
+        private List<JoueursModele> lJoueursEqA;
+        private List<JoueursModele> lJoueursEqB;
+        DataView GoalA;
+        DataView GoalB;
+        DataView carteJ;
+        DataView carteJ2;
+        DataView carteR;
+        DataView carteR2;
+        Boolean isPlayed;
 
-        public Resultats(Guid matchId)
+        public Resultats(Guid matchId, Boolean isPlayed)
         {
             InitializeComponent();
             this.matchId = matchId;
-           
+            this.isPlayed = isPlayed;           
         }
 
         private void getDataGridGoalA()
         {
             try
-            {
-                DataView GoalA = GenerationTablesResults.getFeuilleA(matchId, out equipeAId);
-
+            {               
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
                 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeAId))
+                foreach (JoueursModele jm in lJoueursEqA)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-                dg_GoalsEq1.Columns.Add("joueurId", "joueurId");
+                dg_GoalsEq1.DataSource = GoalA;
                 dg_GoalsEq1.Columns.Add(comboxColonne);
-                dg_GoalsEq1.Columns.Add("minute", "Minute :");
-                dg_GoalsEq1.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in GoalA)
+                dg_GoalsEq1.Columns["joueurId"].DisplayIndex = 0;
+                dg_GoalsEq1.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_GoalsEq1.Columns["minute"].DisplayIndex = 2;
+                dg_GoalsEq1.Columns["itemId"].DisplayIndex = 4;
+                dg_GoalsEq1.Columns["combo"].DisplayIndex = 3;
+                dg_GoalsEq1.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_GoalsEq1.Columns["joueurId"].Visible = false;
+                dg_GoalsEq1.Columns["itemId"].Visible = false;
+                dg_GoalsEq1.Sort(this.dg_GoalsEq1.Columns["minute"], ListSortDirection.Ascending);
+                dg_GoalsEq1.Columns["lastUpdate"].Visible = false;
+
+                if (lJoueursEqA.Count < 5 || lJoueursEqB.Count<5)
                 {
-                    dg_GoalsEq1.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_GoalsEq1.ReadOnly = true;
                 }
-                dg_GoalsEq1.Columns[0].Visible = false;
-                dg_GoalsEq1.Columns[3].Visible = false;
-                dg_GoalsEq1.Sort(this.dg_GoalsEq1.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_GoalsEq1.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_GoalsEq1.Columns["minute"].ReadOnly = false;
+                    dg_GoalsEq1.Columns["itemId"].ReadOnly = true;
+                    dg_GoalsEq1.Columns["combo"].ReadOnly = false;
+                }
 
             }
             catch (Exception ex)
@@ -64,30 +89,44 @@ namespace MatchManagement
         {
             try
             {
-                DataView GoalB = GenerationTablesResults.getFeuilleB(matchId, out equipeBId);
-
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeBId))
+                foreach (JoueursModele jm in lJoueursEqB)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-                dg_GoalsEq2.Columns.Add("joueurId", "joueurId");
+                dg_GoalsEq2.DataSource = GoalB;
                 dg_GoalsEq2.Columns.Add(comboxColonne);
-                dg_GoalsEq2.Columns.Add("minute", "Minute :");
-                dg_GoalsEq2.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in GoalB)
+                dg_GoalsEq2.Columns["joueurId"].DisplayIndex = 0;
+                dg_GoalsEq2.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_GoalsEq2.Columns["minute"].DisplayIndex = 2;
+                dg_GoalsEq2.Columns["itemId"].DisplayIndex = 4;
+                dg_GoalsEq2.Columns["combo"].DisplayIndex = 3;
+                dg_GoalsEq2.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_GoalsEq2.Columns["joueurId"].Visible = false;
+                dg_GoalsEq2.Columns["itemId"].Visible = false;
+                dg_GoalsEq2.Sort(this.dg_GoalsEq2.Columns["minute"], ListSortDirection.Ascending);
+                dg_GoalsEq2.Columns["lastUpdate"].Visible = false;
+
+                if (lJoueursEqA.Count < 5 || lJoueursEqB.Count < 5)
                 {
-                    dg_GoalsEq2.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_GoalsEq2.ReadOnly = true;
                 }
-                dg_GoalsEq2.Columns[0].Visible = false;
-                dg_GoalsEq2.Columns[3].Visible = false;
-                dg_GoalsEq2.Sort(this.dg_GoalsEq2.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_GoalsEq2.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_GoalsEq2.Columns["minute"].ReadOnly = false;
+                    dg_GoalsEq2.Columns["itemId"].ReadOnly = true;
+                    dg_GoalsEq2.Columns["combo"].ReadOnly = false;
+                }
             }
             catch (Exception ex)
             {
@@ -99,30 +138,44 @@ namespace MatchManagement
         {
             try
             {
-                DataView carteJ = GenerationTablesResults.fillInCartesJaunes(equipeAId, matchId);
-
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeAId))
+                foreach (JoueursModele jm in lJoueursEqA)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-                dg_CartJauEq1.Columns.Add("joueurId", "joueurId");
+                dg_CartJauEq1.DataSource = carteJ;
                 dg_CartJauEq1.Columns.Add(comboxColonne);
-                dg_CartJauEq1.Columns.Add("minute", "Minute :");
-                dg_CartJauEq1.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in carteJ)
+                dg_CartJauEq1.Columns["joueurId"].DisplayIndex = 0;
+                dg_CartJauEq1.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_CartJauEq1.Columns["minute"].DisplayIndex = 2;
+                dg_CartJauEq1.Columns["itemId"].DisplayIndex = 4;
+                dg_CartJauEq1.Columns["combo"].DisplayIndex = 3;
+                dg_CartJauEq1.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_CartJauEq1.Columns["joueurId"].Visible = false;
+                dg_CartJauEq1.Columns["itemId"].Visible = false;
+                dg_CartJauEq1.Sort(this.dg_CartJauEq1.Columns["minute"], ListSortDirection.Ascending);
+                dg_CartJauEq1.Columns["lastUpdate"].Visible = false;
+
+                if (isPlayed)
                 {
-                    dg_CartJauEq1.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_CartJauEq1.ReadOnly = true;
                 }
-                dg_CartJauEq1.Columns[0].Visible = false;
-                dg_CartJauEq1.Columns[3].Visible = false;
-                dg_CartJauEq1.Sort(this.dg_CartJauEq1.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_CartJauEq1.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_CartJauEq1.Columns["minute"].ReadOnly = false;
+                    dg_CartJauEq1.Columns["itemId"].ReadOnly = true;
+                    dg_CartJauEq1.Columns["combo"].ReadOnly = false;
+                }
             }
             catch (Exception ex)
             {
@@ -134,31 +187,44 @@ namespace MatchManagement
         {
             try
             {
-                DataView carteJ = GenerationTablesResults.fillInCartesJaunes(equipeBId, matchId);
-
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeBId))
+                foreach (JoueursModele jm in lJoueursEqB)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-
-                dg_CartJaunEq2.Columns.Add("joueurId", "joueurId");
+                dg_CartJaunEq2.DataSource = carteJ2;
                 dg_CartJaunEq2.Columns.Add(comboxColonne);
-                dg_CartJaunEq2.Columns.Add("minute", "Minute :");
-                dg_CartJaunEq2.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in carteJ)
+                dg_CartJaunEq2.Columns["joueurId"].DisplayIndex = 0;
+                dg_CartJaunEq2.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_CartJaunEq2.Columns["minute"].DisplayIndex = 2;
+                dg_CartJaunEq2.Columns["itemId"].DisplayIndex = 4;
+                dg_CartJaunEq2.Columns["combo"].DisplayIndex = 3;
+                dg_CartJaunEq2.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_CartJaunEq2.Columns["joueurId"].Visible = false;
+                dg_CartJaunEq2.Columns["itemId"].Visible = false;
+                dg_CartJaunEq2.Sort(this.dg_CartJaunEq2.Columns["minute"], ListSortDirection.Ascending);
+                dg_CartJaunEq2.Columns["lastUpdate"].Visible = false;
+
+                if (isPlayed)
                 {
-                    dg_CartJaunEq2.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_CartJaunEq2.ReadOnly = true;
                 }
-                dg_CartJaunEq2.Columns[0].Visible = false;
-                dg_CartJaunEq2.Columns[3].Visible = false;
-                dg_CartJaunEq2.Sort(this.dg_CartJaunEq2.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_CartJaunEq2.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_CartJaunEq2.Columns["minute"].ReadOnly = false;
+                    dg_CartJaunEq2.Columns["itemId"].ReadOnly = true;
+                    dg_CartJaunEq2.Columns["combo"].ReadOnly = false;
+                }
 
             }
             catch (Exception ex)
@@ -172,31 +238,44 @@ namespace MatchManagement
         {
             try
             {
-                DataView carteJ = GenerationTablesResults.fillInCartesRouges(equipeAId, matchId);
-
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeAId))
+                foreach (JoueursModele jm in lJoueursEqA)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-
-                dg_CartRougEq1.Columns.Add("joueurId", "joueurId");
+                dg_CartRougEq1.DataSource = carteR;
                 dg_CartRougEq1.Columns.Add(comboxColonne);
-                dg_CartRougEq1.Columns.Add("minute", "Minute :");
-                dg_CartRougEq1.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in carteJ)
+                dg_CartRougEq1.Columns["joueurId"].DisplayIndex = 0;
+                dg_CartRougEq1.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_CartRougEq1.Columns["minute"].DisplayIndex = 2;
+                dg_CartRougEq1.Columns["itemId"].DisplayIndex = 4;
+                dg_CartRougEq1.Columns["combo"].DisplayIndex = 3;
+                dg_CartRougEq1.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_CartRougEq1.Columns["joueurId"].Visible = false;
+                dg_CartRougEq1.Columns["itemId"].Visible = false;
+                dg_CartRougEq1.Sort(this.dg_CartRougEq1.Columns["minute"], ListSortDirection.Ascending);
+                dg_CartRougEq1.Columns["lastUpdate"].Visible = false;
+
+                if (isPlayed)
                 {
-                    dg_CartRougEq1.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_CartRougEq1.ReadOnly = true;
                 }
-                dg_CartRougEq1.Columns[0].Visible = false;
-                dg_CartRougEq1.Columns[3].Visible = false;
-                dg_CartRougEq1.Sort(this.dg_CartRougEq1.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_CartRougEq1.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_CartRougEq1.Columns["minute"].ReadOnly = false;
+                    dg_CartRougEq1.Columns["itemId"].ReadOnly = true;
+                    dg_CartRougEq1.Columns["combo"].ReadOnly = false;
+                }
             }
             catch (Exception ex)
             {
@@ -208,31 +287,44 @@ namespace MatchManagement
         {
             try
             {
-                DataView carteJ = GenerationTablesResults.fillInCartesRouges(equipeBId, matchId);
-
                 DataGridViewComboBoxColumn comboxColonne;
                 comboxColonne = new DataGridViewComboBoxColumn();
-                comboxColonne.HeaderText = "Joueur :";
+                comboxColonne.HeaderText = "Changer de Joueur :";
                 comboxColonne.DisplayMember = "joueursInscrits";
+                comboxColonne.Name = "combo";
 
-                foreach (DataRowView dr in GenerationTablesResults.getJoueurs(matchId, equipeBId))
+                foreach (JoueursModele jm in lJoueursEqB)
                 {
-                    comboxColonne.Items.Add(dr[0]);
+                    string nomAffiche = jm.prenom + " " + jm.nom;
+                    comboxColonne.Items.Add(nomAffiche);
                 }
 
-
-                dg_CartRougEq2.Columns.Add("joueurId", "joueurId");
+                dg_CartRougEq2.DataSource = carteR2;
                 dg_CartRougEq2.Columns.Add(comboxColonne);
-                dg_CartRougEq2.Columns.Add("minute", "Minute :");
-                dg_CartRougEq2.Columns.Add("itemId", "itemId");
 
-                foreach (DataRowView dr in carteJ)
+                dg_CartRougEq2.Columns["joueurId"].DisplayIndex = 0;
+                dg_CartRougEq2.Columns["joueursInscrits"].DisplayIndex = 1;
+                dg_CartRougEq2.Columns["minute"].DisplayIndex = 2;
+                dg_CartRougEq2.Columns["itemId"].DisplayIndex = 4;
+                dg_CartRougEq2.Columns["combo"].DisplayIndex = 3;
+                dg_CartRougEq2.Columns["lastUpdate"].DisplayIndex = 5;
+
+                dg_CartRougEq2.Columns["joueurId"].Visible = false;
+                dg_CartRougEq2.Columns["itemId"].Visible = false;
+                dg_CartRougEq2.Sort(this.dg_CartRougEq2.Columns["minute"], ListSortDirection.Ascending);
+                dg_CartRougEq2.Columns["lastUpdate"].Visible = false;
+
+                if (isPlayed)
                 {
-                    dg_CartRougEq2.Rows.Add(dr[0], dr[1], dr[2], dr[3]);
+                    dg_CartRougEq2.ReadOnly = true;
                 }
-                dg_CartRougEq2.Columns[0].Visible = false;
-                dg_CartRougEq2.Columns[3].Visible = false;
-                dg_CartRougEq2.Sort(this.dg_CartRougEq2.Columns[2], ListSortDirection.Ascending);
+                else
+                {
+                    dg_CartRougEq2.Columns["joueursInscrits"].ReadOnly = true;
+                    dg_CartRougEq2.Columns["minute"].ReadOnly = false;
+                    dg_CartRougEq2.Columns["itemId"].ReadOnly = true;
+                    dg_CartRougEq2.Columns["combo"].ReadOnly = false;
+                }
             }
             catch (Exception ex)
             {
@@ -262,6 +354,13 @@ namespace MatchManagement
 
         private void getDataGrid()
         {
+            dg_CartJauEq1.Columns.Clear();
+            dg_CartJaunEq2.Columns.Clear();
+            dg_CartRougEq1.Columns.Clear();
+            dg_CartRougEq2.Columns.Clear();
+            dg_GoalsEq1.Columns.Clear();
+            dg_GoalsEq2.Columns.Clear();
+
             getDataGridGoalA();
             getDataGridGoalB();
             getDataGridCarteJauneA();
@@ -270,36 +369,72 @@ namespace MatchManagement
             getDataGridCarteRougeB();           
         }
 
+        private void getListeJoueurs()
+        { 
+            GoalA = GenerationTablesResults.getFeuilleA(matchId, out equipeAId);
+            GoalB = GenerationTablesResults.getFeuilleB(matchId, out equipeBId);
+            carteJ = GenerationTablesResults.fillInCartesJaunes(equipeAId, matchId);
+            carteJ2 = GenerationTablesResults.fillInCartesJaunes(equipeBId, matchId);
+            carteR = GenerationTablesResults.fillInCartesRouges(equipeAId, matchId);
+            carteR2 = GenerationTablesResults.fillInCartesRouges(equipeBId, matchId);
+            lJoueursEqA = GenerationTablesResults.getJoueurs(matchId, equipeAId);
+            lJoueursEqB = GenerationTablesResults.getJoueurs(matchId, equipeBId);
+        }
+
         private void Resultats_Load(object sender, EventArgs e)
         {
-            getDataGrid();
-            getNames();
+            refresh();          
         }
 
         private void b_Save_Click(object sender, EventArgs e)
         {
             try
             {
-                if (checkFull((DataView)dg_GoalsEq1.DataSource) || checkFull((DataView)dg_GoalsEq2.DataSource)
-                    || checkFull((DataView)dg_CartJauEq1.DataSource)|| checkFull((DataView)dg_CartJaunEq2.DataSource)
-                    || checkFull((DataView)dg_CartRougEq1.DataSource)||checkFull((DataView)dg_CartRougEq2.DataSource))
+                if (checkFull((DataView)dg_GoalsEq1.DataSource) && checkFull((DataView)dg_GoalsEq2.DataSource)
+                    && checkFull((DataView)dg_CartJauEq1.DataSource)&& checkFull((DataView)dg_CartJaunEq2.DataSource)
+                    && checkFull((DataView)dg_CartRougEq1.DataSource)&&checkFull((DataView)dg_CartRougEq2.DataSource))
+
                 {
-                    GoalsService gs = new GoalsService();
-                    gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
-                    gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
+                    if(checkMin((DataView)dg_GoalsEq1.DataSource) && checkMin((DataView)dg_GoalsEq2.DataSource)
+                    && checkMin((DataView)dg_CartJauEq1.DataSource) && checkMin((DataView)dg_CartJaunEq2.DataSource)
+                    && checkMin((DataView)dg_CartRougEq1.DataSource) && checkMin((DataView)dg_CartRougEq2.DataSource))
+                    {
+                        if (checkCartesRougesA((DataView)dg_GoalsEq1.DataSource)&& checkCartesRougesB((DataView)dg_GoalsEq2.DataSource))
+                            {
+                            DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
+                            if (dialogResult == DialogResult.OK)
+                            {
+                                GoalsService gs = new GoalsService();
+                                gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
+                                gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
 
-                    CartesJaunesService cjs = new CartesJaunesService();
-                    cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
-                    cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
+                                CartesJaunesService cjs = new CartesJaunesService();
+                                cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
+                                cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
 
-                    CartesRougesService crs = new CartesRougesService();
-                    crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
-                    crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+                                CartesRougesService crs = new CartesRougesService();
+                                crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
+                                crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de marquer");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tous les champs minutes doivent être compris entre 0 et 120");
+
+                    }
+
                 }
                 else
                 {
                     MessageBox.Show("Tous les champs doivent être soit remplis soit vides");
                 }
+
+                refresh();
 
 
             }
@@ -311,18 +446,183 @@ namespace MatchManagement
 
         private Boolean checkFull(DataView oView)
         {
-            Boolean check = true;
+            Boolean rowRemplie = true;
 
             foreach (DataRowView dr in oView)
             {
-                if (Object.ReferenceEquals(dr[1],null) || Object.ReferenceEquals(dr[2], null))
+                if (dr["minute"].ToString().Equals("") || dr["joueurId"].ToString().Equals(""))
                 {
-                    check = false;
+                    rowRemplie = false;
                 }
             }
-            return check;
+            return rowRemplie;
         }
 
+        private Boolean checkMin(DataView oView)
+        {
+            Boolean minTimingBon = true;
+
+            foreach (DataRowView dr in oView)
+            {
+                if ((int)dr["minute"]<0 || (int)dr["minute"] > 120)
+                {
+                    minTimingBon = false;
+                }
+            }
+            return minTimingBon;
+        }
+
+        private Boolean checkCartesRougesA(DataView oView)
+        {
+            Boolean noCard = true;
+
+            foreach (DataRowView dr in oView)
+            {
+                for (int i = 0;i<dg_CartRougEq1.Rows.Count;i++)
+                {
+                    if ((Guid)dr["joueurId"] == (Guid) dg_CartRougEq1.Rows[i].Cells["joueurId"].Value)
+                {
+                        if ((int)dr["minute"]>= (int)dg_CartRougEq1.Rows[i].Cells["minute"].Value)
+                        {
+                            noCard = false;
+                        }
+                }
+                }
+            }
+            return noCard;
+        }
+
+        private Boolean checkCartesRougesB(DataView oView)
+        {
+            Boolean noCard = true;
+
+            foreach (DataRowView dr in oView)
+            {
+                for (int i = 0; i < dg_CartRougEq2.Rows.Count; i++)
+                {
+                    if ((Guid)dr["joueurId"] == (Guid)dg_CartRougEq2.Rows[i].Cells["joueurId"].Value)
+                    {
+                        if ((int)dr["minute"] >= (int)dg_CartRougEq2.Rows[i].Cells["minute"].Value)
+                        {
+                            noCard = false;
+                        }
+                    }
+                }
+            }
+            return noCard;
+        }
+
+
+
+
+        private void dg_GoalsEq1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellG1_SelectedIndexChanged);
+            }
+        }
+
+        private void dg_GoalsEq2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellG2_SelectedIndexChanged);
+            }           
+        }
+
+        private void dg_CartJauEq1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellJ1_SelectedIndexChanged);
+            }
+        }
+
+        private void dg_CartJaunEq2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellJ2_SelectedIndexChanged);
+            }
+        }
+
+        private void dg_CartRougEq1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellR1_SelectedIndexChanged);
+            }
+        }
+
+        private void dg_CartRougEq2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboCell = e.Control as ComboBox;
+            if (comboCell != null)
+            {
+                comboCell.SelectedIndexChanged += new EventHandler(comboCellR2_SelectedIndexChanged);
+            }
+        }
+
+
+        void comboCellG1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dg_GoalsEq1.CurrentRow.Cells["joueurId"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_GoalsEq1.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].prenom +" " 
+                                                                      +lJoueursEqA[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        void comboCellG2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dg_GoalsEq2.CurrentRow.Cells["joueurId"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_GoalsEq2.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].prenom + " "
+                                                                      + lJoueursEqB[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        void comboCellJ1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dg_CartJauEq1.CurrentRow.Cells["joueurId"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_CartJauEq1.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].prenom + " "
+                                                                      + lJoueursEqA[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        void comboCellJ2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           dg_CartJaunEq2.CurrentRow.Cells["joueurId"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_CartJaunEq2.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].prenom + " "
+                                                                      + lJoueursEqB[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        void comboCellR1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dg_CartRougEq1.CurrentRow.Cells["joueurId"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_CartRougEq1.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqA[((ComboBox)sender).SelectedIndex].prenom + " "
+                                                                      + lJoueursEqA[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        void comboCellR2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dg_CartRougEq2.CurrentRow.Cells["joueurId"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].joueurId;
+            dg_CartRougEq2.CurrentRow.Cells["joueursInscrits"].Value = lJoueursEqB[((ComboBox)sender).SelectedIndex].prenom + " "
+                                                                      + lJoueursEqB[((ComboBox)sender).SelectedIndex].nom;
+        }
+
+        private void b_Return_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void refresh ()
+        {
+            getListeJoueurs();
+            getDataGrid();
+            getNames();
+        }
 
     }
 }

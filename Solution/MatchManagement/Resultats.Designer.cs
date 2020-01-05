@@ -100,7 +100,7 @@
             // 
             this.l_dateMatch.AutoSize = true;
             this.l_dateMatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_dateMatch.Location = new System.Drawing.Point(225, 59);
+            this.l_dateMatch.Location = new System.Drawing.Point(309, 57);
             this.l_dateMatch.Name = "l_dateMatch";
             this.l_dateMatch.Size = new System.Drawing.Size(143, 20);
             this.l_dateMatch.TabIndex = 8;
@@ -112,11 +112,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.l_Titre.AutoSize = true;
             this.l_Titre.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_Titre.Location = new System.Drawing.Point(172, 23);
+            this.l_Titre.Location = new System.Drawing.Point(252, 18);
             this.l_Titre.Name = "l_Titre";
-            this.l_Titre.Size = new System.Drawing.Size(244, 25);
+            this.l_Titre.Size = new System.Drawing.Size(264, 25);
             this.l_Titre.TabIndex = 7;
-            this.l_Titre.Text = "FEUILLES DE MATCH";
+            this.l_Titre.Text = "Inscription des résultats";
             // 
             // l_Goals1
             // 
@@ -135,8 +135,9 @@
             this.dg_GoalsEq1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_GoalsEq1.Location = new System.Drawing.Point(39, 225);
             this.dg_GoalsEq1.Name = "dg_GoalsEq1";
-            this.dg_GoalsEq1.Size = new System.Drawing.Size(240, 150);
+            this.dg_GoalsEq1.Size = new System.Drawing.Size(330, 150);
             this.dg_GoalsEq1.TabIndex = 14;
+            this.dg_GoalsEq1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_GoalsEq1_EditingControlShowing);
             // 
             // dg_CartJauEq1
             // 
@@ -145,8 +146,9 @@
             this.dg_CartJauEq1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_CartJauEq1.Location = new System.Drawing.Point(39, 411);
             this.dg_CartJauEq1.Name = "dg_CartJauEq1";
-            this.dg_CartJauEq1.Size = new System.Drawing.Size(240, 150);
+            this.dg_CartJauEq1.Size = new System.Drawing.Size(330, 150);
             this.dg_CartJauEq1.TabIndex = 16;
+            this.dg_CartJauEq1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_CartJauEq1_EditingControlShowing);
             // 
             // l_CartJaune1
             // 
@@ -165,8 +167,9 @@
             this.dg_CartRougEq1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_CartRougEq1.Location = new System.Drawing.Point(39, 596);
             this.dg_CartRougEq1.Name = "dg_CartRougEq1";
-            this.dg_CartRougEq1.Size = new System.Drawing.Size(240, 150);
+            this.dg_CartRougEq1.Size = new System.Drawing.Size(330, 150);
             this.dg_CartRougEq1.TabIndex = 18;
+            this.dg_CartRougEq1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_CartRougEq1_EditingControlShowing);
             // 
             // l_CartRouges1
             // 
@@ -185,8 +188,9 @@
             this.dg_CartRougEq2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_CartRougEq2.Location = new System.Drawing.Point(397, 596);
             this.dg_CartRougEq2.Name = "dg_CartRougEq2";
-            this.dg_CartRougEq2.Size = new System.Drawing.Size(240, 150);
+            this.dg_CartRougEq2.Size = new System.Drawing.Size(330, 150);
             this.dg_CartRougEq2.TabIndex = 24;
+            this.dg_CartRougEq2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_CartRougEq2_EditingControlShowing);
             // 
             // l_CartRoug2
             // 
@@ -205,8 +209,9 @@
             this.dg_CartJaunEq2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_CartJaunEq2.Location = new System.Drawing.Point(397, 411);
             this.dg_CartJaunEq2.Name = "dg_CartJaunEq2";
-            this.dg_CartJaunEq2.Size = new System.Drawing.Size(240, 150);
+            this.dg_CartJaunEq2.Size = new System.Drawing.Size(330, 150);
             this.dg_CartJaunEq2.TabIndex = 22;
+            this.dg_CartJaunEq2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_CartJaunEq2_EditingControlShowing);
             // 
             // l_CartJaunesEq2
             // 
@@ -225,8 +230,9 @@
             this.dg_GoalsEq2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_GoalsEq2.Location = new System.Drawing.Point(397, 225);
             this.dg_GoalsEq2.Name = "dg_GoalsEq2";
-            this.dg_GoalsEq2.Size = new System.Drawing.Size(240, 150);
+            this.dg_GoalsEq2.Size = new System.Drawing.Size(330, 150);
             this.dg_GoalsEq2.TabIndex = 20;
+            this.dg_GoalsEq2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dg_GoalsEq2_EditingControlShowing);
             // 
             // l_Goals2
             // 
@@ -240,7 +246,7 @@
             // 
             // b_Save
             // 
-            this.b_Save.Location = new System.Drawing.Point(92, 766);
+            this.b_Save.Location = new System.Drawing.Point(182, 766);
             this.b_Save.Name = "b_Save";
             this.b_Save.Size = new System.Drawing.Size(187, 55);
             this.b_Save.TabIndex = 25;
@@ -256,12 +262,13 @@
             this.b_Return.TabIndex = 26;
             this.b_Return.Text = "Back";
             this.b_Return.UseVisualStyleBackColor = true;
+            this.b_Return.Click += new System.EventHandler(this.b_Return_Click);
             // 
             // Resultats
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 833);
+            this.ClientSize = new System.Drawing.Size(761, 833);
             this.Controls.Add(this.b_Return);
             this.Controls.Add(this.b_Save);
             this.Controls.Add(this.dg_CartRougEq2);
