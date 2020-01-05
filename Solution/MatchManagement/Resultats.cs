@@ -415,6 +415,8 @@ namespace MatchManagement
                                 CartesRougesService crs = new CartesRougesService();
                                 crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
                                 crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+
+                                refresh();
                             }
                         }
                         else
@@ -433,9 +435,6 @@ namespace MatchManagement
                 {
                     MessageBox.Show("Tous les champs doivent être soit remplis soit vides");
                 }
-
-                refresh();
-
 
             }
             catch (Exception ex)
@@ -478,7 +477,7 @@ namespace MatchManagement
 
             foreach (DataRowView dr in oView)
             {
-                for (int i = 0;i<dg_CartRougEq1.Rows.Count;i++)
+                for (int i = 0;i<dg_CartRougEq1.Rows.Count-1;i++)
                 {
                     if ((Guid)dr["joueurId"] == (Guid) dg_CartRougEq1.Rows[i].Cells["joueurId"].Value)
                 {
@@ -498,7 +497,7 @@ namespace MatchManagement
 
             foreach (DataRowView dr in oView)
             {
-                for (int i = 0; i < dg_CartRougEq2.Rows.Count; i++)
+                for (int i = 0; i < dg_CartRougEq2.Rows.Count-1; i++)
                 {
                     if ((Guid)dr["joueurId"] == (Guid)dg_CartRougEq2.Rows[i].Cells["joueurId"].Value)
                     {

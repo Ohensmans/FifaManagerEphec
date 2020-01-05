@@ -63,7 +63,7 @@
             this.pb_Equipe2.Location = new System.Drawing.Point(397, 130);
             this.pb_Equipe2.Name = "pb_Equipe2";
             this.pb_Equipe2.Size = new System.Drawing.Size(85, 57);
-            this.pb_Equipe2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_Equipe2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb_Equipe2.TabIndex = 12;
             this.pb_Equipe2.TabStop = false;
             // 
@@ -72,7 +72,7 @@
             this.pb_Equipe1.Location = new System.Drawing.Point(39, 130);
             this.pb_Equipe1.Name = "pb_Equipe1";
             this.pb_Equipe1.Size = new System.Drawing.Size(85, 57);
-            this.pb_Equipe1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_Equipe1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb_Equipe1.TabIndex = 11;
             this.pb_Equipe1.TabStop = false;
             // 
