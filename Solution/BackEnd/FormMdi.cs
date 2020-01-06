@@ -16,5 +16,12 @@ namespace BackEnd
         {
             InitializeComponent();
         }
+
+        private void FormMdi_Load(object sender, EventArgs e)
+        {
+            Accueil oForm = new Accueil();
+            oForm.MdiParent = this;
+            oForm.Show();
+        }
     }
 }

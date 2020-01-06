@@ -20,10 +20,11 @@ namespace FifaModeles
 
         public DateTime lastUpdate { get; set; }
 
-        public Guid equipeId { get; set; }
-
         public int minuteMarque { get; set; }
 
+        public Guid equipeId { get; set; }
+
+        public virtual EquipesModele Equipes { get; set; }
         public virtual JoueursModele Joueurs { get; set; }
 
         public virtual MatchsModele Matchs { get; set; }

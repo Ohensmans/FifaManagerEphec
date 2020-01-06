@@ -11,6 +11,14 @@ namespace FifaModeles
     [Table("Matchs")]
     public class MatchsModele
     {
+        public MatchsModele()
+        {
+            CartonsJaunesHistory = new HashSet<CartonsJaunesModele>();
+            CartonsRougesHistory = new HashSet<CartonsRougesModele>();
+            FeuillesDeMatch = new HashSet<FeuillesDeMatchModele>();
+            GoalsHistory = new HashSet<GoalsModele>();
+        }
+
         [Key]
         public Guid matchId { get; set; }
 
@@ -28,8 +36,20 @@ namespace FifaModeles
 
         public DateTime lastUpdate { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartonsJaunesModele> CartonsJaunesHistory { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CartonsRougesModele> CartonsRougesHistory { get; set; }
+
         public virtual EquipesModele Equipes1 { get; set; }
 
         public virtual EquipesModele Equipes2 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeuillesDeMatchModele> FeuillesDeMatch { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoalsModele> GoalsHistory { get; set; }
     }
 }

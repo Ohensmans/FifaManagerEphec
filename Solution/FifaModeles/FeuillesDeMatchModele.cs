@@ -11,6 +11,10 @@ namespace FifaModeles
     [Table("FeuillesDeMatch")]
     public class FeuillesDeMatchModele
     {
+        public FeuillesDeMatchModele()
+        {
+            JoueursParticipationHistory = new HashSet<JoueursParticipationModele>();
+        }
 
         [Key]
         public Guid feuilleId { get; set; }
@@ -24,5 +28,8 @@ namespace FifaModeles
         public virtual EquipesModele Equipes { get; set; }
 
         public virtual MatchsModele Matchs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JoueursParticipationModele> JoueursParticipationHistory { get; set; }
     }
 }

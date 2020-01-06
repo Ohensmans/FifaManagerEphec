@@ -6,3 +6,6 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.P
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.csproj.GenerateResource.cache
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.exe
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.Accueil.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.FormMdi.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.GenChamp.resources
