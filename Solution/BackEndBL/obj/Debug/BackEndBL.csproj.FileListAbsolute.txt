@@ -2,3 +2,17 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\BackEnd
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\BackEndBL.pdb
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.csprojAssemblyReference.cache
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\BackEndBL.dll.config
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\EntityFramework.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaDAL.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaError.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaModeles.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaDAL.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaDAL.dll.config
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaError.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\EntityFramework.xml
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEndBL\obj\Debug\BackEndBL.csproj.CopyComplete

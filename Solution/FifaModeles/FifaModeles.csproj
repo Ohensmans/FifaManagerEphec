@@ -43,26 +43,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CartonsJaunesModele.cs" />
-    <Compile Include="CartonsRougesModele.cs" />
-    <Compile Include="ChampionnatsModele.cs" />
-    <Compile Include="EquipesModele.cs" />
-    <Compile Include="EquipesParticipationModele.cs" />
-    <Compile Include="FeuillesDeMatchModele.cs" />
-    <Compile Include="GoalsModele.cs" />
-    <Compile Include="IntersaisonsModele.cs" />
-    <Compile Include="JoueursModele.cs" />
-    <Compile Include="JoueursParticipationModele.cs" />
-    <Compile Include="MatchsModele.cs" />
+    <Compile Include="Entités\CartonsJaunesModele.cs" />
+    <Compile Include="Entités\CartonsRougesModele.cs" />
+    <Compile Include="Entités\ChampionnatsModele.cs" />
+    <Compile Include="Entités\EquipesModele.cs" />
+    <Compile Include="Entités\EquipesParticipationModele.cs" />
+    <Compile Include="Entités\FeuillesDeMatchModele.cs" />
+    <Compile Include="Entités\GoalsModele.cs" />
+    <Compile Include="Entités\IntersaisonsModele.cs" />
+    <Compile Include="Entités\JoueursModele.cs" />
+    <Compile Include="Entités\JoueursParticipationModele.cs" />
+    <Compile Include="Entités\MatchsModele.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuartersModele.cs" />
-    <Compile Include="TableAccueilMatchs.cs" />
-    <Compile Include="TableFeuilleMatch.cs" />
-    <Compile Include="TableResultats.cs" />
-    <Compile Include="TransfertsModele.cs" />
+    <Compile Include="Entités\QuartersModele.cs" />
+    <Compile Include="Tables\TableAccueilMatchs.cs" />
+    <Compile Include="Tables\TableEquipesSelectionnees.cs" />
+    <Compile Include="Tables\TableFeuilleMatch.cs" />
+    <Compile Include="Tables\TableResultats.cs" />
+    <Compile Include="Entités\TransfertsModele.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TableResultats.resx">
+    <EmbeddedResource Include="Tables\TableResultats.resx">
       <DependentUpon>TableResultats.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

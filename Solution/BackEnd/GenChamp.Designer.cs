@@ -34,17 +34,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtp_DateDebut = new System.Windows.Forms.DateTimePicker();
             this.gb_Resume = new System.Windows.Forms.GroupBox();
-            this.l_TitreQ1 = new System.Windows.Forms.Label();
-            this.l_titreInter = new System.Windows.Forms.Label();
-            this.l_TitreQ2 = new System.Windows.Forms.Label();
-            this.l_datesQ1 = new System.Windows.Forms.Label();
-            this.l_datesInt = new System.Windows.Forms.Label();
             this.l_datesQ2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.l_datesInt = new System.Windows.Forms.Label();
+            this.l_datesQ1 = new System.Windows.Forms.Label();
+            this.l_TitreQ2 = new System.Windows.Forms.Label();
+            this.l_titreInter = new System.Windows.Forms.Label();
+            this.l_TitreQ1 = new System.Windows.Forms.Label();
+            this.dg_EquipesSelection = new System.Windows.Forms.DataGridView();
             this.b_Next = new System.Windows.Forms.Button();
             this.b_Back = new System.Windows.Forms.Button();
             this.gb_Resume.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_EquipesSelection)).BeginInit();
             this.SuspendLayout();
             // 
             // l_Titre
@@ -72,6 +72,7 @@
             this.tb_Annee.Name = "tb_Annee";
             this.tb_Annee.Size = new System.Drawing.Size(100, 20);
             this.tb_Annee.TabIndex = 2;
+            this.tb_Annee.Leave += new System.EventHandler(this.tb_Annee_Leave);
             // 
             // label1
             // 
@@ -88,6 +89,7 @@
             this.dtp_DateDebut.Name = "dtp_DateDebut";
             this.dtp_DateDebut.Size = new System.Drawing.Size(200, 20);
             this.dtp_DateDebut.TabIndex = 4;
+            this.dtp_DateDebut.ValueChanged += new System.EventHandler(this.dtp_DateDebut_ValueChanged);
             // 
             // gb_Resume
             // 
@@ -104,41 +106,14 @@
             this.gb_Resume.TabStop = false;
             this.gb_Resume.Text = "Résumé :";
             // 
-            // l_TitreQ1
+            // l_datesQ2
             // 
-            this.l_TitreQ1.AutoSize = true;
-            this.l_TitreQ1.Location = new System.Drawing.Point(7, 20);
-            this.l_TitreQ1.Name = "l_TitreQ1";
-            this.l_TitreQ1.Size = new System.Drawing.Size(57, 13);
-            this.l_TitreQ1.TabIndex = 0;
-            this.l_TitreQ1.Text = "Quarter 1 :";
-            // 
-            // l_titreInter
-            // 
-            this.l_titreInter.AutoSize = true;
-            this.l_titreInter.Location = new System.Drawing.Point(6, 43);
-            this.l_titreInter.Name = "l_titreInter";
-            this.l_titreInter.Size = new System.Drawing.Size(64, 13);
-            this.l_titreInter.TabIndex = 1;
-            this.l_titreInter.Text = "Intersaison :";
-            // 
-            // l_TitreQ2
-            // 
-            this.l_TitreQ2.AutoSize = true;
-            this.l_TitreQ2.Location = new System.Drawing.Point(6, 67);
-            this.l_TitreQ2.Name = "l_TitreQ2";
-            this.l_TitreQ2.Size = new System.Drawing.Size(57, 13);
-            this.l_TitreQ2.TabIndex = 2;
-            this.l_TitreQ2.Text = "Quarter 2 :";
-            // 
-            // l_datesQ1
-            // 
-            this.l_datesQ1.AutoSize = true;
-            this.l_datesQ1.Location = new System.Drawing.Point(125, 20);
-            this.l_datesQ1.Name = "l_datesQ1";
-            this.l_datesQ1.Size = new System.Drawing.Size(114, 13);
-            this.l_datesQ1.TabIndex = 3;
-            this.l_datesQ1.Text = "de xx/xx/xx à xx/xx/xx";
+            this.l_datesQ2.AutoSize = true;
+            this.l_datesQ2.Location = new System.Drawing.Point(125, 67);
+            this.l_datesQ2.Name = "l_datesQ2";
+            this.l_datesQ2.Size = new System.Drawing.Size(114, 13);
+            this.l_datesQ2.TabIndex = 5;
+            this.l_datesQ2.Text = "de xx/xx/xx à xx/xx/xx";
             // 
             // l_datesInt
             // 
@@ -149,22 +124,53 @@
             this.l_datesInt.TabIndex = 4;
             this.l_datesInt.Text = "de xx/xx/xx à xx/xx/xx";
             // 
-            // l_datesQ2
+            // l_datesQ1
             // 
-            this.l_datesQ2.AutoSize = true;
-            this.l_datesQ2.Location = new System.Drawing.Point(125, 67);
-            this.l_datesQ2.Name = "l_datesQ2";
-            this.l_datesQ2.Size = new System.Drawing.Size(114, 13);
-            this.l_datesQ2.TabIndex = 5;
-            this.l_datesQ2.Text = "de xx/xx/xx à xx/xx/xx";
+            this.l_datesQ1.AutoSize = true;
+            this.l_datesQ1.Location = new System.Drawing.Point(125, 20);
+            this.l_datesQ1.Name = "l_datesQ1";
+            this.l_datesQ1.Size = new System.Drawing.Size(114, 13);
+            this.l_datesQ1.TabIndex = 3;
+            this.l_datesQ1.Text = "de xx/xx/xx à xx/xx/xx";
             // 
-            // dataGridView1
+            // l_TitreQ2
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 316);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(435, 200);
-            this.dataGridView1.TabIndex = 6;
+            this.l_TitreQ2.AutoSize = true;
+            this.l_TitreQ2.Location = new System.Drawing.Point(6, 67);
+            this.l_TitreQ2.Name = "l_TitreQ2";
+            this.l_TitreQ2.Size = new System.Drawing.Size(57, 13);
+            this.l_TitreQ2.TabIndex = 2;
+            this.l_TitreQ2.Text = "Quarter 2 :";
+            // 
+            // l_titreInter
+            // 
+            this.l_titreInter.AutoSize = true;
+            this.l_titreInter.Location = new System.Drawing.Point(6, 43);
+            this.l_titreInter.Name = "l_titreInter";
+            this.l_titreInter.Size = new System.Drawing.Size(64, 13);
+            this.l_titreInter.TabIndex = 1;
+            this.l_titreInter.Text = "Intersaison :";
+            // 
+            // l_TitreQ1
+            // 
+            this.l_TitreQ1.AutoSize = true;
+            this.l_TitreQ1.Location = new System.Drawing.Point(7, 20);
+            this.l_TitreQ1.Name = "l_TitreQ1";
+            this.l_TitreQ1.Size = new System.Drawing.Size(57, 13);
+            this.l_TitreQ1.TabIndex = 0;
+            this.l_TitreQ1.Text = "Quarter 1 :";
+            // 
+            // dg_EquipesSelection
+            // 
+            this.dg_EquipesSelection.AllowUserToAddRows = false;
+            this.dg_EquipesSelection.AllowUserToDeleteRows = false;
+            this.dg_EquipesSelection.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dg_EquipesSelection.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dg_EquipesSelection.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_EquipesSelection.Location = new System.Drawing.Point(27, 316);
+            this.dg_EquipesSelection.Name = "dg_EquipesSelection";
+            this.dg_EquipesSelection.Size = new System.Drawing.Size(435, 200);
+            this.dg_EquipesSelection.TabIndex = 6;
             // 
             // b_Next
             // 
@@ -191,7 +197,7 @@
             this.ClientSize = new System.Drawing.Size(496, 610);
             this.Controls.Add(this.b_Back);
             this.Controls.Add(this.b_Next);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dg_EquipesSelection);
             this.Controls.Add(this.gb_Resume);
             this.Controls.Add(this.dtp_DateDebut);
             this.Controls.Add(this.label1);
@@ -203,7 +209,7 @@
             this.Load += new System.EventHandler(this.GenChamp_Load);
             this.gb_Resume.ResumeLayout(false);
             this.gb_Resume.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_EquipesSelection)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,7 +229,7 @@
         private System.Windows.Forms.Label l_TitreQ2;
         private System.Windows.Forms.Label l_titreInter;
         private System.Windows.Forms.Label l_TitreQ1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dg_EquipesSelection;
         private System.Windows.Forms.Button b_Next;
         private System.Windows.Forms.Button b_Back;
     }

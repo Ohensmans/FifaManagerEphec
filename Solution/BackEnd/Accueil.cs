@@ -16,5 +16,13 @@ namespace BackEnd
         {
             InitializeComponent();
         }
+
+        private void b_GenChamp_Click(object sender, EventArgs e)
+        {
+            GenChamp oForm = new GenChamp();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
     }
 }

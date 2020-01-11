@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FifaError;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,34 +16,70 @@ namespace FifaDAL.MatchManagement
 
         public int AddCarte(List<dynamic> lst)
         {
-            List<SqlParameter> lstSqlParam = new List<SqlParameter>();
+            try
+            {
+                List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-            lstSqlParam.Add(new SqlParameter("@joueurId", lst[0]));
-            lstSqlParam.Add(new SqlParameter("@matchId", lst[1]));
-            lstSqlParam.Add(new SqlParameter("@equipeId", lst[2]));
-            lstSqlParam.Add(new SqlParameter("@minuteRecue", lst[3]));
+                lstSqlParam.Add(new SqlParameter("@joueurId", lst[0]));
+                lstSqlParam.Add(new SqlParameter("@matchId", lst[1]));
+                lstSqlParam.Add(new SqlParameter("@equipeId", lst[2]));
+                lstSqlParam.Add(new SqlParameter("@minuteRecue", lst[3]));
 
-            return Execute("CartonsRouges_Add", lstSqlParam);
+                return Execute("CartonsRouges_Add", lstSqlParam);
+            }
+            catch (CustomsError oErreur)
+            {
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int DeleteCarte(List<dynamic> lst)
         {
-            List<SqlParameter> lstSqlParam = new List<SqlParameter>();
+            try
+            {
+                List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-            lstSqlParam.Add(new SqlParameter("@carteRougeId", lst[0]));
-            return Execute("CartonsRouges_Delete", lstSqlParam);
+                lstSqlParam.Add(new SqlParameter("@carteRougeId", lst[0]));
+                return Execute("CartonsRouges_Delete", lstSqlParam);
+            }
+            catch (CustomsError oErreur)
+            {
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public int UpdateCarte(List<dynamic> lst)
         {
-            List<SqlParameter> lstSqlParam = new List<SqlParameter>();
+            try
+            {
+                List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-            lstSqlParam.Add(new SqlParameter("@carteRougeId", lst[0]));
-            lstSqlParam.Add(new SqlParameter("@joueurId", lst[1]));
-            lstSqlParam.Add(new SqlParameter("@matchId", lst[2]));
-            lstSqlParam.Add(new SqlParameter("@minuteRecue", lst[3]));
-            lstSqlParam.Add(new SqlParameter("@lastUpdate", lst[4]));
-            return Execute("CartonsRouges_Update", lstSqlParam);
+                lstSqlParam.Add(new SqlParameter("@carteRougeId", lst[0]));
+                lstSqlParam.Add(new SqlParameter("@joueurId", lst[1]));
+                lstSqlParam.Add(new SqlParameter("@matchId", lst[2]));
+                lstSqlParam.Add(new SqlParameter("@minuteRecue", lst[3]));
+                lstSqlParam.Add(new SqlParameter("@lastUpdate", lst[4]));
+                return Execute("CartonsRouges_Update", lstSqlParam);
+            }
+            catch (CustomsError oErreur)
+            {
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

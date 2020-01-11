@@ -44,6 +44,7 @@
             this.b_GenChamp.TabIndex = 0;
             this.b_GenChamp.Text = "Générer un championnat";
             this.b_GenChamp.UseVisualStyleBackColor = true;
+            this.b_GenChamp.Click += new System.EventHandler(this.b_GenChamp_Click);
             // 
             // l_Titre
             // 
