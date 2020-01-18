@@ -11,6 +11,20 @@ namespace FifaModeles
     [Table("Quarters")]
     public class QuartersModele
     {
+        public QuartersModele()
+        {
+        }
+
+        public QuartersModele(DateTime dateDebut, DateTime dateFin, Guid championnatId)
+        {
+            this.dateDebut = dateDebut;
+            this.dateFin = dateFin;
+            this.lastUpdate = DateTime.Now;
+            this.championnatId = championnatId;
+            this.lastUpdate = DateTime.Now;
+            this.quartersId = Guid.NewGuid();
+        }
+
         [Key]
         public Guid quartersId { get; set; }
 

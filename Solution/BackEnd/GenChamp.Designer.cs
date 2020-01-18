@@ -72,6 +72,7 @@
             this.tb_Annee.Name = "tb_Annee";
             this.tb_Annee.Size = new System.Drawing.Size(100, 20);
             this.tb_Annee.TabIndex = 2;
+            this.tb_Annee.TextChanged += new System.EventHandler(this.tb_Annee_TextChanged);
             this.tb_Annee.Leave += new System.EventHandler(this.tb_Annee_Leave);
             // 
             // label1
@@ -178,8 +179,9 @@
             this.b_Next.Name = "b_Next";
             this.b_Next.Size = new System.Drawing.Size(137, 45);
             this.b_Next.TabIndex = 7;
-            this.b_Next.Text = "Suivant";
+            this.b_Next.Text = "Enregistrer et passer aux matchs";
             this.b_Next.UseVisualStyleBackColor = true;
+            this.b_Next.Click += new System.EventHandler(this.b_Next_Click);
             // 
             // b_Back
             // 

@@ -26,6 +26,8 @@ namespace FifaModeles
             Intersaisons = new HashSet<IntersaisonsModele>();
             Quarters = new HashSet<QuartersModele>();
             this.annee = annee;
+            this.championnatId = Guid.NewGuid();
+            this.lastUpdate = DateTime.Now;
         }
 
         [Key]

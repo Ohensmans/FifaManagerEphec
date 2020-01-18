@@ -11,6 +11,15 @@ namespace FifaModeles
     [Table("EquipesParticipationHistory")]
     public class EquipesParticipationModele
     {
+
+        public EquipesParticipationModele(Guid equipeId, Guid championnatId)
+        {
+            this.championnatId = championnatId;
+            this.equipeId = equipeId;
+            this.lastUpdate = DateTime.Now;
+        }
+
+
         [Key]
         [Column(Order = 0)]
         public Guid equipeId { get; set; }

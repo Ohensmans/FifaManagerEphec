@@ -11,6 +11,18 @@ namespace FifaModeles
     [Table("Intersaisons")]
     public class IntersaisonsModele
     {
+        public IntersaisonsModele(DateTime dateDebut, DateTime dateFin, Guid championnatId)
+        {
+            this.dateDebut = dateDebut;
+            this.dateFin = dateFin;
+            this.lastUpdate = DateTime.Now;
+            this.championnatId = championnatId;
+            this.lastUpdate = DateTime.Now;
+            this.intersaisonID = Guid.NewGuid();
+
+        }
+
+
         [Key]
         public Guid intersaisonID { get; set; }
 

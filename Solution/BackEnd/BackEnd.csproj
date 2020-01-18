@@ -52,6 +52,12 @@
     <Compile Include="Accueil.Designer.cs">
       <DependentUpon>Accueil.cs</DependentUpon>
     </Compile>
+    <Compile Include="CalendrierMatchs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendrierMatchs.Designer.cs">
+      <DependentUpon>CalendrierMatchs.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMdi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalendrierMatchs.resx">
+      <DependentUpon>CalendrierMatchs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMdi.resx">
       <DependentUpon>FormMdi.cs</DependentUpon>
@@ -105,6 +114,10 @@
     <ProjectReference Include="..\FifaError\FifaError.csproj">
       <Project>{7d0a839a-e4c9-4593-ba47-ef6eb94a0690}</Project>
       <Name>FifaError</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FifaModeles\FifaModeles.csproj">
+      <Project>{ACA796C1-FA88-412F-B79A-BBF87A0F052C}</Project>
+      <Name>FifaModeles</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,6 +19,18 @@ namespace FifaModeles
             GoalsHistory = new HashSet<GoalsModele>();
         }
 
+        public MatchsModele(Guid equipe1Id, Guid equipe2Id)
+        {
+            CartonsJaunesHistory = new HashSet<CartonsJaunesModele>();
+            CartonsRougesHistory = new HashSet<CartonsRougesModele>();
+            FeuillesDeMatch = new HashSet<FeuillesDeMatchModele>();
+            GoalsHistory = new HashSet<GoalsModele>();
+            this.equipe1Id = equipe1Id;
+            this.equipe2Id = equipe2Id;
+        }
+
+
+
         [Key]
         public Guid matchId { get; set; }
 

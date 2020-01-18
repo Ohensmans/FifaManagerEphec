@@ -24,3 +24,4 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaDAL.d
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.xml
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.csproj.CopyComplete
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.CalendrierMatchs.resources

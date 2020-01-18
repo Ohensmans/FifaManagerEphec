@@ -35,10 +35,9 @@ namespace FifaDAL.BackEnd
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.HasDefaultSchema("BackEnd");
-            modelBuilder.Entity<ChampionnatsModele>()
-                    .MapToStoredProcedures(p => p.Insert(sp => sp.HasName("BackEnd.Championnats_Add").Parameter(pm => pm.annee, "@Annee")));
-
-           
+            //modelBuilder.Entity<ChampionnatsModele>()
+                   // .MapToStoredProcedures(p => p.Insert(sp => sp.HasName("BackEnd.Championnats_Add").Parameter(pm => pm.annee, "@Annee")));
+                             
         }
     }
 }

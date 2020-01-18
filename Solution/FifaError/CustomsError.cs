@@ -9,8 +9,9 @@ namespace FifaError
 {
     public class CustomsError : Exception
     {
-        private string _Message;
         private int _Number;
+
+        public string _Message { get; set; }
 
         public CustomsError(SqlException exsql)
         {
@@ -70,6 +71,10 @@ namespace FifaError
 
         }
 
+        public CustomsError()
+        {
+
+        }
 
         public override string Message
         {

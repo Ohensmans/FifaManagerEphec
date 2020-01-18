@@ -11,30 +11,17 @@ using System.Transactions;
 
 namespace BackEndBL.Services
 {
-    public class EquipesParticipationService : BackEndService
+    public class IntersaisonsService : BackEndService
     {
-        public List<EquipesParticipationModele> ListAll()
-        {
-            List<EquipesParticipationModele> lEquParti;
-
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
-            {
-                lEquParti = ctx.EquipesParticipation.ToList();
-            }
-            return lEquParti;
-        }
-
-        public void enregistrerEquipesParticipation (List<EquipesModele> lEquipe, Guid championnatId)
+        public void enregistrerNewIntersaison(DateTime dateDebut, DateTime dateFin, Guid championnatId)
         {
             using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
             {
                 try
                 {
-                    foreach (EquipesModele equipe in lEquipe)
-                    {
-                        EquipesParticipationModele epm = new EquipesParticipationModele(equipe.equipeId, championnatId);
-                        ctx.EquipesParticipation.Add(epm);
-                    }
+                    // crée une nouvelle intersaison
+                    IntersaisonsModele oInter = new IntersaisonsModele(dateDebut, dateFin, championnatId);
+                    ctx.Intersaisons.Add(oInter);
 
                     using (TransactionScope scope = new TransactionScope())
                     {
@@ -56,8 +43,5 @@ namespace BackEndBL.Services
 
             }
         }
-
     }
-
-
 }

@@ -21,6 +21,25 @@ namespace BackEndBL
             return lChamp;
         }
 
+        // à partir d'une liste de nom, renvoie la liste d'équipe qui correspond
+        public List<EquipesModele> ListeEquipeParticipants(List<string> lNomEquipes)
+        {
+            List<EquipesModele> lEquipe = new List<EquipesModele>(); 
+
+            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            {
+                foreach(string str in lNomEquipes)
+                {
+                    // vérifie que l'équipe existe bien
+                    if (ctx.Equipes.Where(x => x.nom == str).FirstOrDefault() != null)
+                    {
+                        lEquipe.Add(ctx.Equipes.Where(x => x.nom == str).FirstOrDefault());
+                    }
+                }                
+            }
+            return lEquipe;
+        }
+
 
     }
 }
