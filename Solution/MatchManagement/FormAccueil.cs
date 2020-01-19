@@ -52,6 +52,7 @@ namespace MatchManagement
                 {
                     cb_Champ.Items.Add(champModel.annee);
                 }
+                cb_Champ.Sorted = true;
             }
             catch (CustomsError ce)
             {

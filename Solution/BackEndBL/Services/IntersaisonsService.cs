@@ -30,15 +30,17 @@ namespace BackEndBL.Services
                     }
                 }
 
-                catch (SqlException exsql)
-                {
-                    CustomsError oErreur = new CustomsError(exsql);
-                    throw oErreur;
-                }
-
                 catch (Exception ex)
                 {
-                    throw ex;
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
                 }
 
             }

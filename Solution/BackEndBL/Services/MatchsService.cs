@@ -25,15 +25,17 @@ namespace BackEndBL.Services
                     lMatchs = ctx.Matchs.ToList();
                 }
 
-                catch (SqlException exsql)
-                {
-                    CustomsError oErreur = new CustomsError(exsql);
-                    throw oErreur;
-                }
-
                 catch (Exception ex)
                 {
-                    throw ex;
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
                 }
 
             }
@@ -109,24 +111,11 @@ namespace BackEndBL.Services
             }
             catch (Exception ex)
             {
-                if (ex.InnerException !=null)
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    if (ex.InnerException.InnerException != null)
-                    {
-                        if (ex.InnerException.InnerException is SqlException)
-                        {
-                            CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
-                            throw oErreur;
-                        }
-                        else
-                        {
-                            throw ex;
-                        }
-                    }
-                    else
-                    {
-                        throw ex;
-                    }
+
+                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
                 }
                 else
                 {

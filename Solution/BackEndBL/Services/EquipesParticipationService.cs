@@ -15,13 +15,28 @@ namespace BackEndBL.Services
     {
         public List<EquipesParticipationModele> ListAll()
         {
-            List<EquipesParticipationModele> lEquParti;
-
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                lEquParti = ctx.EquipesParticipation.ToList();
+                List<EquipesParticipationModele> lEquParti;
+
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                {
+                    lEquParti = ctx.EquipesParticipation.ToList();
+                }
+                return lEquParti;
             }
-            return lEquParti;
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
         public void enregistrerEquipesParticipation (List<EquipesModele> lEquipe, Guid championnatId)
@@ -43,15 +58,17 @@ namespace BackEndBL.Services
                     }
                 }
 
-                catch (SqlException exsql)
-                {
-                    CustomsError oErreur = new CustomsError(exsql);
-                    throw oErreur;
-                }
-
                 catch (Exception ex)
                 {
-                    throw ex;
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
                 }
 
             }

@@ -1,7 +1,9 @@
 ﻿using FifaDAL.BackEnd;
+using FifaError;
 using FifaModeles;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,32 +14,62 @@ namespace BackEndBL
     {
         public List<EquipesModele> ListAll()
         {
-            List<EquipesModele> lChamp;
-
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                lChamp = ctx.Equipes.ToList();
+                List<EquipesModele> lChamp;
+
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                {
+                    lChamp = ctx.Equipes.ToList();
+                }
+                return lChamp;
             }
-            return lChamp;
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
         // à partir d'une liste de nom, renvoie la liste d'équipe qui correspond
         public List<EquipesModele> ListeEquipeParticipants(List<string> lNomEquipes)
         {
-            List<EquipesModele> lEquipe = new List<EquipesModele>(); 
-
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                foreach(string str in lNomEquipes)
+                List<EquipesModele> lEquipe = new List<EquipesModele>();
+
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
                 {
-                    // vérifie que l'équipe existe bien
-                    if (ctx.Equipes.Where(x => x.nom == str).FirstOrDefault() != null)
+                    foreach (string str in lNomEquipes)
                     {
-                        lEquipe.Add(ctx.Equipes.Where(x => x.nom == str).FirstOrDefault());
+                        // vérifie que l'équipe existe bien
+                        if (ctx.Equipes.Where(x => x.nom == str).FirstOrDefault() != null)
+                        {
+                            lEquipe.Add(ctx.Equipes.Where(x => x.nom == str).FirstOrDefault());
+                        }
                     }
-                }                
+                }
+                return lEquipe;
             }
-            return lEquipe;
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
 
