@@ -191,6 +191,7 @@
             this.b_Back.TabIndex = 8;
             this.b_Back.Text = "Retour";
             this.b_Back.UseVisualStyleBackColor = true;
+            this.b_Back.Click += new System.EventHandler(this.b_Back_Click);
             // 
             // GenChamp
             // 

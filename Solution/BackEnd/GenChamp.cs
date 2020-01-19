@@ -117,6 +117,13 @@ namespace BackEnd
                 
         }
 
+        private void resetLabels()
+        {
+            l_datesQ1.Text = "de xx/xx/xx à xx/xx/xx";
+            l_datesInt.Text = "de xx/xx/xx à xx/xx/xx";
+            l_datesQ2.Text = "de xx/xx/xx à xx/xx/xx";
+        }
+
         private void tb_Annee_TextChanged(object sender, EventArgs e)
         {
             try
@@ -124,6 +131,12 @@ namespace BackEnd
                 if (Convert.ToInt32(tb_Annee.Text) >= PREMIEREANNEE)
                 {
                     checkAnnee();
+                }
+                else
+                {
+                    dg_EquipesSelection.DataSource = "";
+                    dtp_DateDebut.Enabled = false;
+                    resetLabels();
                 }
             }
             catch(Exception ex)
@@ -142,13 +155,15 @@ namespace BackEnd
                 //vérifie qu'il y ait une année inscrite (la condition de valeur min est contrôlée sur l'event Leave)
                 if (tb_Annee.Text!="")
                 {
-                    enregistrerNewDivison(lEquipe);
+                    if (enregistrerNewDivison(lEquipe))
+                    {
 
-                    CalendrierMatchs oForm = new CalendrierMatchs(annee, lEquipe);
-                    oForm.MdiParent = this.MdiParent;
-                    oForm.Show();
+                        CalendrierMatchs oForm = new CalendrierMatchs(annee, lEquipe);
+                        oForm.MdiParent = this.MdiParent;
+                        oForm.Show();
 
-                    this.Close();
+                        this.Close();
+                    }
                 }
             }
             else
@@ -157,18 +172,19 @@ namespace BackEnd
             }
         }
 
-        private void enregistrerNewDivison(List<string> lEquipe)
+        private Boolean enregistrerNewDivison(List<string> lEquipe)
         {
+            Boolean _return = false;
             try
             {
                 // enregistre le nouveau championnat 
                 ChampionnatService cs = new ChampionnatService();
                 Guid championnatId;
+                
 
-                //vérifie si le championnat a pu être créer  et si oui lance la création de quarters et d'intersaison
+                //vérifie si le championnat a pu être créé et si oui lance la création de quarters et d'intersaison
                 if (cs.enregistrerNewChampionnat(Convert.ToInt32(tb_Annee.Text), out championnatId))
                  {
-
                     //enregistre la nouvelle intersaison
                     IntersaisonsService interS = new IntersaisonsService();
                     interS.enregistrerNewIntersaison(dateDebutInt, dateFinInt, championnatId);
@@ -180,13 +196,16 @@ namespace BackEnd
 
                     //enregistre les équipes
                     enregistrerEquipes(lEquipe, championnatId);
+
+                    _return = true;
                 }
-                
+                return _return;
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return _return;
             }
         }
 
@@ -221,6 +240,11 @@ namespace BackEnd
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void b_Back_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

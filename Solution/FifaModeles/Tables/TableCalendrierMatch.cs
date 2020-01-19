@@ -29,7 +29,7 @@ namespace FifaModeles.Tables
             tableMatch.Columns.Add(nomEquipeB);
 
             DataColumn date = new DataColumn();
-            date.DataType = System.Type.GetType("System.DateTime");
+            date.DataType = System.Type.GetType("System.DateTime");          
             date.ColumnName = "Date du Match :";
             tableMatch.Columns.Add(date);
 

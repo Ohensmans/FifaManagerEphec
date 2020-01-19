@@ -29,6 +29,22 @@ namespace FifaModeles
             this.equipe2Id = equipe2Id;
         }
 
+        public MatchsModele(Guid equipe1Id, Guid equipe2Id, DateTime matchdate)
+        {
+            CartonsJaunesHistory = new HashSet<CartonsJaunesModele>();
+            CartonsRougesHistory = new HashSet<CartonsRougesModele>();
+            FeuillesDeMatch = new HashSet<FeuillesDeMatchModele>();
+            GoalsHistory = new HashSet<GoalsModele>();
+            this.equipe1Id = equipe1Id;
+            this.equipe2Id = equipe2Id;
+            this.matchDate = matchdate;
+            this.equipe1Points = 0;
+            this.equipe2Points = 0;
+            this.matchId = Guid.NewGuid();
+            this.isPlayed = false;
+            this.lastUpdate = DateTime.Now;
+        }
+
 
 
         [Key]
@@ -54,9 +70,9 @@ namespace FifaModeles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartonsRougesModele> CartonsRougesHistory { get; set; }
 
-        public virtual EquipesModele Equipes1 { get; set; }
+        //public virtual EquipesModele Equipes1 { get; set; }
 
-        public virtual EquipesModele Equipes2 { get; set; }
+        //public virtual EquipesModele Equipes2 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeuillesDeMatchModele> FeuillesDeMatch { get; set; }

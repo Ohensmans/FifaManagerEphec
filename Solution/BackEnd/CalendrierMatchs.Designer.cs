@@ -40,7 +40,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.l_Titre.AutoSize = true;
             this.l_Titre.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_Titre.Location = new System.Drawing.Point(97, 36);
+            this.l_Titre.Location = new System.Drawing.Point(155, 37);
             this.l_Titre.Name = "l_Titre";
             this.l_Titre.Size = new System.Drawing.Size(254, 29);
             this.l_Titre.TabIndex = 1;
@@ -48,22 +48,25 @@
             // 
             // dg_listeMatch
             // 
+            this.dg_listeMatch.AllowUserToAddRows = false;
+            this.dg_listeMatch.AllowUserToDeleteRows = false;
             this.dg_listeMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_listeMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_listeMatch.Location = new System.Drawing.Point(32, 123);
             this.dg_listeMatch.Name = "dg_listeMatch";
-            this.dg_listeMatch.Size = new System.Drawing.Size(410, 305);
+            this.dg_listeMatch.Size = new System.Drawing.Size(502, 356);
             this.dg_listeMatch.TabIndex = 2;
+            this.dg_listeMatch.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_listeMatch_CellClick);
             // 
             // b_Save
             // 
             this.b_Save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.b_Save.Location = new System.Drawing.Point(186, 451);
+            this.b_Save.Location = new System.Drawing.Point(186, 502);
             this.b_Save.Name = "b_Save";
-            this.b_Save.Size = new System.Drawing.Size(99, 38);
+            this.b_Save.Size = new System.Drawing.Size(191, 38);
             this.b_Save.TabIndex = 3;
             this.b_Save.Text = "Sauvegarder";
             this.b_Save.UseVisualStyleBackColor = true;
@@ -73,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 501);
+            this.ClientSize = new System.Drawing.Size(567, 552);
             this.Controls.Add(this.b_Save);
             this.Controls.Add(this.dg_listeMatch);
             this.Controls.Add(this.l_Titre);

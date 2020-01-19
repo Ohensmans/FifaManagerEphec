@@ -9,5 +9,7 @@ namespace BackEndBL
     public class BackEndService
     {
         protected string _Connection = "Data Source=(local);Initial Catalog = FifaManagerEphec; Persist Security Info=True;User ID = sa; Password=ephec";
+        protected string _serverName = "(local)";
+
     }
 }

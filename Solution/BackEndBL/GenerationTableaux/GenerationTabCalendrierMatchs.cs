@@ -15,44 +15,57 @@ namespace BackEndBL.GenerationTableaux
     {
         public DataTable generationCalendrier(int annee, List<string> lNomEquipe)
         {
-            List<MatchsModele> lMatchsQ1Tries = GetMatchsQuarterTries(annee, lNomEquipe, 1);
-            List<MatchsModele> lMatchsQ2Tries = GetMatchsQuarterTries(annee, lNomEquipe, 2);
-
-            //crée une liste consolidée pour la saison
-            List<MatchsModele> lMatchsSaisonTrie = lMatchsQ1Tries;
-            foreach (MatchsModele match in lMatchsQ2Tries)
+            try
             {
-                lMatchsSaisonTrie.Add(match);
+                List<MatchsModele> lMatchsQ1Tries = GetMatchsQuarterTries(annee, lNomEquipe, 1);
+                List<MatchsModele> lMatchsQ2Tries = GetMatchsQuarterTries(annee, lNomEquipe, 2);
+
+                //crée une liste consolidée pour la saison
+                List<MatchsModele> lMatchsSaisonTrie = lMatchsQ1Tries;
+                foreach (MatchsModele match in lMatchsQ2Tries)
+                {
+                    lMatchsSaisonTrie.Add(match);
+                }
+
+                DataTable oTable = new TableCalendrierMatch().getTable();
+                DataRow row;
+
+                int i = 0;
+
+                foreach (MatchsModele match in lMatchsSaisonTrie)
+                {
+                    row = oTable.NewRow();
+
+                    //numérote le match
+                    i++;
+                    row["Match n° :"] = i;
+
+                    //trouve le nom de l'équipe A
+                    row["Equipe à Domicile :"] = getNomEquipes(match.equipe1Id);
+
+                    //trouve le nom de l'équipe B
+                    row["Equipe à l'extérieur :"] = getNomEquipes(match.equipe2Id);
+
+                    //inscrit la date
+                    row["Date du Match :"] = match.matchDate;
+
+                    oTable.Rows.Add(row);
+
+                }
+                oTable.AcceptChanges();
+
+                return oTable;
+            }
+            catch (CustomsError oErreur)
+            {
+                throw oErreur;
             }
 
-            DataTable oTable = new TableCalendrierMatch().getTable();
-            DataRow row;
-
-            int i = 0;
-
-            foreach (MatchsModele match in lMatchsSaisonTrie)
+            catch (Exception ex)
             {
-                row = oTable.NewRow();
-
-                //numérote le match
-                i++;
-                row["Match n° :"] = i;
-
-                //trouve le nom de l'équipe A
-                row["Equipe à Domicile :"] = getNomEquipes(match.equipe1Id);
-
-                //trouve le nom de l'équipe B
-                row["Equipe à l'extérieur :"] = getNomEquipes(match.equipe2Id);
-
-                //inscrit la date
-                row["Date du Match :"] = match.matchDate;
-
-                oTable.Rows.Add(row);
-
+                throw ex;
             }
-            oTable.AcceptChanges();
 
-            return oTable;
         }
 
 
@@ -85,7 +98,7 @@ namespace BackEndBL.GenerationTableaux
 
 
 
-        public List<MatchsModele> GetMatchsQuarterTries(int annee, List<string> lNomEquipe, int numéroQuarter)
+        public List<MatchsModele> GetMatchsQuarterTries(int annee, List<string> lNomEquipe, int numeroQuarter)
         {
             try
             {
@@ -93,10 +106,10 @@ namespace BackEndBL.GenerationTableaux
                 List<MatchsModele> lMatchsSaison = getListeMatchSaison(lNomEquipe);
 
                 //crée les listes des matchs pour chaque quarter
-                List<MatchsModele> lMatchQNonTrie = getListeMatchQuarter(lMatchsSaison, numéroQuarter);
+                List<MatchsModele> lMatchQNonTrie = getListeMatchQuarter(lMatchsSaison, numeroQuarter);
 
                 //obtient les listes des weeks ends pour les 2 quarters
-                List<DateTime> lWeekEndQ = getListeDateWeekEnds(annee, numéroQuarter);
+                List<DateTime> lWeekEndQ = getListeDateWeekEnds(annee, numeroQuarter);
 
                 //obtient le nombre de match par week end
                 int nombreMatchParWeekEnd = lMatchQNonTrie.Count / 2;
@@ -128,10 +141,12 @@ namespace BackEndBL.GenerationTableaux
                         if (k < lMatchQNonTrie.Count)
                         {
                             //teste si une équipe joue déjà le même jour
-                            if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i] && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id)))
+                            if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i] && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id 
+                                                                                            || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
                             {
                                 //teste si une équipe joue déjà la veille
-                                if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i].AddDays(-1) && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id)))
+                                if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i].AddDays(-1) && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id 
+                                                                                                        || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
                                 {
                                     //ajoute la date et rajoute le match à la liste définitive
                                     MatchsModele match = lMatchQNonTrie[k];
@@ -154,7 +169,8 @@ namespace BackEndBL.GenerationTableaux
                     for (int m = lMatchQNonTrie.Count - difference; m < lMatchQNonTrie.Count; m++)
                     {
                         MatchsModele match = lMatchQNonTrie[m];
-                        match.matchDate = DateTime.MinValue;
+                        //assigne une date en fonction du quarter
+                        match.matchDate = new DateTime((numeroQuarter+1800), 1, 1);
                         lMatchQTries.Add(lMatchQNonTrie[m]);
                     }
                 }

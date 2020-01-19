@@ -18,8 +18,8 @@ namespace FifaModeles
             EquipesParticipationHistory = new HashSet<EquipesParticipationModele>();
             FeuillesDeMatch = new HashSet<FeuillesDeMatchModele>();
             GoalsHistory = new HashSet<GoalsModele>();
-            Matchs1 = new HashSet<MatchsModele>();
-            Matchs2 = new HashSet<MatchsModele>();
+            //Matchs1 = new HashSet<MatchsModele>();
+            //Matchs2 = new HashSet<MatchsModele>();
             TransfertsHistory = new HashSet<TransfertsModele>();
         }
 
@@ -50,11 +50,11 @@ namespace FifaModeles
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoalsModele> GoalsHistory { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MatchsModele> Matchs1 { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<MatchsModele> Matchs1 { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MatchsModele> Matchs2 { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<MatchsModele> Matchs2 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransfertsModele> TransfertsHistory { get; set; }
