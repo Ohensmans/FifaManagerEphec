@@ -14,7 +14,6 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaError
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaModeles.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaDAL.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.dll
-C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\BackEndBL.pdb
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\BackEndBL.dll.config
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaError.pdb
@@ -22,6 +21,8 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaModel
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaDAL.pdb
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\FifaDAL.dll.config
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.xml
-C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.csproj.CopyComplete
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.CalendrierMatchs.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.TransfertJoueurs.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.xml

@@ -24,5 +24,13 @@ namespace BackEnd
 
             oForm.Show();
         }
+
+        private void b_TransfJoueurs_Click(object sender, EventArgs e)
+        {
+            TransfertJoueurs oForm = new TransfertJoueurs();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
     }
 }

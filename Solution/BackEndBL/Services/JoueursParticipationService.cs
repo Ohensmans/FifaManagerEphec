@@ -3,6 +3,7 @@ using FifaError;
 using FifaModeles;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace BackEndBL.Services
 {
-    public class TransfertsService : BackEndService
+    public class JoueursParticipationService : BackEndService
     {
-        public List<TransfertsModele> ListAll()
+        public List<JoueursParticipationModele> ListAll()
         {
             try
             {
-                List<TransfertsModele> lTransferts;
+                List<JoueursParticipationModele> lJoueursParticipation;
 
                 using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
                 {
-                    lTransferts = ctx.Transferts.ToList();
+                    lJoueursParticipation = ctx.JoueursParticipation.ToList();
                 }
-                return lTransferts;
+                return lJoueursParticipation;
             }
             catch (Exception ex)
             {
@@ -38,21 +39,32 @@ namespace BackEndBL.Services
             }
         }
 
-        public List<TransfertsModele> ListAllWithEquipeJoueurs()
+
+
+
+        // renvoie vrai si le joueur à joueur un match après la date fournie
+        public Boolean checkJoueurParticipation(Guid joueurId, DateTime date)
         {
             try
             {
-                List<TransfertsModele> lJoueursTransferts;
-
-                // donne la liste des transfert avec entités joueurs et équipes pour lesquels il n'y pas eu de sortie (participation en cours)
+                int countJoueursParticipation;
                 using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
                 {
-                    lJoueursTransferts = ctx.Transferts.Include("Equipes")
-                                                       .Include("Joueurs")
-                                                       .Where(xx => xx.dateFin.HasValue == false)
-                                                       .ToList();
+                    countJoueursParticipation = ctx.JoueursParticipation
+                                               .Where(xx => xx.joueurId == joueurId)
+                                               .Include("FeuillesDeMatch.Matchs")
+                                               .Where(yy => yy.FeuillesDeMatch.Matchs.matchDate > date)
+                                               .Count();
                 }
-                return lJoueursTransferts;
+                if (countJoueursParticipation>0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

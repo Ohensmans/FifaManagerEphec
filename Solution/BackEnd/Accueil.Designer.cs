@@ -64,6 +64,7 @@
             this.b_TransfJoueurs.TabIndex = 2;
             this.b_TransfJoueurs.Text = "Transférer des joueurs";
             this.b_TransfJoueurs.UseVisualStyleBackColor = true;
+            this.b_TransfJoueurs.Click += new System.EventHandler(this.b_TransfJoueurs_Click);
             // 
             // b_Match
             // 

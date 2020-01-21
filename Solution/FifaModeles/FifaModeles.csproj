@@ -62,6 +62,7 @@
     <Compile Include="Tables\TableFeuilleMatch.cs" />
     <Compile Include="Tables\TableResultats.cs" />
     <Compile Include="Entités\TransfertsModele.cs" />
+    <Compile Include="Tables\TableTransfertJoueurs.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Tables\TableResultats.resx">

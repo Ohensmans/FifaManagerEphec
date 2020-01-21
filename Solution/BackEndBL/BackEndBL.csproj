@@ -54,12 +54,15 @@
   <ItemGroup>
     <Compile Include="GenerationTableaux\GenerationTabCalendrierMatchs.cs" />
     <Compile Include="GenerationTableaux\GenerationTabEquipeSelection.cs" />
+    <Compile Include="GenerationTableaux\GenerationTabTransfertJoueurs.cs" />
     <Compile Include="Services\BackEndService.cs" />
     <Compile Include="Services\ChampionnatService.cs" />
     <Compile Include="Services\EquipesParticipationService.cs" />
     <Compile Include="Services\EquipesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IntersaisonsService.cs" />
+    <Compile Include="Services\JoueursParticipationService.cs" />
+    <Compile Include="Services\JoueursService.cs" />
     <Compile Include="Services\MatchsService.cs" />
     <Compile Include="Services\QuartersService.cs" />
     <Compile Include="Services\TransfertsService.cs" />
