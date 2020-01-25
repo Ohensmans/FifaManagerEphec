@@ -28,7 +28,7 @@ namespace BackEndBL
             {
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else
@@ -62,7 +62,55 @@ namespace BackEndBL
             {
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        // à partir d'un nom d'équipe, renvoie l'équipe qui correspond
+        public EquipesModele getEquipe (string nomEquipes)
+        {
+            try
+            {
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                {
+                    return ctx.Equipes.Where(x => x.nom == nomEquipes).FirstOrDefault();              
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        // à partir de l'Id d'une équipe, renvoie l'équipe qui correspond
+        public EquipesModele getEquipe(Guid equipeId)
+        {
+            try
+            {
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                {
+                    return ctx.Equipes.Where(x => x.equipeId== equipeId).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else

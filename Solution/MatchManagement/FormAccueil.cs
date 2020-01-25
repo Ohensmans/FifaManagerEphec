@@ -54,7 +54,7 @@ namespace MatchManagement
                 }
                 cb_Champ.Sorted = true;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -83,7 +83,7 @@ namespace MatchManagement
                 dataGridListeMatchs.Sort(this.dataGridListeMatchs.Columns[0], ListSortDirection.Ascending);
 
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

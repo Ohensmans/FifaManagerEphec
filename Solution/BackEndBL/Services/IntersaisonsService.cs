@@ -34,7 +34,7 @@ namespace BackEndBL.Services
                 {
                     if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                     {
-                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                         throw oErreur;
                     }
                     else
@@ -44,6 +44,70 @@ namespace BackEndBL.Services
                 }
 
             }
+        }
+
+        public Boolean checkPasDansIntersaison(DateTime date)
+        {
+
+            try
+            {
+                // obtient la liste des intersaisons
+                List<IntersaisonsModele> lIntersaison = this.ListAll();
+
+                foreach (IntersaisonsModele intersaison in lIntersaison)
+                {
+                    if (date <= intersaison.dateFin && date >= intersaison.dateDebut)
+                    {
+                        // retourne false si la date est dans une intersaison
+                        return false;
+                    }
+                }
+                // si il n'a trouvé d'intersaison qui corresponde renvoie true
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+
+            
+        }
+
+        public List<IntersaisonsModele> ListAll()
+        {
+            try
+            {
+                List<IntersaisonsModele> lIntersaison;
+
+                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                {
+                    lIntersaison = ctx.Intersaisons.ToList();
+                }
+                return lIntersaison;
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+
+
         }
     }
 }

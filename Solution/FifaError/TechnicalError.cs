@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FifaError
 {
-    public class CustomsError : Exception
+    public class TechnicalError : Exception
     {
         private int _Number;
 
         public string _Message { get; set; }
 
-        public CustomsError(SqlException exsql)
+        public TechnicalError(SqlException exsql)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace FifaError
 
         }
 
-        public CustomsError()
+        public TechnicalError()
         {
 
         }

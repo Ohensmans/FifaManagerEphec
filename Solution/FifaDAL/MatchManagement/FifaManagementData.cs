@@ -47,7 +47,7 @@ namespace FifaDAL.MatchManagement
             }
             catch (SqlException exsql)
             {
-                CustomsError oErreur = new CustomsError(exsql);
+                TechnicalError oErreur = new TechnicalError(exsql);
                 throw oErreur;
             }
 
@@ -84,7 +84,7 @@ namespace FifaDAL.MatchManagement
 
             catch (SqlException exsql)
             {
-                CustomsError oErreur = new CustomsError(exsql);
+                TechnicalError oErreur = new TechnicalError(exsql);
                 throw oErreur;
             }
 
@@ -126,7 +126,7 @@ namespace FifaDAL.MatchManagement
 
             catch (SqlException exsql)
             {
-                CustomsError oErreur = new CustomsError(exsql);
+                TechnicalError oErreur = new TechnicalError(exsql);
                 throw oErreur;
             }
 

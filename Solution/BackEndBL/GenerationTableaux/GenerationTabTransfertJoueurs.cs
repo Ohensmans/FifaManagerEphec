@@ -59,7 +59,7 @@ namespace BackEndBL.GenerationTableaux
                 oTable.AcceptChanges();
                 return oTable;
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

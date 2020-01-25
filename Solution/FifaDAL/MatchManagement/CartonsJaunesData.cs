@@ -27,7 +27,7 @@ namespace FifaDAL.MatchManagement
 
                 return Execute("CartonsJaunes_Add", lstSqlParam);
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -47,7 +47,7 @@ namespace FifaDAL.MatchManagement
                 lstSqlParam.Add(new SqlParameter("@carteJauneId", lst[0]));
                 return Execute("CartonsJaunes_Delete", lstSqlParam);
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -71,7 +71,7 @@ namespace FifaDAL.MatchManagement
                 lstSqlParam.Add(new SqlParameter("@lastUpdate", lst[4]));
                 return Execute("CartonsJaunes_Update", lstSqlParam);
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

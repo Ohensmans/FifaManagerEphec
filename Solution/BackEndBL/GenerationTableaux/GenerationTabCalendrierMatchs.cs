@@ -56,7 +56,7 @@ namespace BackEndBL.GenerationTableaux
 
                 return oTable;
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -85,7 +85,7 @@ namespace BackEndBL.GenerationTableaux
                 return lEquipe[i].nom;
 
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -177,7 +177,7 @@ namespace BackEndBL.GenerationTableaux
 
                 return lMatchQTries;
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -214,7 +214,7 @@ namespace BackEndBL.GenerationTableaux
                 }
                 return lMatchs;
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -259,7 +259,7 @@ namespace BackEndBL.GenerationTableaux
                 }
                 return lDateWeekend;
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -316,7 +316,7 @@ namespace BackEndBL.GenerationTableaux
                 }
 
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

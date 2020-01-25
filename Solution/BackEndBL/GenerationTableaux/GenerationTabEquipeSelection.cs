@@ -55,7 +55,7 @@ namespace BackEndBL.GenerationTableaux
                 return equipesSelection;
 
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

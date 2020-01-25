@@ -13,6 +13,8 @@ namespace BackEndBL.Services
 {
     public class JoueursParticipationService : BackEndService
     {
+
+
         public List<JoueursParticipationModele> ListAll()
         {
             try
@@ -29,7 +31,7 @@ namespace BackEndBL.Services
             {
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else
@@ -42,8 +44,8 @@ namespace BackEndBL.Services
 
 
 
-        // renvoie vrai si le joueur à joueur un match après la date fournie
-        public Boolean checkJoueurParticipation(Guid joueurId, DateTime date)
+        // renvoie true si le joueur n'a pas joué un match après la date fournie
+        public Boolean checkJoueurSiPasParticipation(Guid joueurId, DateTime date)
         {
             try
             {
@@ -58,11 +60,12 @@ namespace BackEndBL.Services
                 }
                 if (countJoueursParticipation>0)
                 {
-                    return true;
+                    BusinessError oBusiness = new BusinessError("Le joueur a été inscrit sur une feuille de match à une date postérieure");
+                    throw oBusiness;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
 
             }
@@ -70,7 +73,7 @@ namespace BackEndBL.Services
             {
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else

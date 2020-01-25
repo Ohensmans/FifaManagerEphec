@@ -82,6 +82,7 @@
             this.B_Save.TabIndex = 7;
             this.B_Save.Text = "Sauvegarder et rafraichir";
             this.B_Save.UseVisualStyleBackColor = true;
+            this.B_Save.Click += new System.EventHandler(this.B_Save_Click);
             // 
             // TransfertJoueurs
             // 

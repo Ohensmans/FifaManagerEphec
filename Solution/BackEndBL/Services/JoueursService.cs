@@ -28,7 +28,40 @@ namespace BackEndBL.Services
             {
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        // retourne l'objet joueur qui correspond à un nom complet ou une business Error si il n'existe pas
+        public JoueursModele GetJoueurs (string nomCompletJoueur)
+        {
+            try
+            {
+                List<JoueursModele> lJoueurs = this.ListAll();
+
+                foreach (JoueursModele joueur in lJoueurs)
+                {
+                    if ((joueur.prenom+" "+joueur.nom).Equals(nomCompletJoueur))
+                    {
+                        return joueur;
+                    }
+                }
+
+                BusinessError oErreur = new BusinessError("Ce joueur n'existe pas");
+                throw oErreur;
+                
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else

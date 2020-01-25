@@ -1,5 +1,6 @@
 ﻿using BackEndBL;
 using BackEndBL.GenerationTableaux;
+using BackEndBL.Services;
 using FifaModeles;
 using System;
 using System.Collections.Generic;
@@ -120,6 +121,7 @@ namespace BackEnd
                 // vérifie si la colonne sur laquelle on clique est celle des équipes d'arrivée
                 if (dg_TransfertJoueurs.Columns[e.ColumnIndex].Name == "combo")
                 {
+                    comboxColonne.Items.Clear();
                     // si il n'y a pas de date d'arrivée encodée, propose toutes les équipes
                     if (dg_TransfertJoueurs.CurrentRow.Cells["Date du transfert :"].Value.ToString() == "")
                     {
@@ -141,7 +143,12 @@ namespace BackEnd
         //change la valeur dans le tableau après tout changement
         private void dtp_OnTextChange(object sender, EventArgs e)
         {
-            dg_TransfertJoueurs.CurrentCell.Value = dtp.Value;
+            TransfertsService ts = new TransfertsService();
+            if (ts.checkDateTransfert(dg_TransfertJoueurs.CurrentRow.Cells["Joueur :"].Value.ToString(), dtp.Value))
+            {
+                dg_TransfertJoueurs.CurrentCell.Value = dtp.Value;
+            }
+            
         }
 
         //ferme le dtp
@@ -150,6 +157,9 @@ namespace BackEnd
             dtp.Visible = false;
         }
 
+        private void B_Save_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

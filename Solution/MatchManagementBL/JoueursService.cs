@@ -24,7 +24,7 @@ namespace MatchManagementBL
                 return listeJoueurs = ConvertDataTable<JoueursModele>(this.loadAllData().ToTable());
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -43,7 +43,7 @@ namespace MatchManagementBL
                 return listeJoueurs = ConvertDataTable<JoueursModele>(oTable);
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

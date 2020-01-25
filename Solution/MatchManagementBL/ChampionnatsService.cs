@@ -25,7 +25,7 @@ namespace MatchManagementBL
                 return listeChampionnats = ConvertDataTable<ChampionnatsModele>(this.loadAllData().ToTable());
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

@@ -60,7 +60,7 @@ namespace MatchManagementBL
                 return oData.Load(this.name+"_GetAll", this.name).Tables[this.name].DefaultView;
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -81,7 +81,7 @@ namespace MatchManagementBL
                 return oData.Load(procedureName, newTableName).Tables[newTableName].DefaultView;
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

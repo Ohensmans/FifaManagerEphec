@@ -83,6 +83,7 @@
             this.b_ClassEqu.TabIndex = 4;
             this.b_ClassEqu.Text = "Voir le classement par équipe";
             this.b_ClassEqu.UseVisualStyleBackColor = true;
+            this.b_ClassEqu.Click += new System.EventHandler(this.b_ClassEqu_Click);
             // 
             // b_ClasJoueu
             // 

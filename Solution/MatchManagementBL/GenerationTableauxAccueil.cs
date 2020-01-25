@@ -145,7 +145,7 @@ namespace MatchManagementBL
 
 
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

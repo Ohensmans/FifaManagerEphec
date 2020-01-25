@@ -25,7 +25,7 @@ namespace MatchManagementBL
                 return liste = ConvertDataTable<TransfertsModele>(this.loadAllData().ToTable());
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -45,7 +45,7 @@ namespace MatchManagementBL
                 return oData.getParticipants(lstParam, newTableName).Tables[newTableName].DefaultView;
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

@@ -11,6 +11,9 @@ namespace FifaModeles
     [Table("EquipesParticipationHistory")]
     public class EquipesParticipationModele
     {
+        public EquipesParticipationModele()
+        {
+        }
 
         public EquipesParticipationModele(Guid equipeId, Guid championnatId)
         {

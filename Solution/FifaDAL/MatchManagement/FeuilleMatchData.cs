@@ -28,7 +28,7 @@ namespace FifaDAL.MatchManagement
                 return Execute( "Update", lstSqlParam);
 
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

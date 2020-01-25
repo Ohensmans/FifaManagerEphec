@@ -29,7 +29,7 @@ namespace BackEndBL.Services
                 {
                     if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                     {
-                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                         throw oErreur;
                     }
                     else
@@ -41,6 +41,42 @@ namespace BackEndBL.Services
             }
             return lMatchs;
         }
+
+        public List<MatchsModele> ListesOneEquipeOneChamp(EquipesModele equipe, ChampionnatsModele championnat)
+        {
+
+            List<MatchsModele> lMatchs = new List<MatchsModele>();
+
+            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            {
+                try
+                {
+                    foreach (MatchsModele match in ctx.Matchs.ToList())
+                    {
+                        if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId)&& match.matchDate.Year == championnat.annee)
+                        {
+                            lMatchs.Add(match);
+                        }
+                    }
+                    return lMatchs;
+                }
+
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
 
         public void enregistrerMatchs(DataView oView)
         {
@@ -114,7 +150,7 @@ namespace BackEndBL.Services
                 if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                 {
 
-                    CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                     throw oErreur;
                 }
                 else

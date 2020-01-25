@@ -34,7 +34,7 @@ namespace MatchManagementBL
                 }
                 return ev[j]["nom"].ToString();
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -69,7 +69,7 @@ namespace MatchManagementBL
                 }
                 return ev[j]["nom"].ToString();
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -97,7 +97,7 @@ namespace MatchManagementBL
 
 
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -132,7 +132,7 @@ namespace MatchManagementBL
                 }
                 return ev[j]["logoPath"].ToString();
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -167,7 +167,7 @@ namespace MatchManagementBL
                 }
                 return ev[j]["logoPath"].ToString();
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

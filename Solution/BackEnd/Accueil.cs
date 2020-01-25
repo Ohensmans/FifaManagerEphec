@@ -32,5 +32,13 @@ namespace BackEnd
 
             oForm.Show();
         }
+
+        private void b_ClassEqu_Click(object sender, EventArgs e)
+        {
+            ClassementEquipe oForm = new ClassementEquipe();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
     }
 }

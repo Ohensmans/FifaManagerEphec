@@ -55,7 +55,7 @@ namespace MatchManagementBL
                 }
                 return feuilleId;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -76,7 +76,7 @@ namespace MatchManagementBL
                 return listeJoueurs = ConvertDataTable<FeuillesDeMatchModele>(this.loadAllData().ToTable());
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

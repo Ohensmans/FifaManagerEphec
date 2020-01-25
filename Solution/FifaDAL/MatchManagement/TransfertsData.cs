@@ -26,7 +26,7 @@ namespace FifaDAL.MatchManagement
                 return LoadOne("Transferts_GetParticipants", lstSqlParam, newTableName);
 
             }
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

@@ -26,7 +26,7 @@ namespace MatchManagementBL
                 return listeJoueurs = ConvertDataTable<GoalsModele>(this.loadAllData().ToTable());
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -52,7 +52,7 @@ namespace MatchManagementBL
                 }
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -86,7 +86,7 @@ namespace MatchManagementBL
 
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -117,7 +117,7 @@ namespace MatchManagementBL
                 }
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -154,7 +154,7 @@ namespace MatchManagementBL
 
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }

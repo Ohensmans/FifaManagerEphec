@@ -30,7 +30,7 @@ namespace MatchManagementBL
 
                 return fillInGoals((Guid)mv[i]["equipe1Id"], matchId);
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -58,7 +58,7 @@ namespace MatchManagementBL
 
                 return fillInGoals((Guid)mv[i]["equipe2Id"], matchId);
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -126,7 +126,7 @@ namespace MatchManagementBL
                 tableResults.AcceptChanges();
                 return tableResults.DefaultView;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -191,7 +191,7 @@ namespace MatchManagementBL
                 tableResults.AcceptChanges();
                 return tableResults.DefaultView;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -253,7 +253,7 @@ namespace MatchManagementBL
                 tableResults.AcceptChanges();
                 return tableResults.DefaultView;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -315,7 +315,7 @@ namespace MatchManagementBL
                 tableResults.AcceptChanges();
                 return js.GetListeObject(tableResults);
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

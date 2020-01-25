@@ -32,7 +32,7 @@ namespace MatchManagementBL
 
                 return getMatchEquipe((Guid)mv[i]["equipe1Id"], matchId, (DateTime)mv[i]["matchDate"]).DefaultView;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -59,7 +59,7 @@ namespace MatchManagementBL
                 EquipeBID = (Guid)mv[i]["equipe2Id"];
                 return getMatchEquipe((Guid)mv[i]["equipe2Id"], matchId, (DateTime)mv[i]["matchDate"]).DefaultView;
             }
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }
@@ -184,7 +184,7 @@ namespace MatchManagementBL
                 return feuille;
             }
 
-            catch (CustomsError ce)
+            catch (TechnicalError ce)
             {
                 throw ce;
             }

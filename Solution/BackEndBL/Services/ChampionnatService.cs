@@ -13,6 +13,57 @@ namespace BackEndBL
 {
     public class ChampionnatService : BackEndService
     {
+
+        //renvoie l'année d'un championnat ou un businessError si il n'existe pas
+        public int getAnnee (Guid championnatId)
+        {
+            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            {
+                try
+                {
+                    return ctx.Championnats.Where(xx => xx.championnatId == championnatId).FirstOrDefault().annee;
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
+        //renvoie l'année d'un championnat ou un businessError si il n'existe pas
+        public ChampionnatsModele getChampionnat(int annee)
+        {
+            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            {
+                try
+                {
+                    return ctx.Championnats.Where(xx => xx.annee == annee).FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
         public List<ChampionnatsModele> ListAll()
         {
             List<ChampionnatsModele> lChamp;
@@ -27,7 +78,7 @@ namespace BackEndBL
                 {
                     if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                     {
-                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                         throw oErreur;
                     }
                     else
@@ -68,8 +119,7 @@ namespace BackEndBL
                     }                  
                     if (!_return)
                     {
-                        CustomsError oErreur = new CustomsError();
-                        oErreur._Message = "Ce championnat existe déjà";
+                        BusinessError oErreur = new BusinessError("Ce championnat existe déjà");
                         throw oErreur;
                     }
                     return _return;
@@ -78,7 +128,7 @@ namespace BackEndBL
                 {
                     if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
                     {
-                        CustomsError oErreur = new CustomsError((SqlException)ex.InnerException.InnerException);
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
                         throw oErreur;
                     }
                     else

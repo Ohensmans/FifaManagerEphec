@@ -33,7 +33,7 @@ namespace MatchManagementBL
                 }
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -67,7 +67,7 @@ namespace MatchManagementBL
 
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -98,7 +98,7 @@ namespace MatchManagementBL
                 }
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
@@ -135,7 +135,7 @@ namespace MatchManagementBL
 
             }
 
-            catch (CustomsError oErreur)
+            catch (TechnicalError oErreur)
             {
                 throw oErreur;
             }
