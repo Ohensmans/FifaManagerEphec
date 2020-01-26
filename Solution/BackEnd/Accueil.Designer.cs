@@ -74,6 +74,7 @@
             this.b_Match.TabIndex = 3;
             this.b_Match.Text = "Visualiser un match - modifier le résultat";
             this.b_Match.UseVisualStyleBackColor = true;
+            this.b_Match.Click += new System.EventHandler(this.b_Match_Click);
             // 
             // b_ClassEqu
             // 
@@ -93,6 +94,7 @@
             this.b_ClasJoueu.TabIndex = 5;
             this.b_ClasJoueu.Text = "Voir le classement par joueur";
             this.b_ClasJoueu.UseVisualStyleBackColor = true;
+            this.b_ClasJoueu.Click += new System.EventHandler(this.b_ClasJoueu_Click);
             // 
             // Accueil
             // 

@@ -79,6 +79,46 @@ namespace BackEndBL.Services
             }
         }
 
+        //renvoie la liste des matchs d'une liste d'équipe du 1er janvier année de la date à la date comprise
+        public List<MatchsModele> ListesMatchsListeEquipeDatee(List<EquipesModele> lEquipe, DateTime date)
+        {
+            DateTime dateDebut = new DateTime(date.Year, 1, 1);
+
+            List<MatchsModele> lMatchs = new List<MatchsModele>();
+
+            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            {
+                try
+                {
+                    foreach (MatchsModele match in ctx.Matchs.ToList())
+                    {
+                        foreach (EquipesModele equipe in lEquipe)
+                        {
+                            if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
+                            {
+                                lMatchs.Add(match);
+                            }
+                        }
+                    }
+                    return lMatchs;
+                }
+
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                    {
+                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                        throw oErreur;
+                    }
+                    else
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
 
         public void enregistrerMatchs(DataView oView)
         {

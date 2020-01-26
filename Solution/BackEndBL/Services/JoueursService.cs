@@ -71,5 +71,67 @@ namespace BackEndBL.Services
             }
         }
 
+        public List<JoueursModele> getListeJoueurs(List<Guid> lId)
+        {
+            try
+            {
+                List<JoueursModele> lJoueurs = new List<JoueursModele>();
+
+                foreach (Guid joueur in lId)
+                {
+                    lJoueurs.Add(this.GetJoueurs(joueur));
+                }
+                return lJoueurs;
+
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
+
+
+        public JoueursModele GetJoueurs(Guid joueurId)
+        {
+            try
+            {
+                List<JoueursModele> lJoueurs = this.ListAll();
+
+                foreach (JoueursModele joueur in lJoueurs)
+                {
+                    if (joueur.joueurId == joueurId)
+                    {
+                        return joueur;
+                    }
+                }
+
+                BusinessError oErreur = new BusinessError("Ce joueur n'existe pas");
+                throw oErreur;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
     }
 }

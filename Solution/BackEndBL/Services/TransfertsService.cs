@@ -43,6 +43,70 @@ namespace BackEndBL.Services
             }
         }
 
+        public List<EquipesModele> getEquipesDatees (JoueursModele joueur, ChampionnatsModele championnat)
+        {
+            List<EquipesModele> lEquipe = new List<EquipesModele>();
+            List<EquipesModele> lEquipeAll = new EquipesService().ListAll();
+
+            foreach (TransfertsModele transfert in this.ListAll())
+            {
+                if (transfert.joueurId == joueur.joueurId && transfert.dateDebut.Year <= championnat.annee && (!transfert.dateFin.HasValue || transfert.dateFin.Value.Year>=championnat.annee))
+                {
+                    int i = 0;
+                    while (i < lEquipeAll.Count&& lEquipeAll[i].equipeId != transfert.equipeId)
+                    {
+                        i++;
+                    }
+                    lEquipe.Add(lEquipeAll[i]);
+                }
+            }
+            return lEquipe;
+        }
+
+        // renvoie la liste de tous les guid de joueurs participants à un championnat
+        public List<Guid> getListeJoueurChampionnat(ChampionnatsModele championnat)
+        {
+            try
+            {
+                List<EquipesParticipationModele> LEquipeParticipation = new EquipesParticipationService().ListeEquipeChampionnat(championnat);
+
+                List<Guid> lJoueurs = new List<Guid>();
+
+                List<TransfertsModele> lAllTransferts = this.ListAll();
+
+                foreach (TransfertsModele transfert in lAllTransferts)
+                {
+                    if (transfert.dateDebut.Year <= championnat.annee && (!transfert.dateFin.HasValue || transfert.dateFin.Value.Year >= championnat.annee))
+                    {                       
+                        int i = 0;
+                        while (i < LEquipeParticipation.Count && LEquipeParticipation[i].equipeId != transfert.equipeId)
+                        {
+                            i++;
+                        }
+                        if (!lJoueurs.Contains(transfert.joueurId))
+                        {
+                            lJoueurs.Add(transfert.joueurId);
+                        }
+                    }
+
+                }
+                return lJoueurs;
+            }
+
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
         public List<TransfertsModele> ListAllWithEquipeJoueurs()
         {
             try

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="GenerationTableaux\GenerationTabCalendrierMatchs.cs" />
     <Compile Include="GenerationTableaux\GenerationTabClassementEquipe.cs" />
+    <Compile Include="GenerationTableaux\GenerationTabClassementJoueur.cs" />
     <Compile Include="GenerationTableaux\GenerationTabEquipeSelection.cs" />
     <Compile Include="GenerationTableaux\GenerationTabTransfertJoueurs.cs" />
     <Compile Include="Services\BackEndService.cs" />

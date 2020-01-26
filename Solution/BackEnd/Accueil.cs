@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatchManagement;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +40,22 @@ namespace BackEnd
             oForm.MdiParent = this.MdiParent;
 
             oForm.Show();
+        }
+
+        private void b_ClasJoueu_Click(object sender, EventArgs e)
+        {
+            ClassementJoueur oForm = new ClassementJoueur();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
+
+        private void b_Match_Click(object sender, EventArgs e)
+        {
+            MatchManagement.FormMDI oForm = new FormMDI();
+
+            oForm.Show();
+
         }
     }
 }

@@ -64,6 +64,12 @@
     <Compile Include="ClassementEquipe.Designer.cs">
       <DependentUpon>ClassementEquipe.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClassementJoueur.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassementJoueur.Designer.cs">
+      <DependentUpon>ClassementJoueur.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMdi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClassementEquipe.resx">
       <DependentUpon>ClassementEquipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClassementJoueur.resx">
+      <DependentUpon>ClassementJoueur.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMdi.resx">
       <DependentUpon>FormMdi.cs</DependentUpon>
@@ -136,6 +145,10 @@
     <ProjectReference Include="..\FifaModeles\FifaModeles.csproj">
       <Project>{ACA796C1-FA88-412F-B79A-BBF87A0F052C}</Project>
       <Name>FifaModeles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MatchManagement\MatchManagement.csproj">
+      <Project>{468065f1-1ff6-470e-a554-78e673c3bc2b}</Project>
+      <Name>MatchManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

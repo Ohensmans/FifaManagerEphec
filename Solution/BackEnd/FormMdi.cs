@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MatchManagement;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,46 @@ namespace BackEnd
         {
             Accueil oForm = new Accueil();
             oForm.MdiParent = this;
+            oForm.Show();
+        }
+
+        private void générerUnChampionnatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenChamp oForm = new GenChamp();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
+
+        private void transférerUnJoueurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TransfertJoueurs oForm = new TransfertJoueurs();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
+
+        private void visualiserUnMatchModifierLeRésultatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MatchManagement.FormMDI oForm = new FormMDI();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
+
+        private void voirLeClassementParÉquipeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClassementEquipe oForm = new ClassementEquipe();
+            oForm.MdiParent = this.MdiParent;
+
+            oForm.Show();
+        }
+
+        private void voirLeClassementParJoueurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClassementJoueur oForm = new ClassementJoueur();
+            oForm.MdiParent = this.MdiParent;
+
             oForm.Show();
         }
     }

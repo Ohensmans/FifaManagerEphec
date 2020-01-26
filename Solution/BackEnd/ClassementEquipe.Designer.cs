@@ -34,6 +34,7 @@
             this.cb_Championnat = new System.Windows.Forms.ComboBox();
             this.cb_Classement = new System.Windows.Forms.ComboBox();
             this.dg_Classement = new System.Windows.Forms.DataGridView();
+            this.b_Back = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_Classement)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +75,7 @@
             this.cb_Championnat.FormattingEnabled = true;
             this.cb_Championnat.Location = new System.Drawing.Point(255, 113);
             this.cb_Championnat.Name = "cb_Championnat";
-            this.cb_Championnat.Size = new System.Drawing.Size(121, 21);
+            this.cb_Championnat.Size = new System.Drawing.Size(128, 21);
             this.cb_Championnat.TabIndex = 5;
             this.cb_Championnat.SelectedIndexChanged += new System.EventHandler(this.cb_Championnat_SelectedIndexChanged);
             // 
@@ -85,7 +86,7 @@
             this.cb_Classement.FormattingEnabled = true;
             this.cb_Classement.Location = new System.Drawing.Point(255, 144);
             this.cb_Classement.Name = "cb_Classement";
-            this.cb_Classement.Size = new System.Drawing.Size(121, 21);
+            this.cb_Classement.Size = new System.Drawing.Size(128, 21);
             this.cb_Classement.TabIndex = 6;
             this.cb_Classement.SelectedIndexChanged += new System.EventHandler(this.cb_Classement_SelectedIndexChanged);
             // 
@@ -96,17 +97,30 @@
             this.dg_Classement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_Classement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dg_Classement.Location = new System.Drawing.Point(56, 202);
+            this.dg_Classement.Location = new System.Drawing.Point(56, 223);
             this.dg_Classement.Name = "dg_Classement";
             this.dg_Classement.ReadOnly = true;
-            this.dg_Classement.Size = new System.Drawing.Size(588, 218);
+            this.dg_Classement.Size = new System.Drawing.Size(595, 188);
             this.dg_Classement.TabIndex = 7;
+            // 
+            // b_Back
+            // 
+            this.b_Back.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.b_Back.Location = new System.Drawing.Point(275, 420);
+            this.b_Back.Name = "b_Back";
+            this.b_Back.Size = new System.Drawing.Size(101, 35);
+            this.b_Back.TabIndex = 15;
+            this.b_Back.Text = "Retour";
+            this.b_Back.UseVisualStyleBackColor = true;
+            this.b_Back.Click += new System.EventHandler(this.b_Back_Click);
             // 
             // ClassementEquipe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 446);
+            this.ClientSize = new System.Drawing.Size(698, 467);
+            this.Controls.Add(this.b_Back);
             this.Controls.Add(this.dg_Classement);
             this.Controls.Add(this.cb_Classement);
             this.Controls.Add(this.cb_Championnat);
@@ -130,5 +144,6 @@
         private System.Windows.Forms.ComboBox cb_Championnat;
         private System.Windows.Forms.ComboBox cb_Classement;
         private System.Windows.Forms.DataGridView dg_Classement;
+        private System.Windows.Forms.Button b_Back;
     }
 }

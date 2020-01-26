@@ -59,6 +59,7 @@
     <Compile Include="Tables\TableAccueilMatchs.cs" />
     <Compile Include="Tables\TableCalendrierMatch.cs" />
     <Compile Include="Tables\TableClassementEquipe.cs" />
+    <Compile Include="Tables\TableClassementJoueur.cs" />
     <Compile Include="Tables\TableEquipesSelectionnees.cs" />
     <Compile Include="Tables\TableFeuilleMatch.cs" />
     <Compile Include="Tables\TableResultats.cs" />

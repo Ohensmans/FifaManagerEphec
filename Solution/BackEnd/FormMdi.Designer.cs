@@ -73,30 +73,35 @@
             this.générerUnChampionnatToolStripMenuItem.Name = "générerUnChampionnatToolStripMenuItem";
             this.générerUnChampionnatToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.générerUnChampionnatToolStripMenuItem.Text = "Générer un championnat";
+            this.générerUnChampionnatToolStripMenuItem.Click += new System.EventHandler(this.générerUnChampionnatToolStripMenuItem_Click);
             // 
             // transférerUnJoueurToolStripMenuItem
             // 
             this.transférerUnJoueurToolStripMenuItem.Name = "transférerUnJoueurToolStripMenuItem";
             this.transférerUnJoueurToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.transférerUnJoueurToolStripMenuItem.Text = "Transférer un joueur";
+            this.transférerUnJoueurToolStripMenuItem.Click += new System.EventHandler(this.transférerUnJoueurToolStripMenuItem_Click);
             // 
             // visualiserUnMatchModifierLeRésultatToolStripMenuItem
             // 
             this.visualiserUnMatchModifierLeRésultatToolStripMenuItem.Name = "visualiserUnMatchModifierLeRésultatToolStripMenuItem";
             this.visualiserUnMatchModifierLeRésultatToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.visualiserUnMatchModifierLeRésultatToolStripMenuItem.Text = "Visualiser un match - modifier le résultat";
+            this.visualiserUnMatchModifierLeRésultatToolStripMenuItem.Click += new System.EventHandler(this.visualiserUnMatchModifierLeRésultatToolStripMenuItem_Click);
             // 
             // voirLeClassementParÉquipeToolStripMenuItem
             // 
             this.voirLeClassementParÉquipeToolStripMenuItem.Name = "voirLeClassementParÉquipeToolStripMenuItem";
             this.voirLeClassementParÉquipeToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.voirLeClassementParÉquipeToolStripMenuItem.Text = "Voir le classement par équipe";
+            this.voirLeClassementParÉquipeToolStripMenuItem.Click += new System.EventHandler(this.voirLeClassementParÉquipeToolStripMenuItem_Click);
             // 
             // voirLeClassementParJoueurToolStripMenuItem
             // 
             this.voirLeClassementParJoueurToolStripMenuItem.Name = "voirLeClassementParJoueurToolStripMenuItem";
             this.voirLeClassementParJoueurToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.voirLeClassementParJoueurToolStripMenuItem.Text = "Voir le classement par joueur";
+            this.voirLeClassementParJoueurToolStripMenuItem.Click += new System.EventHandler(this.voirLeClassementParJoueurToolStripMenuItem_Click);
             // 
             // FormMdi
             // 

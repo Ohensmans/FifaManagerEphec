@@ -27,3 +27,9 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.T
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.ClassementEquipe.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\obj\Debug\BackEnd.ClassementJoueur.resources
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\MatchManagement.exe
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\MatchManagementBL.dll
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\MatchManagement.pdb
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\MatchManagement.exe.config
+C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\BackEnd\bin\Debug\MatchManagementBL.pdb

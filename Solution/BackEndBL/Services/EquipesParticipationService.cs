@@ -39,6 +39,7 @@ namespace BackEndBL.Services
             }
         }
 
+        //renvoie la liste des équipes participants à un championnat
         public List<EquipesParticipationModele> ListeEquipeChampionnat(ChampionnatsModele championnat)
         {
             try
@@ -65,6 +66,8 @@ namespace BackEndBL.Services
                 }
             }
         }
+
+
 
 
         public void enregistrerEquipesParticipation (List<EquipesModele> lEquipe, Guid championnatId)

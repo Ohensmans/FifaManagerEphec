@@ -13,20 +13,19 @@ using System.Windows.Forms;
 
 namespace BackEnd
 {
-    public partial class ClassementEquipe : Form
+    public partial class ClassementJoueur : Form
     {
         private DataTable oTable;
 
-        public ClassementEquipe()
+        public ClassementJoueur()
         {
             InitializeComponent();
         }
 
-        private void ClassementEquipe_Load(object sender, EventArgs e)
+        private void ClassementJoueur_Load(object sender, EventArgs e)
         {
             resetCombo();
         }
-
         private void resetCombo()
         {
             try
@@ -39,12 +38,11 @@ namespace BackEnd
                 }
                 cb_Championnat.Sorted = true;
 
-                cb_Classement.Items.Add("Points");
                 cb_Classement.Items.Add("Goals");
                 cb_Classement.Items.Add("Cartes");
-                
+
                 cb_Championnat.SelectedIndex = 0;
-                cb_Classement.SelectedItem = "Points";
+                cb_Classement.SelectedItem = "Goals";
             }
             catch (Exception ex)
             {
@@ -56,7 +54,7 @@ namespace BackEnd
 
         private void cb_Championnat_SelectedIndexChanged(object sender, EventArgs e)
         {
-                loadDataGrid();
+            loadDataGrid();
         }
 
         private void loadDataGrid()
@@ -69,7 +67,7 @@ namespace BackEnd
                     DateTime date = new DateTime(Convert.ToInt32(cb_Championnat.SelectedItem.ToString()), 12, 31);
 
                     //récupère la table de classement pour toute l'année du championnat
-                    oTable = new GenerationTabClassementEquipe().getClassementEquipe(date);
+                    oTable = new GenerationTabClassementJoueur().getClassementEquipe(date);
                     dg_Classement.DataSource = oTable.DefaultView;
 
                 }
@@ -104,23 +102,13 @@ namespace BackEnd
 
                 oTable.DefaultView.Sort = "CartonsValeur desc";
             }
-            else
-            {
-                dg_Classement.Columns["Points Q1 :"].Visible = true;
-                dg_Classement.Columns["Points Q2 :"].Visible = true;
-                dg_Classement.Columns["Points Totaux"].Visible = true;
 
-                oTable.DefaultView.Sort = "Points Totaux desc";
-            }
             ClasserEquipes();
         }
 
         private void resetDataGrid()
         {
 
-            dg_Classement.Columns["Points Q1 :"].Visible = false;
-            dg_Classement.Columns["Points Q2 :"].Visible = false;
-            dg_Classement.Columns["Points Totaux"].Visible = false;
             dg_Classement.Columns["Goals Q1 :"].Visible = false;
             dg_Classement.Columns["Goals Q2 :"].Visible = false;
             dg_Classement.Columns["Goals Totaux"].Visible = false;
