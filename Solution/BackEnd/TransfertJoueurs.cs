@@ -45,10 +45,12 @@ namespace BackEnd
 
         private void refresh ()
         {
+            dg_TransfertJoueurs.Columns.Clear();
+
             //rempli le datagridview
             GenerationTabTransfertJoueurs tab = new GenerationTabTransfertJoueurs();
             oTable = tab.genererTableauTransferts();
-            dg_TransfertJoueurs.DataSource = oTable;
+            dg_TransfertJoueurs.DataSource = oTable.DefaultView;
 
             //règle les colonnes modifiables
             dg_TransfertJoueurs.Columns["Joueur :"].ReadOnly = true;
@@ -60,7 +62,7 @@ namespace BackEnd
             comboxColonne = new DataGridViewComboBoxColumn();
             comboxColonne.HeaderText = "Nouvelle equipe :";
             comboxColonne.DisplayMember = "newEquipe";
-            comboxColonne.Name = "combo";
+            comboxColonne.Name = "combobox";
 
             
 
@@ -71,8 +73,20 @@ namespace BackEnd
             dg_TransfertJoueurs.Columns["Joueur :"].DisplayIndex = 0;
             dg_TransfertJoueurs.Columns["Equipe :"].DisplayIndex = 1;
             dg_TransfertJoueurs.Columns["Date arrivee :"].DisplayIndex = 2;
-            dg_TransfertJoueurs.Columns["combo"].DisplayIndex = 3;
+            dg_TransfertJoueurs.Columns["combobox"].DisplayIndex = 3;
             dg_TransfertJoueurs.Columns["Date du transfert :"].DisplayIndex = 4;
+           
+            dg_TransfertJoueurs.Columns["combo"].Visible = false;
+            dg_TransfertJoueurs.Columns["Date arrivee :"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dg_TransfertJoueurs.Columns["Date du transfert :"].DefaultCellStyle.Format = "dd/MM/yyyy";
+
+            //rempli la combobox équipe
+            comboxColonne.Items.Clear();
+            foreach (EquipesModele equipe in lEquipe)
+            {
+                comboxColonne.Items.Add(equipe.nom);
+            }
+            comboxColonne.Sorted = true;
 
         }
 
@@ -84,7 +98,7 @@ namespace BackEnd
 
                 //vérifie que la case est bien celle des dates
                 if (dg_TransfertJoueurs.Columns[e.ColumnIndex].Name == "Date du transfert :")
-                {                    
+                {
                     DateTime transfertPossible;
 
                     //récupère la première date possible pour un transfert
@@ -117,21 +131,6 @@ namespace BackEnd
                     dg_TransfertJoueurs.Controls.Add(dtp);
 
                 }
-
-                // vérifie si la colonne sur laquelle on clique est celle des équipes d'arrivée
-                if (dg_TransfertJoueurs.Columns[e.ColumnIndex].Name == "combo")
-                {
-                    comboxColonne.Items.Clear();
-                    // si il n'y a pas de date d'arrivée encodée, propose toutes les équipes
-                    if (dg_TransfertJoueurs.CurrentRow.Cells["Date du transfert :"].Value.ToString() == "")
-                    {
-                        foreach (EquipesModele equipe in lEquipe)
-                        {
-                            comboxColonne.Items.Add(equipe.nom);
-                        }
-                    }
-                }
-
             }
             catch (Exception ex)
             {
@@ -157,8 +156,32 @@ namespace BackEnd
             dtp.Visible = false;
         }
 
+        private void fillEquipeOut ()
+        {
+            for (int i = 0; i<dg_TransfertJoueurs.Rows.Count;i++)
+            {
+                if (dg_TransfertJoueurs.Rows[i].Cells["combobox"].Value != null)
+                {
+                    dg_TransfertJoueurs.Rows[i].Cells["combo"].Value = dg_TransfertJoueurs.Rows[i].Cells["combobox"].Value.ToString();
+                }
+            }
+           
+        }
+
         private void B_Save_Click(object sender, EventArgs e)
         {
+            try
+            {
+                fillEquipeOut();
+                TransfertsService ts = new TransfertsService();
+                ts.enregistrerTransferts(oTable);
+                refresh();
+            }
+            catch (Exception ex)
+            {
+                refresh();
+                MessageBox.Show(ex.Message);
+            }
 
         }
     }

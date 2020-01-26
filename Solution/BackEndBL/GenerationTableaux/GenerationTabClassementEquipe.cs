@@ -14,7 +14,7 @@ namespace BackEndBL.GenerationTableaux
 {
     public class GenerationTabClassementEquipe
     {
-        public DataTable getClassementEquipe(int annee)
+        public DataTable getClassementEquipe(DateTime date)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace BackEndBL.GenerationTableaux
                 DataTable oTable = new TableClassementEquipe().getTable();
 
                 //récupère le championnat lié à l'année
-                ChampionnatsModele championnat = new ChampionnatService().getChampionnat(annee);
+                ChampionnatsModele championnat = new ChampionnatService().getChampionnat(date.Year);
 
                 //récupère les participations aux championnat 
                 List<EquipesParticipationModele> lEquipePart = new EquipesParticipationService().ListeEquipeChampionnat(championnat);
@@ -34,8 +34,8 @@ namespace BackEndBL.GenerationTableaux
                     //récupère l'objet équipe en fonction de la participation
                     EquipesModele equipe = new EquipesService().getEquipe(participation.equipeId);
 
-                    //récupère les matchs de l'équipe pour le championnat en question
-                    List<MatchsModele> matchs = new MatchsService().ListesOneEquipeOneChamp(equipe, championnat);
+                    //récupère les matchs de l'équipe  du 1/1/date.year à date compris
+                    List<MatchsModele> matchs = new MatchsService().ListesMatchsOneEquipeDatee(equipe, date);
 
                     //récupère les quarters
                     QuartersModele quarter1 = getQuarter(championnat, 1);

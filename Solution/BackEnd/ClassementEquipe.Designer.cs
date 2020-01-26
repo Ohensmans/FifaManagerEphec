@@ -98,6 +98,7 @@
             this.dg_Classement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_Classement.Location = new System.Drawing.Point(56, 202);
             this.dg_Classement.Name = "dg_Classement";
+            this.dg_Classement.ReadOnly = true;
             this.dg_Classement.Size = new System.Drawing.Size(588, 218);
             this.dg_Classement.TabIndex = 7;
             // 

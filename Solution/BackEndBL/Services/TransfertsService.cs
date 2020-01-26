@@ -8,12 +8,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace BackEndBL.Services
 {
     public class TransfertsService : BackEndService
     {
         private int NOMBREMINJOUEUR = 5;
+        private int NOMBREMAXJOUEUR = 10;
 
         public List<TransfertsModele> ListAll()
         {
@@ -108,43 +110,83 @@ namespace BackEndBL.Services
                 DataView oView = oTable.DefaultView;
                 oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
 
-                Boolean _return = true;
-
-                foreach (DataRowView row in oView)
+                if (checkTableTransfert(oView))
                 {
-                    //obtient le joueur
-                    JoueursService js = new JoueursService();
-                    JoueursModele joueur = js.GetJoueurs(row["Joueur :"].ToString());
-
-                    //obtient l'équipe
-                    EquipesService es = new EquipesService();
-                    EquipesModele equipeOld = es.getEquipe(row["Equipe :"].ToString());
-                    EquipesModele equipeNew = es.getEquipe(row["combo"].ToString());
-
-                    //obtient le nombre de transfert 
-                    int nbTransfertsOut = nombreTransfertEquipeOld(oView, equipeOld.nom);
-                    //obtient le nombre de joueur avant transfert
-                    int nbJoueur = nombreJoueurEquipe(equipeOld.equipeId, (DateTime)row["Date du transfert :"]);
-
-                    //vérifie si le transfert est lors d'une intersaison
-                    IntersaisonsService inter = new IntersaisonsService();
-
-                    if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                    foreach (DataRowView row in oView)
                     {
 
-                        if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
+                        //obtient le joueur
+                        JoueursService js = new JoueursService();
+                        JoueursModele joueur = js.GetJoueurs(row["Joueur :"].ToString());
+
+                        
+                        EquipesService es = new EquipesService();
+
+                        //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew
+                        EquipesModele equipeNew = es.getEquipe(row["combo"].ToString());
+                        //obtient le nombre de transfert 
+                        int nbTransfertsIn = nombreTransfertEquipeNew(oView, equipeNew.nom);
+                        //obtient le nombre de joueur avant transfert
+                        int nbJoueurNew = nombreJoueurEquipe(equipeNew.equipeId, (DateTime)row["Date du transfert :"]);
+
+                        //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeOld si elle existe
+                        int nbTransfertsOut = 0;
+                        int nbJoueur = NOMBREMINJOUEUR;
+                        if (row["Equipe :"].ToString() != "")
                         {
-                            return true;
+                            EquipesModele equipeOld = es.getEquipe(row["Equipe :"].ToString());
+
+                            //obtient le nombre de transfert 
+                            nbTransfertsOut = nombreTransfertEquipeOld(oView, equipeOld.nom);
+                            //obtient le nombre de joueur avant transfert
+                            nbJoueur = nombreJoueurEquipe(equipeOld.equipeId, (DateTime)row["Date du transfert :"]);
+                        }
+
+                        //vérifie si le transfert est lors d'une intersaison
+                        IntersaisonsService inter = new IntersaisonsService();
+
+
+                        if ((nbJoueurNew + nbTransfertsIn) <= NOMBREMAXJOUEUR)
+                        {
+                            if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
+                            {
+                                //vérifie si l'équipe d'arrivée est bien les x derniers du championnat à la date xx 
+                                //si l'équipe d'arrivée n'est pas inscrite dans le championnat renvoie également true
+                                //sinon renvoie une Business erreur
+
+                                if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                                {
+
+                                    ClassementEquipe classement = new ClassementEquipe();
+                                    if (classement.isLastThree(equipeNew, (DateTime)row["Date du transfert :"]))
+                                    {
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                                BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe de départ");
+                                throw bErreur;
+                            }
                         }
                         else
                         {
                             // retourne un BusinessError si il n'y aurait plus assez de joueurs
-                            BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe : " + equipeOld.nom);
+                            BusinessError bErreur = new BusinessError("Il y a trop de transferts d'entrée pour l'équipe d'arrivée");
                             throw bErreur;
                         }
+                        
                     }
+                    return true;
                 }
-                return _return;
+                else
+                {
+                    // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                    BusinessError bErreur = new BusinessError("Toutes les cellules de date de transfert et d'équipes d'arrivée ne sont pas remplies");
+                    throw bErreur;
+                }
+
 
             }
             catch (Exception ex)
@@ -169,6 +211,19 @@ namespace BackEndBL.Services
             foreach (DataRowView row in oView)
             {
                 if (row["Equipe :"].ToString().Equals(nomEquipe))
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        public int nombreTransfertEquipeNew(DataView oView, string nomEquipe)
+        {
+            int count = 0;
+            foreach (DataRowView row in oView)
+            {
+                if (row["combo"].ToString().Equals(nomEquipe))
                 {
                     count++;
                 }
@@ -209,6 +264,83 @@ namespace BackEndBL.Services
                 }
             }
 
+        }
+
+        //vérifie que les cellules nécessaires (date transfert et équipe arrivée) soient bien remplies
+        public Boolean checkTableTransfert(DataView oView)
+        {
+            foreach (DataRowView row in oView)
+            {
+                if (row["Date du transfert :"].ToString() == "" || row["combo"].ToString() == "")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void enregistrerTransferts(DataTable oTable)
+        {
+            try
+            {
+                if (checkTransferts(oTable))
+                {
+                    using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                    {
+                        //transforme la table en vue et applique un filtre pour n'avoir que les lignes modifiées
+                        DataView oView = oTable.DefaultView;
+                        oView.RowStateFilter = DataViewRowState.ModifiedCurrent;
+
+
+                        foreach (DataRowView row in oView)
+                        {
+                            //récupère l'id du joueur
+                            Guid joueurId = new JoueursService().GetJoueurs(row["Joueur :"].ToString()).joueurId;
+                            DateTime dateTransfert = (DateTime)row["Date du transfert :"];
+                            Guid equipeInId = new EquipesService().getEquipe(row["combo"].ToString()).equipeId;
+
+                            if (row["Date arrivee :"].ToString() != "")
+                            {
+                                //récupère l'ancien transfert et le modifie
+                                DateTime dateArrivee = (DateTime)row["Date arrivee :"];
+                                TransfertsModele transfertOld = ctx.Transferts.Where(xx => xx.joueurId == joueurId)
+                                                                           .Where(yy => yy.dateDebut == dateArrivee)
+                                                                           .FirstOrDefault();
+                                if (transfertOld != null)
+                                {
+                                    transfertOld.dateFin = dateTransfert;
+                                    transfertOld.lastUpdate = DateTime.Now;
+                                }
+
+                                dateTransfert = dateTransfert.AddDays(1);
+                            }
+
+                            TransfertsModele transfert = new TransfertsModele(joueurId, equipeInId, dateTransfert);
+                            ctx.Transferts.Add(transfert);                           
+
+                        }
+                        using (TransactionScope scope = new TransactionScope())
+                        {
+                            ctx.SaveChanges();
+                            scope.Complete();
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
         }
 
     }

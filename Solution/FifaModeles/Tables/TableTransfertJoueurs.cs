@@ -33,6 +33,11 @@ namespace FifaModeles.Tables
             dateOut.ColumnName = "Date du transfert :";
             tableTransferts.Columns.Add(dateOut);
 
+            DataColumn equipeOut = new DataColumn();
+            equipeOut.DataType = System.Type.GetType("System.String");
+            equipeOut.ColumnName = "combo";
+            tableTransferts.Columns.Add(equipeOut);
+
             return tableTransferts;
 
         }

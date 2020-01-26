@@ -42,8 +42,10 @@ namespace BackEndBL.Services
             return lMatchs;
         }
 
-        public List<MatchsModele> ListesOneEquipeOneChamp(EquipesModele equipe, ChampionnatsModele championnat)
+        //renvoie la liste des matchs d'une équipe du 1er janvier année de la date à la date comprise
+        public List<MatchsModele> ListesMatchsOneEquipeDatee(EquipesModele equipe, DateTime date)
         {
+            DateTime dateDebut = new DateTime(date.Year, 1, 1);
 
             List<MatchsModele> lMatchs = new List<MatchsModele>();
 
@@ -53,7 +55,7 @@ namespace BackEndBL.Services
                 {
                     foreach (MatchsModele match in ctx.Matchs.ToList())
                     {
-                        if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId)&& match.matchDate.Year == championnat.annee)
+                        if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId)&& match.matchDate>= dateDebut && match.matchDate<=date)
                         {
                             lMatchs.Add(match);
                         }

@@ -65,7 +65,11 @@ namespace BackEnd
             {
                 if (cb_Championnat.SelectedItem.ToString() != null)
                 {
-                    oTable = new GenerationTabClassementEquipe().getClassementEquipe(Convert.ToInt32(cb_Championnat.SelectedItem.ToString()));
+                    //crée la date du 31/12/championnat.year
+                    DateTime date = new DateTime(Convert.ToInt32(cb_Championnat.SelectedItem.ToString()), 12, 31);
+
+                    //récupère la table de classement pour toute l'année du championnat
+                    oTable = new GenerationTabClassementEquipe().getClassementEquipe(date);
                     dg_Classement.DataSource = oTable.DefaultView;
 
                 }
@@ -86,7 +90,7 @@ namespace BackEnd
                 dg_Classement.Columns["Goals Q2 :"].Visible = true;
                 dg_Classement.Columns["Goals Totaux"].Visible = true;
 
-                oTable.DefaultView.Sort = "Goals Totaux asc";
+                oTable.DefaultView.Sort = "Goals Totaux desc";
 
             }
             else if (cb_Classement.SelectedItem.ToString() == "Cartes")
@@ -98,16 +102,17 @@ namespace BackEnd
                 dg_Classement.Columns["Cartes Rouges Q2 :"].Visible = true;
                 dg_Classement.Columns["Cartes Rouges Totales"].Visible = true;
 
-                oTable.DefaultView.Sort = "CartonsValeur asc";
+                oTable.DefaultView.Sort = "CartonsValeur desc";
             }
             else
             {
                 dg_Classement.Columns["Points Q1 :"].Visible = true;
                 dg_Classement.Columns["Points Q2 :"].Visible = true;
-                dg_Classement.Columns["Points Totaux :"].Visible = true;
+                dg_Classement.Columns["Points Totaux"].Visible = true;
 
-                oTable.DefaultView.Sort = "Points Totaux : asc";
+                oTable.DefaultView.Sort = "Points Totaux desc";
             }
+            ClasserEquipes();
         }
 
         private void resetDataGrid()
@@ -115,7 +120,7 @@ namespace BackEnd
 
             dg_Classement.Columns["Points Q1 :"].Visible = false;
             dg_Classement.Columns["Points Q2 :"].Visible = false;
-            dg_Classement.Columns["Points Totaux :"].Visible = false;
+            dg_Classement.Columns["Points Totaux"].Visible = false;
             dg_Classement.Columns["Goals Q1 :"].Visible = false;
             dg_Classement.Columns["Goals Q2 :"].Visible = false;
             dg_Classement.Columns["Goals Totaux"].Visible = false;
@@ -126,6 +131,16 @@ namespace BackEnd
             dg_Classement.Columns["Cartes Rouges Q2 :"].Visible = false;
             dg_Classement.Columns["Cartes Rouges Totales"].Visible = false;
             dg_Classement.Columns["CartonsValeur"].Visible = false;
+        }
+
+        private void ClasserEquipes()
+        {
+            int i = 1;
+            foreach (DataRowView row in oTable.DefaultView)
+            {
+                row["Classement :"] = i;
+                i++;
+            }
         }
     }
 }

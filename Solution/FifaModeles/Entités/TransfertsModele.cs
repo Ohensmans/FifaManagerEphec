@@ -11,6 +11,18 @@ namespace FifaModeles
     [Table("TransfertsHistory")]
     public class TransfertsModele
     {
+        public TransfertsModele()
+        {
+        }
+
+        public TransfertsModele(Guid joueurId, Guid equipeId, DateTime dateDebut)
+        {
+            this.joueurId = joueurId;
+            this.equipeId = equipeId;
+            this.dateDebut = dateDebut;
+            this.lastUpdate = DateTime.Now;
+        }
+
         [Key]
         [Column(Order = 0)]
         public Guid joueurId { get; set; }
