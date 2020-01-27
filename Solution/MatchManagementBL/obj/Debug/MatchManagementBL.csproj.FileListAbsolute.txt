@@ -15,3 +15,20 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\MatchManagementBL\bin\Debug
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.csproj.CopyComplete
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\MatchManagementBL.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\MatchManagementBL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaDAL.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaError.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaModeles.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\EntityFramework.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaDAL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaDAL.dll.config
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaError.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\EntityFramework.xml
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.csprojAssemblyReference.cache
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.csproj.CopyComplete
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.pdb

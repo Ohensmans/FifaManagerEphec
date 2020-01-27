@@ -53,6 +53,8 @@ namespace MatchManagement
                     cb_Champ.Items.Add(champModel.annee);
                 }
                 cb_Champ.Sorted = true;
+
+                cb_Champ.SelectedIndex = 0;
             }
             catch (TechnicalError ce)
             {
@@ -64,7 +66,7 @@ namespace MatchManagement
                 throw ex;
             }
 
-            cb_Champ.SelectedIndex = 0;
+            
         }
 
 

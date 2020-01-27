@@ -108,57 +108,37 @@ namespace BackEndBL.GenerationTableaux
                 //crée les listes des matchs pour chaque quarter
                 List<MatchsModele> lMatchQNonTrie = getListeMatchQuarter(lMatchsSaison, numeroQuarter);
 
-                //obtient les listes des weeks ends pour les 2 quarters
+                //obtient les listes des weeks ends pour un quarter numéroté
                 List<DateTime> lWeekEndQ = getListeDateWeekEnds(annee, numeroQuarter);
 
-                //obtient le nombre de match par week end
-                int nombreMatchParWeekEnd = lMatchQNonTrie.Count / 2;
-
-                //obtient le nombre de match par jour 
-                int nombreMatchParJour = nombreMatchParWeekEnd / 2;
-
-                //obtient le supplément si nombre de match par week end impaire
-                int addition = lMatchQNonTrie.Count % 2;
 
                 List<MatchsModele> lMatchQTries = new List<MatchsModele>();
 
-                int i = 0;
                 int k = 0;
-
-                // continue la boucle tant que la liste de date ou de match n'est pas terminée
-                while (i < lWeekEndQ.Count && k < lMatchQNonTrie.Count)
+                while(k < lMatchQNonTrie.Count)
                 {
-                    int nombreMatchEffectif = nombreMatchParJour;
-
-                    //rajoute l'addition si nécessaire
-                    if (i % 2 == 0)
+                    Boolean isNotSettled = true;
+                    int i = 0;
+                    while (i < lWeekEndQ.Count && isNotSettled)
                     {
-                        nombreMatchEffectif += addition;
-                    }
-
-                    for (int j = 0; j < nombreMatchEffectif; j++)
-                    {
-                        if (k < lMatchQNonTrie.Count)
+                        //teste si une équipe joue déjà le même jour
+                        if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i] && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id
+                                                                                        || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
                         {
-                            //teste si une équipe joue déjà le même jour
-                            if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i] && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id 
-                                                                                            || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
+                            //teste si une équipe joue déjà la veille
+                            if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i].AddDays(-1) && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id
+                                                                                                    || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
                             {
-                                //teste si une équipe joue déjà la veille
-                                if (!lMatchQTries.Any(xx => xx.matchDate == lWeekEndQ[i].AddDays(-1) && (xx.equipe1Id == lMatchQNonTrie[k].equipe1Id || xx.equipe2Id == lMatchQNonTrie[k].equipe2Id 
-                                                                                                        || xx.equipe1Id == lMatchQNonTrie[k].equipe2Id || xx.equipe2Id == lMatchQNonTrie[k].equipe1Id)))
-                                {
-                                    //ajoute la date et rajoute le match à la liste définitive
-                                    MatchsModele match = lMatchQNonTrie[k];
-                                    match.matchDate = lWeekEndQ[i];
-                                    lMatchQTries.Add(match);
-                                    k++;
-                                }
+                                //ajoute la date et rajoute le match à la liste définitive
+                                MatchsModele match = lMatchQNonTrie[k];
+                                match.matchDate = lWeekEndQ[i];
+                                lMatchQTries.Add(match);
+                                isNotSettled = false;
                             }
                         }
-
+                        i++;
                     }
-                    i++;
+                    k++;
                 }
 
                 //vérifie que tous les matchs soient bien dans la liste définitive

@@ -124,7 +124,7 @@ namespace BackEndBL.Services
                 foreach (TransfertsModele transfert in lTransferts )
                 {
                     //vérfie pour chaque transfert si il y a eu déjà un transfert pour l'équipe l'année du championnat en création ou renvoie une businessError
-                    if ((transfert.dateDebut.Year == annee || transfert.dateFin.Value.Year == annee)&&(transfert.equipeId == equipe.equipeId))
+                    if ((transfert.dateDebut.Year == annee || (transfert.dateFin.HasValue && transfert.dateFin.Value.Year == annee))&&(transfert.equipeId == equipe.equipeId))
                     {
                         BusinessError oBusiness = new BusinessError("Il y a déjà eu des transferts de joueurs enregistrés cette année, l'équipe ne peut pas être inscrite dans le championnat");
                         throw oBusiness;

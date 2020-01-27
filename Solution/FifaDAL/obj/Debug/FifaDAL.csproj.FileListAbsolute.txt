@@ -13,3 +13,18 @@ C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaDAL\bin\Debug\EntityFra
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaDAL\obj\Debug\FifaDAL.csproj.CopyComplete
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaDAL\obj\Debug\FifaDAL.dll
 C:\Users\Olivier\Desktop\GitHub\FifaManager\Solution\FifaDAL\obj\Debug\FifaDAL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaDAL.dll.config
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaDAL.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaDAL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\EntityFramework.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaError.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaModeles.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaError.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\EntityFramework.xml
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.csprojAssemblyReference.cache
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.csproj.CopyComplete
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.dll
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.pdb

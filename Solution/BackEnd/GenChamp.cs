@@ -29,7 +29,7 @@ namespace BackEnd
         private DateTime dateFinQ2;
 
         List<String> lEquipe;
-        int annee;
+        private int annee;
 
         public GenChamp()
         {
@@ -44,32 +44,35 @@ namespace BackEnd
 
         private void checkAnnee()
         {
-            if (Convert.ToInt32(tb_Annee.Text) >= PREMIEREANNEE)
+            
+            if (Int32.TryParse(tb_Annee.Text, out annee))
             {
-                int dureePresaison = PRESAISON;
-
-
-                //vérifie si l'année est bissextile
-            if ((Convert.ToInt32(tb_Annee.Text) % 4 == 0 && Convert.ToInt32(tb_Annee.Text) % 100 != 0) || Convert.ToInt32(tb_Annee.Text) % 400 == 0)
+                if (annee >= PREMIEREANNEE)
                 {
-                    dureePresaison += + 1;
+                    int dureePresaison = PRESAISON;
+
+
+                    //vérifie si l'année est bissextile
+                    if ((Convert.ToInt32(tb_Annee.Text) % 4 == 0 && Convert.ToInt32(tb_Annee.Text) % 100 != 0) || Convert.ToInt32(tb_Annee.Text) % 400 == 0)
+                    {
+                        dureePresaison += +1;
+                    }
+
+                    dtp_DateDebut.MinDate = new DateTime(1900, 1, 1);
+                    dtp_DateDebut.MaxDate = new DateTime(3000, 1, 1);
+
+                    DateTime dateDebut = new DateTime(Convert.ToInt32(tb_Annee.Text), 1, 1);
+                    dtp_DateDebut.Enabled = true;
+                    dtp_DateDebut.MinDate = dateDebut;
+                    dtp_DateDebut.MaxDate = dateDebut.AddDays(dureePresaison);
+
+
                 }
-
-                dtp_DateDebut.MinDate = new DateTime(1900, 1, 1);
-                dtp_DateDebut.MaxDate = new DateTime(3000, 1, 1);
-
-                DateTime dateDebut = new DateTime(Convert.ToInt32(tb_Annee.Text), 1, 1);
-                dtp_DateDebut.Enabled = true;
-                dtp_DateDebut.MinDate = dateDebut;
-                dtp_DateDebut.MaxDate = dateDebut.AddDays(dureePresaison);
-
-                annee = Convert.ToInt32(tb_Annee.Text);
-
-            }
-            else
-            {
-                MessageBox.Show("L'année encodée doit être supérieure à "+ PREMIEREANNEE);
-                tb_Annee.Text = "";
+                else
+                {
+                    MessageBox.Show("L'année encodée doit être supérieure à " + PREMIEREANNEE);
+                    tb_Annee.Text = "";
+                }
             }
         }
 
@@ -128,15 +131,18 @@ namespace BackEnd
         {
             try
             {
-                if (Convert.ToInt32(tb_Annee.Text) >= PREMIEREANNEE)
+                if (Int32.TryParse(tb_Annee.Text, out annee))
                 {
-                    checkAnnee();
-                }
-                else
-                {
-                    dg_EquipesSelection.DataSource = "";
-                    dtp_DateDebut.Enabled = false;
-                    resetLabels();
+                    if (annee >= PREMIEREANNEE)
+                    {
+                        checkAnnee();
+                    }
+                    else
+                    {
+                        dg_EquipesSelection.DataSource = "";
+                        dtp_DateDebut.Enabled = false;
+                        resetLabels();
+                    }
                 }
             }
             catch(Exception ex)
