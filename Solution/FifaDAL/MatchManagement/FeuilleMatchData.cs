@@ -38,5 +38,28 @@ namespace FifaDAL.MatchManagement
                 throw ex;
             }
         }
+
+        //fait appel à la procédure stockée Add
+        public int Add(List<dynamic> lst)
+        {
+            try
+            {
+                List<SqlParameter> lstSqlParam = new List<SqlParameter>();
+
+                lstSqlParam.Add(new SqlParameter("@matchId", lst[0]));
+                lstSqlParam.Add(new SqlParameter("@equipeId", lst[1]));
+                return Execute("FeuilleDeMatch_Add", lstSqlParam);
+
+            }
+            catch (TechnicalError oErreur)
+            {
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

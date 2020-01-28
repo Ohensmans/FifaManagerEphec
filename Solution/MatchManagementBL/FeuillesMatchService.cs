@@ -37,7 +37,7 @@ namespace MatchManagementBL
                         nouveau = false;
                     }
                 }
-                // si n'exite pas la crée dans la DBB
+                // si n'exite pas la crée dans la DB
                 if (nouveau)
                 {
                     using (TransactionScope scope = new TransactionScope())
@@ -47,7 +47,8 @@ namespace MatchManagementBL
                         List<dynamic> lParam = new List<dynamic>();
                         lParam.Add(matchId);
                         lParam.Add(equipeId);
-                        lParam.Add(DateTime.Now);
+
+                        fmd.Add(lParam);
 
                         scope.Complete();
                     }
