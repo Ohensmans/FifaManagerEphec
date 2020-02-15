@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -14,65 +14,64 @@ namespace BackEndBL
     public class ChampionnatService : BackEndService
     {
 
-        //renvoie l'année d'un championnat ou un businessError si il n'existe pas
+        //renvoie l'année d'un championnat
         public int getAnnee (Guid championnatId)
         {
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                try
-                {
-                    return ctx.Championnats.Where(xx => xx.championnatId == championnatId).FirstOrDefault().annee;
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
-                    {
-                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
-                        throw oErreur;
-                    }
-                    else
-                    {
-                        throw ex;
-                    }
-                }
-
+                return this.ListAll().Where(xx => xx.championnatId == championnatId).FirstOrDefault().annee;
             }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+            
         }
 
-        //renvoie l'année d'un championnat ou un businessError si il n'existe pas
+        //renvoie un championnat selon une année
         public ChampionnatsModele getChampionnat(int annee)
         {
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                try
-                {
-                    return ctx.Championnats.Where(xx => xx.annee == annee).FirstOrDefault();
-                }
-                catch (Exception ex)
-                {
-                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
-                    {
-                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
-                        throw oErreur;
-                    }
-                    else
-                    {
-                        throw ex;
-                    }
-                }
-
+                return this.ListAll().Where(xx => xx.annee == annee).FirstOrDefault();
             }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }            
         }
 
         public List<ChampionnatsModele> ListAll()
         {
-            List<ChampionnatsModele> lChamp;
+            List<ChampionnatsModele> lch = new List<ChampionnatsModele>();
 
-            using (FifaManagerContext ctx =  new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    lChamp = ctx.Championnats.ToList();
+                    foreach (dynamic dyn in ctx.Championnats_GetAll())
+                    {
+                        ChampionnatsModele ch = new ChampionnatsModele();
+                        ch = dyn;
+                        lch.Add(ch);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -88,7 +87,7 @@ namespace BackEndBL
                 }
 
             }
-            return lChamp;
+            return lch;
         }
 
         //renvoie true si il a pu créer le championnat et en out le guid de ce nouveau championnat
@@ -97,21 +96,19 @@ namespace BackEndBL
             Boolean _return = false;
             championnatId = Guid.Empty;
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-
                     //vérifie si un championnat existe déjà pour l'année annee et la crée si non.
-                    if (ctx.Championnats.Where(x => x.annee == annee).FirstOrDefault() == null)
+                    if (this.ListAll().Where(x => x.annee == annee).FirstOrDefault() == null)
                     {
-                        ChampionnatsModele oChamp = new ChampionnatsModele(annee);
-                        ctx.Championnats.Add(oChamp);
+                        ctx.Championnats_Add(annee);
 
                         using (TransactionScope scope = new TransactionScope())
                         {
                             ctx.SaveChanges();
-                            championnatId = oChamp.championnatId;
+                            championnatId = this.getChampionnat(annee).championnatId;
                             scope.Complete();
                         }
 

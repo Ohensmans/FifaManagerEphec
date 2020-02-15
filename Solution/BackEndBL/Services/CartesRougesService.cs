@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -14,13 +14,19 @@ namespace BackEndBL.Services
     {
         public List<CartonsRougesModele> ListAll()
         {
-            List<CartonsRougesModele> lcr;
+            List<CartonsRougesModele> lcr = new List<CartonsRougesModele>() ;
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    lcr = ctx.CartonsRouges.ToList();
+                    foreach (dynamic dyn in ctx.CartonsRouges_GetAll())
+                    {
+                        CartonsRougesModele cr = new CartonsRougesModele();
+                        cr = dyn;
+                        lcr.Add(cr);
+                    }
+
                 }
                 catch (Exception ex)
                 {

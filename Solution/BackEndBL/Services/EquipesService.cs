@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -16,13 +16,18 @@ namespace BackEndBL
         {
             try
             {
-                List<EquipesModele> lChamp;
+                List<EquipesModele> lEqu = new List<EquipesModele>();
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lChamp = ctx.Equipes.ToList();
+                    foreach (dynamic dyn in ctx.Equipes_GetAll())
+                    {
+                        EquipesModele eq = new EquipesModele();
+                        eq = dyn;
+                        lEqu.Add(eq);
+                    }
                 }
-                return lChamp;
+                return lEqu;
             }
             catch (Exception ex)
             {
@@ -45,17 +50,15 @@ namespace BackEndBL
             {
                 List<EquipesModele> lEquipe = new List<EquipesModele>();
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                foreach (string str in lNomEquipes)
                 {
-                    foreach (string str in lNomEquipes)
+                    // vérifie que l'équipe existe bien
+                    if (this.ListAll().Where(x => x.nom == str).FirstOrDefault() != null)
                     {
-                        // vérifie que l'équipe existe bien
-                        if (ctx.Equipes.Where(x => x.nom == str).FirstOrDefault() != null)
-                        {
-                            lEquipe.Add(ctx.Equipes.Where(x => x.nom == str).FirstOrDefault());
-                        }
+                        lEquipe.Add(this.ListAll().Where(x => x.nom == str).FirstOrDefault());
                     }
                 }
+
                 return lEquipe;
             }
             catch (Exception ex)
@@ -77,10 +80,7 @@ namespace BackEndBL
         {
             try
             {
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
-                {
-                    return ctx.Equipes.Where(x => x.nom == nomEquipes).FirstOrDefault();              
-                }
+                return this.ListAll().Where(x => x.nom == nomEquipes).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -101,10 +101,7 @@ namespace BackEndBL
         {
             try
             {
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
-                {
-                    return ctx.Equipes.Where(x => x.equipeId== equipeId).FirstOrDefault();
-                }
+                return this.ListAll().Where(x => x.equipeId == equipeId).FirstOrDefault();
             }
             catch (Exception ex)
             {

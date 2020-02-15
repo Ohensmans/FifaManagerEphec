@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -14,13 +14,18 @@ namespace BackEndBL.Services
     {
         public List<GoalsModele> ListAll()
         {
-            List<GoalsModele> lGoals;
+            List<GoalsModele> lGoals = new List<GoalsModele>() ;
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    lGoals = ctx.GoalsHistory.ToList();
+                    foreach (dynamic dyn in ctx.Goals_GetAll())
+                    {
+                        GoalsModele goal = new GoalsModele();
+                        goal = dyn;
+                        lGoals.Add(goal);
+                    }
                 }
                 catch (Exception ex)
                 {

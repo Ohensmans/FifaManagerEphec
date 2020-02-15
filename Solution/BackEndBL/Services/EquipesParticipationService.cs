@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -17,11 +17,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<EquipesParticipationModele> lEquParti;
+                List<EquipesParticipationModele> lEquParti = new List<EquipesParticipationModele>() ;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lEquParti = ctx.EquipesParticipation.ToList();
+                    foreach (dynamic dyn in ctx.EquipeParticipation_GetAll())
+                    {
+                        EquipesParticipationModele ep = new EquipesParticipationModele();
+                        ep = dyn;
+                        lEquParti.Add(ep);
+                    }
                 }
                 return lEquParti;
             }
@@ -44,13 +49,9 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<EquipesParticipationModele> lEquParti;
-
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
-                {
-                    lEquParti = ctx.EquipesParticipation.Where(xx => xx.championnatId == championnat.championnatId)
-                                                        .ToList();
-                }
+                List<EquipesParticipationModele> lEquParti = this.ListAll().Where(xx => xx.championnatId == championnat.championnatId)
+                                                                            .ToList();
+                
                 return lEquParti;
             }
             catch (Exception ex)
@@ -72,7 +73,7 @@ namespace BackEndBL.Services
 
         public void enregistrerEquipesParticipation (List<EquipesModele> lEquipe, Guid championnatId)
         {
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
@@ -80,8 +81,7 @@ namespace BackEndBL.Services
                     {
                         if (checkPasTransfertAvantParticipation(equipe, championnatId))
                         {
-                            EquipesParticipationModele epm = new EquipesParticipationModele(equipe.equipeId, championnatId);
-                            ctx.EquipesParticipation.Add(epm);
+                            ctx.EquipeParticipation_Add(equipe.equipeId, championnatId);
                         }
                     }
 

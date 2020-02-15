@@ -25,7 +25,7 @@ namespace FifaDAL.MatchManagement
                 lstSqlParam.Add(new SqlParameter("@matchId", lst[1]));
                 lstSqlParam.Add(new SqlParameter("@equipeId", lst[2]));
                 lstSqlParam.Add(new SqlParameter("@lastUpdate", lst[3]));
-                return Execute( "Update", lstSqlParam);
+                return Execute("FeuilleDeMatch_Update", lstSqlParam);
 
             }
             catch (TechnicalError oErreur)

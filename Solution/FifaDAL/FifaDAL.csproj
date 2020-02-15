@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,19 +53,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackEndDBF\CartonsJaunes_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\CartonsRouges_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Championnats_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\EquipeParticipation_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Equipes_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\FeuilleDeMatch_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\FeuilleDeMatch_GetNombreJoueursInscrits_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Goals_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Intersaisons_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\JoueursParticipation_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\JoueursParticipation_GetOne_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Joueurs_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Matchs_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\ModelBackEnd.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelBackEnd.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\ModelBackEnd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\ModelBackEnd.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelBackEnd.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Quarters_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Transferts_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Transferts_GetParticipants_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="MatchManagement\CartesRougesData.cs" />
     <Compile Include="MatchManagement\CartonsJaunesData.cs" />
     <Compile Include="MatchManagement\FeuilleMatchData.cs" />
     <Compile Include="MatchManagement\FifaManagementData.cs" />
-    <Compile Include="BackEnd\FifaManagerContext.cs" />
+    <Compile Include="BackEndCF\FifaManagerContext.cs" />
     <Compile Include="MatchManagement\GoalsData.cs" />
     <Compile Include="MatchManagement\JoueursParticipationData.cs" />
     <Compile Include="MatchManagement\TransfertsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="BackEndDBF\ModelBackEnd.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelBackEnd.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BackEndDBF\ModelBackEnd.edmx.diagram">
+      <DependentUpon>ModelBackEnd.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +146,21 @@
       <Project>{aca796c1-fa88-412f-b79a-bbf87a0f052c}</Project>
       <Name>FifaModeles</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BackEndDBF\ModelBackEnd.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelBackEnd.edmx</DependentUpon>
+      <LastGenOutput>ModelBackEnd.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BackEndDBF\ModelBackEnd.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelBackEnd.edmx</DependentUpon>
+      <LastGenOutput>ModelBackEnd.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

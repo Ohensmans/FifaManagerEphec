@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FifaManagerEphecModelStoreContainer" CdmEntityContainer="FifaManagerEphecEntities">
+    <EntitySetMapping Name="CartonsJaunesHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.CartonsJaunesHistory">
+        <MappingFragment StoreEntitySet="CartonsJaunesHistory">
+          <ScalarProperty Name="carteJauneId" ColumnName="carteJauneId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="minuteRecue" ColumnName="minuteRecue" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CartonsRougesHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.CartonsRougesHistory">
+        <MappingFragment StoreEntitySet="CartonsRougesHistory">
+          <ScalarProperty Name="carteRougeId" ColumnName="carteRougeId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="nombreSuspensionsRestantes" ColumnName="nombreSuspensionsRestantes" />
+          <ScalarProperty Name="minuteRecue" ColumnName="minuteRecue" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Championnats">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Championnats">
+        <MappingFragment StoreEntitySet="Championnats">
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+          <ScalarProperty Name="annee" ColumnName="annee" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipes">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Equipes">
+        <MappingFragment StoreEntitySet="Equipes">
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="logoPath" ColumnName="logoPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipesParticipationHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.EquipesParticipationHistory">
+        <MappingFragment StoreEntitySet="EquipesParticipationHistory">
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeuillesDeMatch">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.FeuillesDeMatch">
+        <MappingFragment StoreEntitySet="FeuillesDeMatch">
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GoalsHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.GoalsHistory">
+        <MappingFragment StoreEntitySet="GoalsHistory">
+          <ScalarProperty Name="goalId" ColumnName="goalId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="minuteMarque" ColumnName="minuteMarque" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Intersaisons">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Intersaisons">
+        <MappingFragment StoreEntitySet="Intersaisons">
+          <ScalarProperty Name="intersaisonID" ColumnName="intersaisonID" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Joueurs">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Joueurs">
+        <MappingFragment StoreEntitySet="Joueurs">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JoueursParticipationHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.JoueursParticipationHistory">
+        <MappingFragment StoreEntitySet="JoueursParticipationHistory">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Matchs">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Matchs">
+        <MappingFragment StoreEntitySet="Matchs">
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="matchDate" ColumnName="matchDate" />
+          <ScalarProperty Name="equipe1Id" ColumnName="equipe1Id" />
+          <ScalarProperty Name="equipe2Id" ColumnName="equipe2Id" />
+          <ScalarProperty Name="equipe1Points" ColumnName="equipe1Points" />
+          <ScalarProperty Name="equipe2Points" ColumnName="equipe2Points" />
+          <ScalarProperty Name="isPlayed" ColumnName="isPlayed" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quarters">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.Quarters">
+        <MappingFragment StoreEntitySet="Quarters">
+          <ScalarProperty Name="quartersId" ColumnName="quartersId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransfertsHistory">
+      <EntityTypeMapping TypeName="FifaManagerEphecModel.TransfertsHistory">
+        <MappingFragment StoreEntitySet="TransfertsHistory">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CartonsJaunes_Add" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_Add" />
+    <FunctionImportMapping FunctionImportName="CartonsJaunes_GetAll" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.CartonsJaunes_GetAll_Result">
+          <ScalarProperty Name="carteJauneId" ColumnName="carteJauneId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="matchDate" ColumnName="matchDate" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="minuteRecue" ColumnName="minuteRecue" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CartonsJaunes_Update" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_Update" />
+    <FunctionImportMapping FunctionImportName="CartonsRouges_Add" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_Add" />
+    <FunctionImportMapping FunctionImportName="CartonsRouges_DiminueSuspension" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_DiminueSuspension" />
+    <FunctionImportMapping FunctionImportName="CartonsRouges_GetAll" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.CartonsRouges_GetAll_Result">
+          <ScalarProperty Name="carteRougeId" ColumnName="carteRougeId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="nombreSuspensionsRestantes" ColumnName="nombreSuspensionsRestantes" />
+          <ScalarProperty Name="matchDate" ColumnName="matchDate" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="minuteRecue" ColumnName="minuteRecue" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CartonsRouges_Update" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_Update" />
+    <FunctionImportMapping FunctionImportName="Championnats_Add" FunctionName="FifaManagerEphecModel.Store.Championnats_Add" />
+    <FunctionImportMapping FunctionImportName="Championnats_GetAll" FunctionName="FifaManagerEphecModel.Store.Championnats_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Championnats_GetAll_Result">
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+          <ScalarProperty Name="annee" ColumnName="annee" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CreationDivisionChampionnat" FunctionName="FifaManagerEphecModel.Store.CreationDivisionChampionnat" />
+    <FunctionImportMapping FunctionImportName="EquipeParticipation_Add" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Add" />
+    <FunctionImportMapping FunctionImportName="EquipeParticipation_GetAll" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.EquipeParticipation_GetAll_Result">
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Equipes_GetAll" FunctionName="FifaManagerEphecModel.Store.Equipes_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Equipes_GetAll_Result">
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="logoPath" ColumnName="logoPath" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_Add" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_Add" />
+    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_GetAll" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.FeuilleDeMatch_GetAll_Result">
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_GetNombreJoueursInscrits" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_GetNombreJoueursInscrits">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.FeuilleDeMatch_GetNombreJoueursInscrits_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="feuilleId1" ColumnName="feuilleId1" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="lastUpdate1" ColumnName="lastUpdate1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_Update" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_Update" />
+    <FunctionImportMapping FunctionImportName="Goals_Add" FunctionName="FifaManagerEphecModel.Store.Goals_Add" />
+    <FunctionImportMapping FunctionImportName="Goals_Delete" FunctionName="FifaManagerEphecModel.Store.Goals_Delete" />
+    <FunctionImportMapping FunctionImportName="Goals_GetAll" FunctionName="FifaManagerEphecModel.Store.Goals_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Goals_GetAll_Result">
+          <ScalarProperty Name="goalId" ColumnName="goalId" />
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="minuteMarque" ColumnName="minuteMarque" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Goals_Update" FunctionName="FifaManagerEphecModel.Store.Goals_Update" />
+    <FunctionImportMapping FunctionImportName="Intersaisons_Add" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Add" />
+    <FunctionImportMapping FunctionImportName="Intersaisons_GetAll" FunctionName="FifaManagerEphecModel.Store.Intersaisons_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Intersaisons_GetAll_Result">
+          <ScalarProperty Name="intersaisonID" ColumnName="intersaisonID" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Joueurs_GetAll" FunctionName="FifaManagerEphecModel.Store.Joueurs_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Joueurs_GetAll_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="JoueursParticipation_Add" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_Add" />
+    <FunctionImportMapping FunctionImportName="JoueursParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_Delete" />
+    <FunctionImportMapping FunctionImportName="JoueursParticipation_GetAll" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.JoueursParticipation_GetAll_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="JoueursParticipation_GetOne" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_GetOne">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.JoueursParticipation_GetOne_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Matchs_Add" FunctionName="FifaManagerEphecModel.Store.Matchs_Add" />
+    <FunctionImportMapping FunctionImportName="Matchs_GetAll" FunctionName="FifaManagerEphecModel.Store.Matchs_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Matchs_GetAll_Result">
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
+          <ScalarProperty Name="matchDate" ColumnName="matchDate" />
+          <ScalarProperty Name="equipe1Id" ColumnName="equipe1Id" />
+          <ScalarProperty Name="equipe2Id" ColumnName="equipe2Id" />
+          <ScalarProperty Name="equipe1Points" ColumnName="equipe1Points" />
+          <ScalarProperty Name="equipe2Points" ColumnName="equipe2Points" />
+          <ScalarProperty Name="isPlayed" ColumnName="isPlayed" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Matchs_Update" FunctionName="FifaManagerEphecModel.Store.Matchs_Update" />
+    <FunctionImportMapping FunctionImportName="Quarters_Add" FunctionName="FifaManagerEphecModel.Store.Quarters_Add" />
+    <FunctionImportMapping FunctionImportName="Quarters_GetAll" FunctionName="FifaManagerEphecModel.Store.Quarters_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Quarters_GetAll_Result">
+          <ScalarProperty Name="quartersId" ColumnName="quartersId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+          <ScalarProperty Name="championnatId" ColumnName="championnatId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Tansferts_Add" FunctionName="FifaManagerEphecModel.Store.Tansferts_Add" />
+    <FunctionImportMapping FunctionImportName="Transferts_GetAll" FunctionName="FifaManagerEphecModel.Store.Transferts_GetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Transferts_GetAll_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Transferts_GetParticipants" FunctionName="FifaManagerEphecModel.Store.Transferts_GetParticipants">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Transferts_GetParticipants_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

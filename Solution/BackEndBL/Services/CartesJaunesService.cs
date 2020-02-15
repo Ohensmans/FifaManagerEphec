@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -12,15 +12,22 @@ namespace BackEndBL.Services
 {
     public class CartesJaunesService : BackEndService
     {
+        //retourne la liste des cartons jaunes
         public List<CartonsJaunesModele> ListAll()
         {
-            List<CartonsJaunesModele> lcj;
+            List<CartonsJaunesModele> lcj = new List<CartonsJaunesModele>();
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    lcj = ctx.CartonsJaunes.ToList();
+                    foreach (dynamic dyn in ctx.CartonsJaunes_GetAll())
+                    {
+                        CartonsJaunesModele cj = new CartonsJaunesModele();
+                        cj = dyn;
+                        lcj.Add(cj);
+                    }
+                     
                 }
                 catch (Exception ex)
                 {

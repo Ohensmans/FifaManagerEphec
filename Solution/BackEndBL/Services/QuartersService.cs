@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -53,13 +53,12 @@ namespace BackEndBL.Services
 
         public void enregistrerNewQuarter(DateTime dateDebut, DateTime dateFin, Guid championnatId)
         {
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
                     // crée un nouveau quarter
-                    QuartersModele oQuarter = new QuartersModele(dateDebut, dateFin, championnatId);
-                    ctx.Quarters.Add(oQuarter);
+                    ctx.Quarters_Add(dateDebut, dateFin, championnatId);
 
                     using (TransactionScope scope = new TransactionScope())
                     {
@@ -87,11 +86,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<QuartersModele> lQuarters;
+                List<QuartersModele> lQuarters = new List<QuartersModele>();
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lQuarters = ctx.Quarters.ToList();
+                    foreach (dynamic dyn in ctx.Quarters_GetAll())
+                    {
+                        QuartersModele quarter = new QuartersModele();
+                        quarter = dyn;
+                        lQuarters.Add(quarter);
+                    }
                 }
                 return lQuarters;
             }
@@ -117,11 +121,9 @@ namespace BackEndBL.Services
             {
                 List<QuartersModele> lQuarters;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
-                {
-                    lQuarters = ctx.Quarters.Where(xx => xx.championnatId == championnat.championnatId)
-                                            .ToList();
-                }
+                lQuarters = this.ListAll().Where(xx => xx.championnatId == championnat.championnatId)
+                                        .ToList();
+
                 return lQuarters;
             }
             catch (Exception ex)

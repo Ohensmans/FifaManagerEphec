@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -19,11 +19,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<JoueursParticipationModele> lJoueursParticipation;
+                List<JoueursParticipationModele> lJoueursParticipation = new List<JoueursParticipationModele>() ;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lJoueursParticipation = ctx.JoueursParticipation.ToList();
+                    foreach (dynamic dyn in ctx.Intersaisons_GetAll())
+                    {
+                        JoueursParticipationModele jpm = new JoueursParticipationModele();
+                        jpm = dyn;
+                        lJoueursParticipation.Add(jpm);
+                    }
                 }
                 return lJoueursParticipation;
             }
@@ -50,7 +55,7 @@ namespace BackEndBL.Services
             try
             {
                 int countJoueursParticipation;
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
                     countJoueursParticipation = ctx.JoueursParticipation
                                                .Where(xx => xx.joueurId == joueurId)

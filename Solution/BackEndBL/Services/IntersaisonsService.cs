@@ -1,4 +1,5 @@
-﻿using FifaDAL.BackEnd;
+﻿
+using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -15,13 +16,12 @@ namespace BackEndBL.Services
     {
         public void enregistrerNewIntersaison(DateTime dateDebut, DateTime dateFin, Guid championnatId)
         {
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
                     // crée une nouvelle intersaison
-                    IntersaisonsModele oInter = new IntersaisonsModele(dateDebut, dateFin, championnatId);
-                    ctx.Intersaisons.Add(oInter);
+                    ctx.Intersaisons_Add(dateDebut, dateFin, championnatId);
 
                     using (TransactionScope scope = new TransactionScope())
                     {
@@ -86,11 +86,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<IntersaisonsModele> lIntersaison;
+                List<IntersaisonsModele> lIntersaison = new List<IntersaisonsModele>() ;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lIntersaison = ctx.Intersaisons.ToList();
+                    foreach (dynamic dyn in ctx.Intersaisons_GetAll())
+                    {
+                        IntersaisonsModele inter = new IntersaisonsModele();
+                        inter = dyn;
+                        lIntersaison.Add(inter);
+                    }
                 }
                 return lIntersaison;
             }

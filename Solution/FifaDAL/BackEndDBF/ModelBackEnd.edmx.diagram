@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="505aabd475f340d0b289b15e4ee246ce" Name="Diagram1">
+        <EntityTypeShape EntityType="FifaManagerEphecModel.CartonsJaunesHistory" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.CartonsRougesHistory" Width="1.5" PointX="8.25" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Championnats" Width="1.5" PointX="0.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Equipes" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.EquipesParticipationHistory" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.FeuillesDeMatch" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.GoalsHistory" Width="1.5" PointX="5.25" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Intersaisons" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Joueurs" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.JoueursParticipationHistory" Width="1.5" PointX="7.5" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Matchs" Width="1.5" PointX="3" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.Quarters" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FifaManagerEphecModel.TransfertsHistory" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsJaunesHistory_CartonsJaunesHistory" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsJaunesHistory_EquipeId" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsJaunesHistory_Joueurs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsJaunesHistory_Matchs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsRougesHistory_Equipes" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsRougesHistory_Joueurs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_CartonsRougesHistory_Matchs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_EquipesParticipationHistory_Championnats" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_Intersaisons_Championnats" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_Quarters_Championnats" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_EquipesParticipationHistory_Equipes" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_FeuillesDeMatch_Equipes" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_GoalsHistory_Equipes" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_Matchs_Equipe1" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_Matchs_Equipe2" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_TransfertsHistory_Equipes" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_FeuillesDeMatch_Matchs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_JoueursParticipationHistory_FeuillesDeMatch" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_GoalsHistory_Joueur" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_GoalsHistory_Matchs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_JoueursParticipationHistory_Joueurs" ManuallyRouted="false" />
+        <AssociationConnector Association="FifaManagerEphecModel.FK_TransfertsHistory_Joueurs" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

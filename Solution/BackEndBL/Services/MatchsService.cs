@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -16,13 +16,18 @@ namespace BackEndBL.Services
     {
         public List<MatchsModele> ListAll()
         {
-            List<MatchsModele> lMatchs;
+            List<MatchsModele> lMatchs = new List<MatchsModele>();
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    lMatchs = ctx.Matchs.ToList();
+                    foreach (dynamic dyn in ctx.Matchs_GetAll())
+                    {
+                        MatchsModele match = new MatchsModele();
+                        match = dyn;
+                        lMatchs.Add(match);
+                    }
                 }
 
                 catch (Exception ex)
@@ -49,33 +54,29 @@ namespace BackEndBL.Services
 
             List<MatchsModele> lMatchs = new List<MatchsModele>();
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                try
+                foreach (MatchsModele match in this.ListAll())
                 {
-                    foreach (MatchsModele match in ctx.Matchs.ToList())
+                    if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
                     {
-                        if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId)&& match.matchDate>= dateDebut && match.matchDate<=date)
-                        {
-                            lMatchs.Add(match);
-                        }
-                    }
-                    return lMatchs;
-                }
-
-                catch (Exception ex)
-                {
-                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
-                    {
-                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
-                        throw oErreur;
-                    }
-                    else
-                    {
-                        throw ex;
+                        lMatchs.Add(match);
                     }
                 }
+                return lMatchs;
+            }
 
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
             }
         }
 
@@ -86,37 +87,35 @@ namespace BackEndBL.Services
 
             List<MatchsModele> lMatchs = new List<MatchsModele>();
 
-            using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+            try
             {
-                try
+                foreach (MatchsModele match in this.ListAll())
                 {
-                    foreach (MatchsModele match in ctx.Matchs.ToList())
+                    foreach (EquipesModele equipe in lEquipe)
                     {
-                        foreach (EquipesModele equipe in lEquipe)
+                        if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
                         {
-                            if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
-                            {
-                                lMatchs.Add(match);
-                            }
+                            lMatchs.Add(match);
                         }
                     }
-                    return lMatchs;
                 }
-
-                catch (Exception ex)
-                {
-                    if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
-                    {
-                        TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
-                        throw oErreur;
-                    }
-                    else
-                    {
-                        throw ex;
-                    }
-                }
-
+                return lMatchs;
             }
+
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                {
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    throw oErreur;
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+
+
         }
 
 
@@ -131,7 +130,7 @@ namespace BackEndBL.Services
                     if (checkDatesMatch(oView))
                     {
 
-                        using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                        using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                         {
 
                             //récupère la liste des équipes
@@ -160,11 +159,8 @@ namespace BackEndBL.Services
                                 //assigne la date du match
                                 DateTime matchDate = (DateTime)(oRow["Date du Match :"]);
 
-                                //crée le match
-                                MatchsModele match = new MatchsModele(equipe1Id, equipe2Id, matchDate);
-
                                 //ajoute le match au DbSET
-                                ctx.Matchs.Add(match);
+                                ctx.Matchs_Add(matchDate, equipe1Id, equipe2Id);
                             }
 
                             //enregistre le DbSet dans la database

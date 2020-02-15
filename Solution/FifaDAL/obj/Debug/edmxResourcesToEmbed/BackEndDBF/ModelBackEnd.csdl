@@ -1,0 +1,797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FifaManagerEphecModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CartonsJaunesHistory">
+    <Key>
+      <PropertyRef Name="carteJauneId" />
+    </Key>
+    <Property Name="carteJauneId" Type="Guid" Nullable="false" />
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="matchId" Type="Guid" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="minuteRecue" Type="Int32" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="CartonsJaunesHistory1" Relationship="Self.FK_CartonsJaunesHistory_CartonsJaunesHistory" FromRole="CartonsJaunesHistory" ToRole="CartonsJaunesHistory1" />
+    <NavigationProperty Name="CartonsJaunesHistory2" Relationship="Self.FK_CartonsJaunesHistory_CartonsJaunesHistory" FromRole="CartonsJaunesHistory1" ToRole="CartonsJaunesHistory" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_CartonsJaunesHistory_EquipeId" FromRole="CartonsJaunesHistory" ToRole="Equipes" />
+    <NavigationProperty Name="Joueurs" Relationship="Self.FK_CartonsJaunesHistory_Joueurs" FromRole="CartonsJaunesHistory" ToRole="Joueurs" />
+    <NavigationProperty Name="Matchs" Relationship="Self.FK_CartonsJaunesHistory_Matchs" FromRole="CartonsJaunesHistory" ToRole="Matchs" />
+  </EntityType>
+  <EntityType Name="CartonsRougesHistory">
+    <Key>
+      <PropertyRef Name="carteRougeId" />
+    </Key>
+    <Property Name="carteRougeId" Type="Guid" Nullable="false" />
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="matchId" Type="Guid" Nullable="false" />
+    <Property Name="nombreSuspensionsRestantes" Type="Int32" Nullable="false" />
+    <Property Name="minuteRecue" Type="Int32" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_CartonsRougesHistory_Equipes" FromRole="CartonsRougesHistory" ToRole="Equipes" />
+    <NavigationProperty Name="Joueurs" Relationship="Self.FK_CartonsRougesHistory_Joueurs" FromRole="CartonsRougesHistory" ToRole="Joueurs" />
+    <NavigationProperty Name="Matchs" Relationship="Self.FK_CartonsRougesHistory_Matchs" FromRole="CartonsRougesHistory" ToRole="Matchs" />
+  </EntityType>
+  <EntityType Name="Championnats">
+    <Key>
+      <PropertyRef Name="championnatId" />
+    </Key>
+    <Property Name="championnatId" Type="Guid" Nullable="false" />
+    <Property Name="annee" Type="Int32" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EquipesParticipationHistory" Relationship="Self.FK_EquipesParticipationHistory_Championnats" FromRole="Championnats" ToRole="EquipesParticipationHistory" />
+    <NavigationProperty Name="Intersaisons" Relationship="Self.FK_Intersaisons_Championnats" FromRole="Championnats" ToRole="Intersaisons" />
+    <NavigationProperty Name="Quarters" Relationship="Self.FK_Quarters_Championnats" FromRole="Championnats" ToRole="Quarters" />
+  </EntityType>
+  <EntityType Name="Equipes">
+    <Key>
+      <PropertyRef Name="equipeId" />
+    </Key>
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="logoPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CartonsJaunesHistory" Relationship="Self.FK_CartonsJaunesHistory_EquipeId" FromRole="Equipes" ToRole="CartonsJaunesHistory" />
+    <NavigationProperty Name="CartonsRougesHistory" Relationship="Self.FK_CartonsRougesHistory_Equipes" FromRole="Equipes" ToRole="CartonsRougesHistory" />
+    <NavigationProperty Name="EquipesParticipationHistory" Relationship="Self.FK_EquipesParticipationHistory_Equipes" FromRole="Equipes" ToRole="EquipesParticipationHistory" />
+    <NavigationProperty Name="FeuillesDeMatch" Relationship="Self.FK_FeuillesDeMatch_Equipes" FromRole="Equipes" ToRole="FeuillesDeMatch" />
+    <NavigationProperty Name="GoalsHistory" Relationship="Self.FK_GoalsHistory_Equipes" FromRole="Equipes" ToRole="GoalsHistory" />
+    <NavigationProperty Name="Matchs" Relationship="Self.FK_Matchs_Equipe1" FromRole="Equipes" ToRole="Matchs" />
+    <NavigationProperty Name="Matchs1" Relationship="Self.FK_Matchs_Equipe2" FromRole="Equipes" ToRole="Matchs" />
+    <NavigationProperty Name="TransfertsHistory" Relationship="Self.FK_TransfertsHistory_Equipes" FromRole="Equipes" ToRole="TransfertsHistory" />
+  </EntityType>
+  <EntityType Name="EquipesParticipationHistory">
+    <Key>
+      <PropertyRef Name="equipeId" />
+      <PropertyRef Name="championnatId" />
+    </Key>
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <Property Name="championnatId" Type="Guid" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Championnats" Relationship="Self.FK_EquipesParticipationHistory_Championnats" FromRole="EquipesParticipationHistory" ToRole="Championnats" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_EquipesParticipationHistory_Equipes" FromRole="EquipesParticipationHistory" ToRole="Equipes" />
+  </EntityType>
+  <EntityType Name="FeuillesDeMatch">
+    <Key>
+      <PropertyRef Name="feuilleId" />
+    </Key>
+    <Property Name="feuilleId" Type="Guid" Nullable="false" />
+    <Property Name="matchId" Type="Guid" Nullable="false" />
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_FeuillesDeMatch_Equipes" FromRole="FeuillesDeMatch" ToRole="Equipes" />
+    <NavigationProperty Name="Matchs" Relationship="Self.FK_FeuillesDeMatch_Matchs" FromRole="FeuillesDeMatch" ToRole="Matchs" />
+    <NavigationProperty Name="JoueursParticipationHistory" Relationship="Self.FK_JoueursParticipationHistory_FeuillesDeMatch" FromRole="FeuillesDeMatch" ToRole="JoueursParticipationHistory" />
+  </EntityType>
+  <EntityType Name="GoalsHistory">
+    <Key>
+      <PropertyRef Name="goalId" />
+    </Key>
+    <Property Name="goalId" Type="Guid" Nullable="false" />
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="matchId" Type="Guid" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="minuteMarque" Type="Int32" Nullable="false" />
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_GoalsHistory_Equipes" FromRole="GoalsHistory" ToRole="Equipes" />
+    <NavigationProperty Name="Joueurs" Relationship="Self.FK_GoalsHistory_Joueur" FromRole="GoalsHistory" ToRole="Joueurs" />
+    <NavigationProperty Name="Matchs" Relationship="Self.FK_GoalsHistory_Matchs" FromRole="GoalsHistory" ToRole="Matchs" />
+  </EntityType>
+  <EntityType Name="Intersaisons">
+    <Key>
+      <PropertyRef Name="intersaisonID" />
+    </Key>
+    <Property Name="intersaisonID" Type="Guid" Nullable="false" />
+    <Property Name="dateDebut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dateFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="championnatId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Championnats" Relationship="Self.FK_Intersaisons_Championnats" FromRole="Intersaisons" ToRole="Championnats" />
+  </EntityType>
+  <EntityType Name="Joueurs">
+    <Key>
+      <PropertyRef Name="joueurId" />
+    </Key>
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CartonsJaunesHistory" Relationship="Self.FK_CartonsJaunesHistory_Joueurs" FromRole="Joueurs" ToRole="CartonsJaunesHistory" />
+    <NavigationProperty Name="CartonsRougesHistory" Relationship="Self.FK_CartonsRougesHistory_Joueurs" FromRole="Joueurs" ToRole="CartonsRougesHistory" />
+    <NavigationProperty Name="GoalsHistory" Relationship="Self.FK_GoalsHistory_Joueur" FromRole="Joueurs" ToRole="GoalsHistory" />
+    <NavigationProperty Name="JoueursParticipationHistory" Relationship="Self.FK_JoueursParticipationHistory_Joueurs" FromRole="Joueurs" ToRole="JoueursParticipationHistory" />
+    <NavigationProperty Name="TransfertsHistory" Relationship="Self.FK_TransfertsHistory_Joueurs" FromRole="Joueurs" ToRole="TransfertsHistory" />
+  </EntityType>
+  <EntityType Name="JoueursParticipationHistory">
+    <Key>
+      <PropertyRef Name="joueurId" />
+      <PropertyRef Name="feuilleId" />
+    </Key>
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="feuilleId" Type="Guid" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="FeuillesDeMatch" Relationship="Self.FK_JoueursParticipationHistory_FeuillesDeMatch" FromRole="JoueursParticipationHistory" ToRole="FeuillesDeMatch" />
+    <NavigationProperty Name="Joueurs" Relationship="Self.FK_JoueursParticipationHistory_Joueurs" FromRole="JoueursParticipationHistory" ToRole="Joueurs" />
+  </EntityType>
+  <EntityType Name="Matchs">
+    <Key>
+      <PropertyRef Name="matchId" />
+    </Key>
+    <Property Name="matchId" Type="Guid" Nullable="false" />
+    <Property Name="matchDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="equipe1Id" Type="Guid" Nullable="false" />
+    <Property Name="equipe2Id" Type="Guid" Nullable="false" />
+    <Property Name="equipe1Points" Type="Int32" Nullable="false" />
+    <Property Name="equipe2Points" Type="Int32" Nullable="false" />
+    <Property Name="isPlayed" Type="Boolean" Nullable="false" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="CartonsJaunesHistory" Relationship="Self.FK_CartonsJaunesHistory_Matchs" FromRole="Matchs" ToRole="CartonsJaunesHistory" />
+    <NavigationProperty Name="CartonsRougesHistory" Relationship="Self.FK_CartonsRougesHistory_Matchs" FromRole="Matchs" ToRole="CartonsRougesHistory" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_Matchs_Equipe1" FromRole="Matchs" ToRole="Equipes" />
+    <NavigationProperty Name="Equipes1" Relationship="Self.FK_Matchs_Equipe2" FromRole="Matchs" ToRole="Equipes" />
+    <NavigationProperty Name="FeuillesDeMatch" Relationship="Self.FK_FeuillesDeMatch_Matchs" FromRole="Matchs" ToRole="FeuillesDeMatch" />
+    <NavigationProperty Name="GoalsHistory" Relationship="Self.FK_GoalsHistory_Matchs" FromRole="Matchs" ToRole="GoalsHistory" />
+  </EntityType>
+  <EntityType Name="Quarters">
+    <Key>
+      <PropertyRef Name="quartersId" />
+    </Key>
+    <Property Name="quartersId" Type="Guid" Nullable="false" />
+    <Property Name="dateDebut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dateFin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="championnatId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Championnats" Relationship="Self.FK_Quarters_Championnats" FromRole="Quarters" ToRole="Championnats" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TransfertsHistory">
+    <Key>
+      <PropertyRef Name="joueurId" />
+      <PropertyRef Name="equipeId" />
+      <PropertyRef Name="dateDebut" />
+    </Key>
+    <Property Name="joueurId" Type="Guid" Nullable="false" />
+    <Property Name="equipeId" Type="Guid" Nullable="false" />
+    <Property Name="dateDebut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="dateFin" Type="DateTime" Precision="3" />
+    <Property Name="lastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Equipes" Relationship="Self.FK_TransfertsHistory_Equipes" FromRole="TransfertsHistory" ToRole="Equipes" />
+    <NavigationProperty Name="Joueurs" Relationship="Self.FK_TransfertsHistory_Joueurs" FromRole="TransfertsHistory" ToRole="Joueurs" />
+  </EntityType>
+  <Association Name="FK_CartonsJaunesHistory_CartonsJaunesHistory">
+    <End Role="CartonsJaunesHistory" Type="Self.CartonsJaunesHistory" Multiplicity="1" />
+    <End Role="CartonsJaunesHistory1" Type="Self.CartonsJaunesHistory" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CartonsJaunesHistory">
+        <PropertyRef Name="carteJauneId" />
+      </Principal>
+      <Dependent Role="CartonsJaunesHistory1">
+        <PropertyRef Name="carteJauneId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsJaunesHistory_EquipeId">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="CartonsJaunesHistory" Type="Self.CartonsJaunesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="CartonsJaunesHistory">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsJaunesHistory_Joueurs">
+    <End Role="Joueurs" Type="Self.Joueurs" Multiplicity="1" />
+    <End Role="CartonsJaunesHistory" Type="Self.CartonsJaunesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Joueurs">
+        <PropertyRef Name="joueurId" />
+      </Principal>
+      <Dependent Role="CartonsJaunesHistory">
+        <PropertyRef Name="joueurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsJaunesHistory_Matchs">
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="1" />
+    <End Role="CartonsJaunesHistory" Type="Self.CartonsJaunesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matchs">
+        <PropertyRef Name="matchId" />
+      </Principal>
+      <Dependent Role="CartonsJaunesHistory">
+        <PropertyRef Name="matchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsRougesHistory_Equipes">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="CartonsRougesHistory" Type="Self.CartonsRougesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="CartonsRougesHistory">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsRougesHistory_Joueurs">
+    <End Role="Joueurs" Type="Self.Joueurs" Multiplicity="1" />
+    <End Role="CartonsRougesHistory" Type="Self.CartonsRougesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Joueurs">
+        <PropertyRef Name="joueurId" />
+      </Principal>
+      <Dependent Role="CartonsRougesHistory">
+        <PropertyRef Name="joueurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CartonsRougesHistory_Matchs">
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="1" />
+    <End Role="CartonsRougesHistory" Type="Self.CartonsRougesHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matchs">
+        <PropertyRef Name="matchId" />
+      </Principal>
+      <Dependent Role="CartonsRougesHistory">
+        <PropertyRef Name="matchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EquipesParticipationHistory_Championnats">
+    <End Role="Championnats" Type="Self.Championnats" Multiplicity="1" />
+    <End Role="EquipesParticipationHistory" Type="Self.EquipesParticipationHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Championnats">
+        <PropertyRef Name="championnatId" />
+      </Principal>
+      <Dependent Role="EquipesParticipationHistory">
+        <PropertyRef Name="championnatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intersaisons_Championnats">
+    <End Role="Championnats" Type="Self.Championnats" Multiplicity="1" />
+    <End Role="Intersaisons" Type="Self.Intersaisons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Championnats">
+        <PropertyRef Name="championnatId" />
+      </Principal>
+      <Dependent Role="Intersaisons">
+        <PropertyRef Name="championnatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quarters_Championnats">
+    <End Role="Championnats" Type="Self.Championnats" Multiplicity="1" />
+    <End Role="Quarters" Type="Self.Quarters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Championnats">
+        <PropertyRef Name="championnatId" />
+      </Principal>
+      <Dependent Role="Quarters">
+        <PropertyRef Name="championnatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EquipesParticipationHistory_Equipes">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="EquipesParticipationHistory" Type="Self.EquipesParticipationHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="EquipesParticipationHistory">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeuillesDeMatch_Equipes">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="FeuillesDeMatch" Type="Self.FeuillesDeMatch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="FeuillesDeMatch">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoalsHistory_Equipes">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="GoalsHistory" Type="Self.GoalsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="GoalsHistory">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Matchs_Equipe1">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="Matchs">
+        <PropertyRef Name="equipe1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Matchs_Equipe2">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="Matchs">
+        <PropertyRef Name="equipe2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransfertsHistory_Equipes">
+    <End Role="Equipes" Type="Self.Equipes" Multiplicity="1" />
+    <End Role="TransfertsHistory" Type="Self.TransfertsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipes">
+        <PropertyRef Name="equipeId" />
+      </Principal>
+      <Dependent Role="TransfertsHistory">
+        <PropertyRef Name="equipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FeuillesDeMatch_Matchs">
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="1" />
+    <End Role="FeuillesDeMatch" Type="Self.FeuillesDeMatch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matchs">
+        <PropertyRef Name="matchId" />
+      </Principal>
+      <Dependent Role="FeuillesDeMatch">
+        <PropertyRef Name="matchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoueursParticipationHistory_FeuillesDeMatch">
+    <End Role="FeuillesDeMatch" Type="Self.FeuillesDeMatch" Multiplicity="1" />
+    <End Role="JoueursParticipationHistory" Type="Self.JoueursParticipationHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FeuillesDeMatch">
+        <PropertyRef Name="feuilleId" />
+      </Principal>
+      <Dependent Role="JoueursParticipationHistory">
+        <PropertyRef Name="feuilleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoalsHistory_Joueur">
+    <End Role="Joueurs" Type="Self.Joueurs" Multiplicity="1" />
+    <End Role="GoalsHistory" Type="Self.GoalsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Joueurs">
+        <PropertyRef Name="joueurId" />
+      </Principal>
+      <Dependent Role="GoalsHistory">
+        <PropertyRef Name="joueurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoalsHistory_Matchs">
+    <End Role="Matchs" Type="Self.Matchs" Multiplicity="1" />
+    <End Role="GoalsHistory" Type="Self.GoalsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Matchs">
+        <PropertyRef Name="matchId" />
+      </Principal>
+      <Dependent Role="GoalsHistory">
+        <PropertyRef Name="matchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JoueursParticipationHistory_Joueurs">
+    <End Role="Joueurs" Type="Self.Joueurs" Multiplicity="1" />
+    <End Role="JoueursParticipationHistory" Type="Self.JoueursParticipationHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Joueurs">
+        <PropertyRef Name="joueurId" />
+      </Principal>
+      <Dependent Role="JoueursParticipationHistory">
+        <PropertyRef Name="joueurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransfertsHistory_Joueurs">
+    <End Role="Joueurs" Type="Self.Joueurs" Multiplicity="1" />
+    <End Role="TransfertsHistory" Type="Self.TransfertsHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Joueurs">
+        <PropertyRef Name="joueurId" />
+      </Principal>
+      <Dependent Role="TransfertsHistory">
+        <PropertyRef Name="joueurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FifaManagerEphecEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CartonsJaunesHistory" EntityType="Self.CartonsJaunesHistory" />
+    <EntitySet Name="CartonsRougesHistory" EntityType="Self.CartonsRougesHistory" />
+    <EntitySet Name="Championnats" EntityType="Self.Championnats" />
+    <EntitySet Name="Equipes" EntityType="Self.Equipes" />
+    <EntitySet Name="EquipesParticipationHistory" EntityType="Self.EquipesParticipationHistory" />
+    <EntitySet Name="FeuillesDeMatch" EntityType="Self.FeuillesDeMatch" />
+    <EntitySet Name="GoalsHistory" EntityType="Self.GoalsHistory" />
+    <EntitySet Name="Intersaisons" EntityType="Self.Intersaisons" />
+    <EntitySet Name="Joueurs" EntityType="Self.Joueurs" />
+    <EntitySet Name="JoueursParticipationHistory" EntityType="Self.JoueursParticipationHistory" />
+    <EntitySet Name="Matchs" EntityType="Self.Matchs" />
+    <EntitySet Name="Quarters" EntityType="Self.Quarters" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TransfertsHistory" EntityType="Self.TransfertsHistory" />
+    <AssociationSet Name="FK_CartonsJaunesHistory_CartonsJaunesHistory" Association="Self.FK_CartonsJaunesHistory_CartonsJaunesHistory">
+      <End Role="CartonsJaunesHistory" EntitySet="CartonsJaunesHistory" />
+      <End Role="CartonsJaunesHistory1" EntitySet="CartonsJaunesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsJaunesHistory_EquipeId" Association="Self.FK_CartonsJaunesHistory_EquipeId">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="CartonsJaunesHistory" EntitySet="CartonsJaunesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsJaunesHistory_Joueurs" Association="Self.FK_CartonsJaunesHistory_Joueurs">
+      <End Role="Joueurs" EntitySet="Joueurs" />
+      <End Role="CartonsJaunesHistory" EntitySet="CartonsJaunesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsJaunesHistory_Matchs" Association="Self.FK_CartonsJaunesHistory_Matchs">
+      <End Role="Matchs" EntitySet="Matchs" />
+      <End Role="CartonsJaunesHistory" EntitySet="CartonsJaunesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsRougesHistory_Equipes" Association="Self.FK_CartonsRougesHistory_Equipes">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="CartonsRougesHistory" EntitySet="CartonsRougesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsRougesHistory_Joueurs" Association="Self.FK_CartonsRougesHistory_Joueurs">
+      <End Role="Joueurs" EntitySet="Joueurs" />
+      <End Role="CartonsRougesHistory" EntitySet="CartonsRougesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CartonsRougesHistory_Matchs" Association="Self.FK_CartonsRougesHistory_Matchs">
+      <End Role="Matchs" EntitySet="Matchs" />
+      <End Role="CartonsRougesHistory" EntitySet="CartonsRougesHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EquipesParticipationHistory_Championnats" Association="Self.FK_EquipesParticipationHistory_Championnats">
+      <End Role="Championnats" EntitySet="Championnats" />
+      <End Role="EquipesParticipationHistory" EntitySet="EquipesParticipationHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intersaisons_Championnats" Association="Self.FK_Intersaisons_Championnats">
+      <End Role="Championnats" EntitySet="Championnats" />
+      <End Role="Intersaisons" EntitySet="Intersaisons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quarters_Championnats" Association="Self.FK_Quarters_Championnats">
+      <End Role="Championnats" EntitySet="Championnats" />
+      <End Role="Quarters" EntitySet="Quarters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EquipesParticipationHistory_Equipes" Association="Self.FK_EquipesParticipationHistory_Equipes">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="EquipesParticipationHistory" EntitySet="EquipesParticipationHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeuillesDeMatch_Equipes" Association="Self.FK_FeuillesDeMatch_Equipes">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="FeuillesDeMatch" EntitySet="FeuillesDeMatch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoalsHistory_Equipes" Association="Self.FK_GoalsHistory_Equipes">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="GoalsHistory" EntitySet="GoalsHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Matchs_Equipe1" Association="Self.FK_Matchs_Equipe1">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="Matchs" EntitySet="Matchs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Matchs_Equipe2" Association="Self.FK_Matchs_Equipe2">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="Matchs" EntitySet="Matchs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransfertsHistory_Equipes" Association="Self.FK_TransfertsHistory_Equipes">
+      <End Role="Equipes" EntitySet="Equipes" />
+      <End Role="TransfertsHistory" EntitySet="TransfertsHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FeuillesDeMatch_Matchs" Association="Self.FK_FeuillesDeMatch_Matchs">
+      <End Role="Matchs" EntitySet="Matchs" />
+      <End Role="FeuillesDeMatch" EntitySet="FeuillesDeMatch" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoueursParticipationHistory_FeuillesDeMatch" Association="Self.FK_JoueursParticipationHistory_FeuillesDeMatch">
+      <End Role="FeuillesDeMatch" EntitySet="FeuillesDeMatch" />
+      <End Role="JoueursParticipationHistory" EntitySet="JoueursParticipationHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoalsHistory_Joueur" Association="Self.FK_GoalsHistory_Joueur">
+      <End Role="Joueurs" EntitySet="Joueurs" />
+      <End Role="GoalsHistory" EntitySet="GoalsHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoalsHistory_Matchs" Association="Self.FK_GoalsHistory_Matchs">
+      <End Role="Matchs" EntitySet="Matchs" />
+      <End Role="GoalsHistory" EntitySet="GoalsHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JoueursParticipationHistory_Joueurs" Association="Self.FK_JoueursParticipationHistory_Joueurs">
+      <End Role="Joueurs" EntitySet="Joueurs" />
+      <End Role="JoueursParticipationHistory" EntitySet="JoueursParticipationHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransfertsHistory_Joueurs" Association="Self.FK_TransfertsHistory_Joueurs">
+      <End Role="Joueurs" EntitySet="Joueurs" />
+      <End Role="TransfertsHistory" EntitySet="TransfertsHistory" />
+    </AssociationSet>
+    <FunctionImport Name="CartonsJaunes_Add">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="minuteRecue" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CartonsJaunes_GetAll" ReturnType="Collection(FifaManagerEphecModel.CartonsJaunes_GetAll_Result)" />
+    <FunctionImport Name="CartonsJaunes_Update">
+      <Parameter Name="carteJauneId" Mode="In" Type="Guid" />
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="minuteRecue" Mode="In" Type="Int32" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="CartonsRouges_Add">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="nombreSuspensionsRestantes" Mode="In" Type="Int32" />
+      <Parameter Name="minuteRecue" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CartonsRouges_DiminueSuspension">
+      <Parameter Name="carteRougeId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="CartonsRouges_GetAll" ReturnType="Collection(FifaManagerEphecModel.CartonsRouges_GetAll_Result)" />
+    <FunctionImport Name="CartonsRouges_Update">
+      <Parameter Name="carteRougeId" Mode="In" Type="Guid" />
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="nombreSuspensionsRestantes" Mode="In" Type="Int32" />
+      <Parameter Name="minuteRecue" Mode="In" Type="Int32" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Championnats_Add">
+      <Parameter Name="Annee" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Championnats_GetAll" ReturnType="Collection(FifaManagerEphecModel.Championnats_GetAll_Result)" />
+    <FunctionImport Name="CreationDivisionChampionnat">
+      <Parameter Name="DateDebutChampionnat" Mode="In" Type="DateTime" />
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="EquipeParticipation_Add">
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+      <Parameter Name="championnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="EquipeParticipation_GetAll" ReturnType="Collection(FifaManagerEphecModel.EquipeParticipation_GetAll_Result)" />
+    <FunctionImport Name="Equipes_GetAll" ReturnType="Collection(FifaManagerEphecModel.Equipes_GetAll_Result)" />
+    <FunctionImport Name="FeuilleDeMatch_Add">
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="FeuilleDeMatch_GetAll" ReturnType="Collection(FifaManagerEphecModel.FeuilleDeMatch_GetAll_Result)" />
+    <FunctionImport Name="FeuilleDeMatch_GetNombreJoueursInscrits" ReturnType="Collection(FifaManagerEphecModel.FeuilleDeMatch_GetNombreJoueursInscrits_Result)">
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="FeuilleDeMatch_Update">
+      <Parameter Name="feuilleId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Goals_Add">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+      <Parameter Name="minuteMarque" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Goals_Delete">
+      <Parameter Name="goalId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Goals_GetAll" ReturnType="Collection(FifaManagerEphecModel.Goals_GetAll_Result)" />
+    <FunctionImport Name="Goals_Update">
+      <Parameter Name="goalId" Mode="In" Type="Guid" />
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="minuteMarque" Mode="In" Type="Int32" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Intersaisons_Add">
+      <Parameter Name="dateDebut" Mode="In" Type="DateTime" />
+      <Parameter Name="dateFin" Mode="In" Type="DateTime" />
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Intersaisons_GetAll" ReturnType="Collection(FifaManagerEphecModel.Intersaisons_GetAll_Result)" />
+    <FunctionImport Name="Joueurs_GetAll" ReturnType="Collection(FifaManagerEphecModel.Joueurs_GetAll_Result)" />
+    <FunctionImport Name="JoueursParticipation_Add">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="feuilleId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="JoueursParticipation_Delete">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="feuilleId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="JoueursParticipation_GetAll" ReturnType="Collection(FifaManagerEphecModel.JoueursParticipation_GetAll_Result)" />
+    <FunctionImport Name="JoueursParticipation_GetOne" ReturnType="Collection(FifaManagerEphecModel.JoueursParticipation_GetOne_Result)">
+      <Parameter Name="feuilleId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Matchs_Add">
+      <Parameter Name="matchDate" Mode="In" Type="DateTime" />
+      <Parameter Name="equipe1Id" Mode="In" Type="Guid" />
+      <Parameter Name="equipe2Id" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Matchs_GetAll" ReturnType="Collection(FifaManagerEphecModel.Matchs_GetAll_Result)" />
+    <FunctionImport Name="Matchs_Update">
+      <Parameter Name="matchId" Mode="In" Type="Guid" />
+      <Parameter Name="matchDate" Mode="In" Type="DateTime" />
+      <Parameter Name="equipe1Id" Mode="In" Type="Guid" />
+      <Parameter Name="equipe2Id" Mode="In" Type="Guid" />
+      <Parameter Name="equipe1Points" Mode="In" Type="Int32" />
+      <Parameter Name="equipe2Points" Mode="In" Type="Int32" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Quarters_Add">
+      <Parameter Name="dateDebut" Mode="In" Type="DateTime" />
+      <Parameter Name="dateFin" Mode="In" Type="DateTime" />
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Quarters_GetAll" ReturnType="Collection(FifaManagerEphecModel.Quarters_GetAll_Result)" />
+    <FunctionImport Name="Tansferts_Add">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+      <Parameter Name="dateTransfert" Mode="In" Type="DateTime" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Transferts_GetAll" ReturnType="Collection(FifaManagerEphecModel.Transferts_GetAll_Result)" />
+    <FunctionImport Name="Transferts_GetParticipants" ReturnType="Collection(FifaManagerEphecModel.Transferts_GetParticipants_Result)">
+      <Parameter Name="equipeId" Mode="In" Type="Guid" />
+      <Parameter Name="matchDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="CartonsJaunes_GetAll_Result">
+    <Property Type="Guid" Name="carteJauneId" Nullable="false" />
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Boolean" Name="isActive" Nullable="false" />
+    <Property Type="DateTime" Name="matchDate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="Int32" Name="minuteRecue" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="CartonsRouges_GetAll_Result">
+    <Property Type="Guid" Name="carteRougeId" Nullable="false" />
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Int32" Name="nombreSuspensionsRestantes" Nullable="false" />
+    <Property Type="DateTime" Name="matchDate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="Int32" Name="minuteRecue" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Championnats_GetAll_Result">
+    <Property Type="Guid" Name="championnatId" Nullable="false" />
+    <Property Type="Int32" Name="annee" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="EquipeParticipation_GetAll_Result">
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="Guid" Name="championnatId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Equipes_GetAll_Result">
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="logoPath" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="FeuilleDeMatch_GetAll_Result">
+    <Property Type="Guid" Name="feuilleId" Nullable="false" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="FeuilleDeMatch_GetNombreJoueursInscrits_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="feuilleId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="feuilleId1" Nullable="false" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate1" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Goals_GetAll_Result">
+    <Property Type="Guid" Name="goalId" Nullable="false" />
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="minuteMarque" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Intersaisons_GetAll_Result">
+    <Property Type="Guid" Name="intersaisonID" Nullable="false" />
+    <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="dateFin" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="championnatId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Joueurs_GetAll_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="String" Name="nom" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="prenom" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JoueursParticipation_GetAll_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="feuilleId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="JoueursParticipation_GetOne_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="feuilleId" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Matchs_GetAll_Result">
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="DateTime" Name="matchDate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="equipe1Id" Nullable="false" />
+    <Property Type="Guid" Name="equipe2Id" Nullable="false" />
+    <Property Type="Int32" Name="equipe1Points" Nullable="false" />
+    <Property Type="Int32" Name="equipe2Points" Nullable="false" />
+    <Property Type="Boolean" Name="isPlayed" Nullable="false" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Quarters_GetAll_Result">
+    <Property Type="Guid" Name="quartersId" Nullable="false" />
+    <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="dateFin" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+    <Property Type="Guid" Name="championnatId" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="Transferts_GetAll_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="dateFin" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Transferts_GetParticipants_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="dateFin" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+</Schema>

@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -16,11 +16,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<JoueursModele> lJoueurs;
+                List<JoueursModele> lJoueurs = new List<JoueursModele>() ;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lJoueurs = ctx.Joueurs.ToList();
+                    foreach (dynamic dyn in ctx.Joueurs_GetAll())
+                    {
+                        JoueursModele joueur = new JoueursModele();
+                        joueur = dyn;
+                        lJoueurs.Add(joueur);
+                    }
                 }
                 return lJoueurs;
             }

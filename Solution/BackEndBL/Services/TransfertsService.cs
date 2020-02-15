@@ -1,4 +1,4 @@
-﻿using FifaDAL.BackEnd;
+﻿using FifaDAL.BackEndDBF;
 using FifaError;
 using FifaModeles;
 using System;
@@ -21,11 +21,16 @@ namespace BackEndBL.Services
         {
             try
             {
-                List<TransfertsModele> lTransferts;
+                List<TransfertsModele> lTransferts = new List<TransfertsModele>() ;
 
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    lTransferts = ctx.Transferts.ToList();
+                    foreach (dynamic dyn in ctx.Transferts_GetAll())
+                    {
+                        TransfertsModele transfert = new TransfertsModele();
+                        transfert = dyn;
+                        lTransferts.Add(transfert);
+                    }
                 }
                 return lTransferts;
             }
@@ -114,7 +119,7 @@ namespace BackEndBL.Services
                 List<TransfertsModele> lJoueursTransferts;
 
                 // donne la liste des transfert avec entités joueurs et équipes pour lesquels il n'y pas eu de sortie (participation en cours)
-                using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
                     lJoueursTransferts = ctx.Transferts.Include("Equipes")
                                                        .Include("Joueurs")
@@ -349,7 +354,7 @@ namespace BackEndBL.Services
             {
                 if (checkTransferts(oTable))
                 {
-                    using (FifaManagerContext ctx = new FifaManagerContext(_Connection))
+                    using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                     {
                         //transforme la table en vue et applique un filtre pour n'avoir que les lignes modifiées
                         DataView oView = oTable.DefaultView;
@@ -379,9 +384,7 @@ namespace BackEndBL.Services
                                 dateTransfert = dateTransfert.AddDays(1);
                             }
 
-                            TransfertsModele transfert = new TransfertsModele(joueurId, equipeInId, dateTransfert);
-                            ctx.Transferts.Add(transfert);                           
-
+                            ctx.Tansferts_Add(joueurId, equipeInId, dateTransfert, DateTime.Now);                      
                         }
                         using (TransactionScope scope = new TransactionScope())
                         {
