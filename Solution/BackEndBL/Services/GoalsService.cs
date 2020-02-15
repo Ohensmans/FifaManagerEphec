@@ -12,18 +12,23 @@ namespace BackEndBL.Services
 {
     public class GoalsService : BackEndService
     {
-        public List<GoalsModele> ListAll()
+        public List<FifaModeles.GoalsModele> ListAll()
         {
-            List<GoalsModele> lGoals = new List<GoalsModele>() ;
+            List<FifaModeles.GoalsModele> lGoals = new List<FifaModeles.GoalsModele>() ;
 
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    foreach (dynamic dyn in ctx.Goals_GetAll())
+                    foreach (Goals_GetAll_Result oGoal in ctx.Goals_GetAll())
                     {
-                        GoalsModele goal = new GoalsModele();
-                        goal = dyn;
+                        FifaModeles.GoalsModele goal = new FifaModeles.GoalsModele();
+                        goal.goalId = oGoal.goalId;
+                        goal.joueurId = oGoal.joueurId;
+                        goal.matchId = oGoal.matchId;
+                        goal.lastUpdate = oGoal.lastUpdate;
+                        goal.minuteMarque = oGoal.minuteMarque;
+                        goal.equipeId = oGoal.equipeId;
                         lGoals.Add(goal);
                     }
                 }

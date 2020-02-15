@@ -29,18 +29,18 @@ namespace FifaDAL.BackEndDBF
         }
 
         public virtual DbSet<CartonsJaunesModele> CartonsJaunes { get; set; }
-        public virtual DbSet<CartonsRougesModele> CartonsRouges { get; set; }
-        public virtual DbSet<ChampionnatsModele> Championnats { get; set; }
-        public virtual DbSet<EquipesModele> Equipes { get; set; }
-        public virtual DbSet<EquipesParticipationModele> EquipesParticipation { get; set; }
-        public virtual DbSet<FeuillesDeMatchModele> FeuillesDeMatch { get; set; }
-        public virtual DbSet<GoalsModele> GoalsHistory { get; set; }
-        public virtual DbSet<IntersaisonsModele> Intersaisons { get; set; }
-        public virtual DbSet<JoueursModele> Joueurs { get; set; }
-        public virtual DbSet<JoueursParticipationModele> JoueursParticipation { get; set; }
-        public virtual DbSet<MatchsModele> Matchs { get; set; }
-        public virtual DbSet<QuartersModele> Quarters { get; set; }
-        public virtual DbSet<TransfertsModele> Transferts { get; set; }
+        public virtual DbSet<FifaModeles.CartonsRougesModele> CartonsRouges { get; set; }
+        public virtual DbSet<FifaModeles.ChampionnatsModele> Championnats { get; set; }
+        public virtual DbSet<FifaModeles.EquipesModele> Equipes { get; set; }
+        public virtual DbSet<FifaModeles.EquipesParticipationModele> EquipesParticipation { get; set; }
+        public virtual DbSet<FifaModeles.FeuillesDeMatchModele> FeuillesDeMatch { get; set; }
+        public virtual DbSet<FifaModeles.GoalsModele> GoalsHistory { get; set; }
+        public virtual DbSet<FifaModeles.IntersaisonsModele> Intersaisons { get; set; }
+        public virtual DbSet<FifaModeles.JoueursModele> Joueurs { get; set; }
+        public virtual DbSet<FifaModeles.JoueursParticipationModele> JoueursParticipation { get; set; }
+        public virtual DbSet<FifaModeles.MatchsModele> Matchs { get; set; }
+        public virtual DbSet<FifaModeles.QuartersModele> Quarters { get; set; }
+        public virtual DbSet<FifaModeles.TransfertsModele> Transferts { get; set; }
 
         public virtual int CartonsJaunes_Add(Nullable<System.Guid> joueurId, Nullable<System.Guid> matchId, Nullable<int> minuteRecue)
         {
@@ -193,12 +193,13 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EquipeParticipation_Add", equipeIdParameter, championnatIdParameter);
         }
     
-        public virtual ObjectResult<EquipeParticipation_GetAll_Result> EquipeParticipation_GetAll()
+        public virtual ObjectResult<EquipesParticipation_GetAll_Result> EquipeParticipation_GetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EquipeParticipation_GetAll_Result>("EquipeParticipation_GetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EquipesParticipation_GetAll_Result>("EquipeParticipation_GetAll");
         }
     
         public virtual ObjectResult<Equipes_GetAll_Result> Equipes_GetAll()
+        
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Equipes_GetAll_Result>("Equipes_GetAll");
         }
@@ -216,9 +217,9 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FeuilleDeMatch_Add", matchIdParameter, equipeIdParameter);
         }
     
-        public virtual ObjectResult<FeuilleDeMatch_GetAll_Result> FeuilleDeMatch_GetAll()
+        public virtual ObjectResult<FeuillesDeMatch_GetAll_Result> FeuilleDeMatch_GetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FeuilleDeMatch_GetAll_Result>("FeuilleDeMatch_GetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FeuillesDeMatch_GetAll_Result>("FeuilleDeMatch_GetAll");
         }
     
         public virtual ObjectResult<FeuilleDeMatch_GetNombreJoueursInscrits_Result> FeuilleDeMatch_GetNombreJoueursInscrits(Nullable<System.Guid> matchId, Nullable<System.Guid> equipeId)
@@ -373,14 +374,14 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoueursParticipation_GetAll_Result>("JoueursParticipation_GetAll");
         }
     
-        public virtual ObjectResult<JoueursParticipation_GetOne_Result> JoueursParticipation_GetOne(Nullable<System.Guid> feuilleId)
+        /*public virtual ObjectResult<JoueursParticipation_GetOne_Result> JoueursParticipation_GetOne(Nullable<System.Guid> feuilleId)
         {
             var feuilleIdParameter = feuilleId.HasValue ?
                 new ObjectParameter("feuilleId", feuilleId) :
                 new ObjectParameter("feuilleId", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoueursParticipation_GetOne_Result>("JoueursParticipation_GetOne", feuilleIdParameter);
-        }
+        }*/
     
         public virtual int Matchs_Add(Nullable<System.DateTime> matchDate, Nullable<System.Guid> equipe1Id, Nullable<System.Guid> equipe2Id)
         {
@@ -485,7 +486,7 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transferts_GetAll_Result>("Transferts_GetAll");
         }
     
-        public virtual ObjectResult<Transferts_GetParticipants_Result> Transferts_GetParticipants(Nullable<System.Guid> equipeId, Nullable<System.DateTime> matchDate)
+        /*public virtual ObjectResult<Transferts_GetParticipants_Result> Transferts_GetParticipants(Nullable<System.Guid> equipeId, Nullable<System.DateTime> matchDate)
         {
             var equipeIdParameter = equipeId.HasValue ?
                 new ObjectParameter("equipeId", equipeId) :
@@ -496,6 +497,6 @@ namespace FifaDAL.BackEndDBF
                 new ObjectParameter("matchDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transferts_GetParticipants_Result>("Transferts_GetParticipants", equipeIdParameter, matchDateParameter);
-        }
+        }*/
     }
 }

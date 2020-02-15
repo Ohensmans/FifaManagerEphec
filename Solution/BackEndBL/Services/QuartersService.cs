@@ -20,9 +20,9 @@ namespace BackEndBL.Services
             try
             {
                 // obtient la liste des quarters
-                List<QuartersModele> lQuarters = this.ListAll();
+                List<FifaModeles.QuartersModele> lQuarters = this.ListAll();
 
-                foreach (QuartersModele quarter in lQuarters)
+                foreach (FifaModeles.QuartersModele quarter in lQuarters)
                 {
                     if (date <= quarter.dateFin && date >= quarter.dateDebut)
                     {
@@ -82,18 +82,22 @@ namespace BackEndBL.Services
             }
         }
 
-        public List<QuartersModele> ListAll()
+        public List<FifaModeles.QuartersModele> ListAll()
         {
             try
             {
-                List<QuartersModele> lQuarters = new List<QuartersModele>();
+                List<FifaModeles.QuartersModele> lQuarters = new List<FifaModeles.QuartersModele>();
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Quarters_GetAll())
+                    foreach (Quarters_GetAll_Result oQuart in ctx.Quarters_GetAll())
                     {
-                        QuartersModele quarter = new QuartersModele();
-                        quarter = dyn;
+                        FifaModeles.QuartersModele quarter = new FifaModeles.QuartersModele();
+                        quarter.quartersId = oQuart.quartersId;
+                        quarter.dateDebut = oQuart.dateDebut;
+                        quarter.dateFin = oQuart.dateFin;
+                        quarter.lastUpdate = oQuart.lastUpdate;
+                        quarter.championnatId = oQuart.championnatId;
                         lQuarters.Add(quarter);
                     }
                 }
@@ -115,11 +119,11 @@ namespace BackEndBL.Services
 
         }
 
-        public List<QuartersModele> ListOneChampionnat(ChampionnatsModele championnat)
+        public List<FifaModeles.QuartersModele> ListOneChampionnat(FifaModeles.ChampionnatsModele championnat)
         {
             try
             {
-                List<QuartersModele> lQuarters;
+                List<FifaModeles.QuartersModele> lQuarters;
 
                 lQuarters = this.ListAll().Where(xx => xx.championnatId == championnat.championnatId)
                                         .ToList();

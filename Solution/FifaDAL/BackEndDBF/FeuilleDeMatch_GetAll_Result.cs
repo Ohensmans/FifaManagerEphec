@@ -11,7 +11,7 @@ namespace FifaDAL.BackEndDBF
 {
     using System;
     
-    public partial class FeuilleDeMatch_GetAll_Result
+    public partial class FeuillesDeMatch_GetAll_Result
     {
         public System.Guid feuilleId { get; set; }
         public System.Guid matchId { get; set; }

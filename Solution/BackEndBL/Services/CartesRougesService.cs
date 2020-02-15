@@ -12,18 +12,23 @@ namespace BackEndBL.Services
 {
     public class CartesRougesService : BackEndService
     {
-        public List<CartonsRougesModele> ListAll()
+        public List<FifaModeles.CartonsRougesModele> ListAll()
         {
-            List<CartonsRougesModele> lcr = new List<CartonsRougesModele>() ;
+            List<FifaModeles.CartonsRougesModele> lcr = new List<FifaModeles.CartonsRougesModele>() ;
 
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    foreach (dynamic dyn in ctx.CartonsRouges_GetAll())
+                    foreach (CartonsRouges_GetAll_Result oCarte in ctx.CartonsRouges_GetAll())
                     {
-                        CartonsRougesModele cr = new CartonsRougesModele();
-                        cr = dyn;
+                        FifaModeles.CartonsRougesModele cr = new FifaModeles.CartonsRougesModele();
+                        cr.carteRougeId = oCarte.carteRougeId;
+                        cr.joueurId = oCarte.joueurId;
+                        cr.nombreSuspensionsRestantes = oCarte.nombreSuspensionsRestantes;
+                        cr.matchId = oCarte.matchId;
+                        cr.minuteRecue = oCarte.minuteRecue;
+                        cr.equipeId = oCarte.equipeId;
                         lcr.Add(cr);
                     }
 

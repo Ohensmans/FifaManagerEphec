@@ -12,18 +12,21 @@ namespace BackEndBL.Services
 {
     public class JoueursService : BackEndService
     {
-        public List<JoueursModele> ListAll()
+        public List<FifaModeles.JoueursModele> ListAll()
         {
             try
             {
-                List<JoueursModele> lJoueurs = new List<JoueursModele>() ;
+                List<FifaModeles.JoueursModele> lJoueurs = new List<FifaModeles.JoueursModele>() ;
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Joueurs_GetAll())
+                    foreach (Joueurs_GetAll_Result oJou in ctx.Joueurs_GetAll())
                     {
-                        JoueursModele joueur = new JoueursModele();
-                        joueur = dyn;
+                        FifaModeles.JoueursModele joueur = new FifaModeles.JoueursModele();
+                        joueur.joueurId = oJou.joueurId;
+                        joueur.nom = oJou.nom;
+                        joueur.prenom = oJou.prenom;
+                        joueur.lastUpdate = oJou.lastUpdate;
                         lJoueurs.Add(joueur);
                     }
                 }
@@ -44,15 +47,15 @@ namespace BackEndBL.Services
         }
 
         // retourne l'objet joueur qui correspond à un nom complet ou une business Error si il n'existe pas
-        public JoueursModele GetJoueurs (string nomCompletJoueur)
+        public FifaModeles.JoueursModele GetJoueurs (string nomCompletJoueur)
         {
             try
             {
-                List<JoueursModele> lJoueurs = this.ListAll();
+                List<FifaModeles.JoueursModele> lJoueurs = this.ListAll();
 
-                foreach (JoueursModele joueur in lJoueurs)
+                foreach (FifaModeles.JoueursModele joueur in lJoueurs)
                 {
-                    if ((joueur.prenom+" "+joueur.nom).Equals(nomCompletJoueur))
+                    if ((joueur.prenom+" "+ joueur.nom).Equals(nomCompletJoueur))
                     {
                         return joueur;
                     }
@@ -76,11 +79,11 @@ namespace BackEndBL.Services
             }
         }
 
-        public List<JoueursModele> getListeJoueurs(List<Guid> lId)
+        public List<FifaModeles.JoueursModele> getListeJoueurs(List<Guid> lId)
         {
             try
             {
-                List<JoueursModele> lJoueurs = new List<JoueursModele>();
+                List<FifaModeles.JoueursModele> lJoueurs = new List<FifaModeles.JoueursModele>();
 
                 foreach (Guid joueur in lId)
                 {
@@ -106,13 +109,13 @@ namespace BackEndBL.Services
 
 
 
-        public JoueursModele GetJoueurs(Guid joueurId)
+        public FifaModeles.JoueursModele GetJoueurs(Guid joueurId)
         {
             try
             {
-                List<JoueursModele> lJoueurs = this.ListAll();
+                List<FifaModeles.JoueursModele> lJoueurs = this.ListAll();
 
-                foreach (JoueursModele joueur in lJoueurs)
+                foreach (FifaModeles.JoueursModele joueur in lJoueurs)
                 {
                     if (joueur.joueurId == joueurId)
                     {

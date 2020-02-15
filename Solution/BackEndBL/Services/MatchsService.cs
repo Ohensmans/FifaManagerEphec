@@ -14,18 +14,25 @@ namespace BackEndBL.Services
 {
     public class MatchsService : BackEndService
     {
-        public List<MatchsModele> ListAll()
+        public List<FifaModeles.MatchsModele> ListAll()
         {
-            List<MatchsModele> lMatchs = new List<MatchsModele>();
+            List<FifaModeles.MatchsModele> lMatchs = new List<FifaModeles.MatchsModele>();
 
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    foreach (dynamic dyn in ctx.Matchs_GetAll())
+                    foreach (Matchs_GetAll_Result oMatch in ctx.Matchs_GetAll())
                     {
-                        MatchsModele match = new MatchsModele();
-                        match = dyn;
+                        FifaModeles.MatchsModele match = new FifaModeles.MatchsModele();
+                        match.matchId = oMatch.matchId;
+                        match.matchDate = oMatch.matchDate;
+                        match.equipe1Id = oMatch.equipe1Id;
+                        match.equipe2Id = oMatch.equipe2Id;
+                        match.equipe1Points = oMatch.equipe1Points;
+                        match.equipe2Points = oMatch.equipe2Points;
+                        match.isPlayed = oMatch.isPlayed;
+                        match.lastUpdate = oMatch.lastUpdate;
                         lMatchs.Add(match);
                     }
                 }
@@ -48,15 +55,15 @@ namespace BackEndBL.Services
         }
 
         //renvoie la liste des matchs d'une équipe du 1er janvier année de la date à la date comprise
-        public List<MatchsModele> ListesMatchsOneEquipeDatee(EquipesModele equipe, DateTime date)
+        public List<FifaModeles.MatchsModele> ListesMatchsOneEquipeDatee(FifaModeles.EquipesModele equipe, DateTime date)
         {
             DateTime dateDebut = new DateTime(date.Year, 1, 1);
 
-            List<MatchsModele> lMatchs = new List<MatchsModele>();
+            List<FifaModeles.MatchsModele> lMatchs = new List<FifaModeles.MatchsModele>();
 
             try
             {
-                foreach (MatchsModele match in this.ListAll())
+                foreach (FifaModeles.MatchsModele match in this.ListAll())
                 {
                     if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
                     {
@@ -81,17 +88,17 @@ namespace BackEndBL.Services
         }
 
         //renvoie la liste des matchs d'une liste d'équipe du 1er janvier année de la date à la date comprise
-        public List<MatchsModele> ListesMatchsListeEquipeDatee(List<EquipesModele> lEquipe, DateTime date)
+        public List<FifaModeles.MatchsModele> ListesMatchsListeEquipeDatee(List<FifaModeles.EquipesModele> lEquipe, DateTime date)
         {
             DateTime dateDebut = new DateTime(date.Year, 1, 1);
 
-            List<MatchsModele> lMatchs = new List<MatchsModele>();
+            List<FifaModeles.MatchsModele> lMatchs = new List<FifaModeles.MatchsModele>();
 
             try
             {
-                foreach (MatchsModele match in this.ListAll())
+                foreach (FifaModeles.MatchsModele match in this.ListAll())
                 {
-                    foreach (EquipesModele equipe in lEquipe)
+                    foreach (FifaModeles.EquipesModele equipe in lEquipe)
                     {
                         if ((match.equipe1Id == equipe.equipeId || match.equipe2Id == equipe.equipeId) && match.matchDate >= dateDebut && match.matchDate <= date)
                         {
@@ -135,7 +142,7 @@ namespace BackEndBL.Services
 
                             //récupère la liste des équipes
                             EquipesService equipes = new EquipesService();
-                            List<EquipesModele> lEquipes = equipes.ListAll();
+                            List<FifaModeles.EquipesModele> lEquipes = equipes.ListAll();
 
                             foreach (DataRowView oRow in oView)
                             {

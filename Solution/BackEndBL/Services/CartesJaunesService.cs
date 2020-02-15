@@ -21,10 +21,17 @@ namespace BackEndBL.Services
             {
                 try
                 {
-                    foreach (dynamic dyn in ctx.CartonsJaunes_GetAll())
+                    foreach (CartonsJaunes_GetAll_Result oCarte in ctx.CartonsJaunes_GetAll())
                     {
                         CartonsJaunesModele cj = new CartonsJaunesModele();
-                        cj = dyn;
+
+                        cj.carteJauneId = oCarte.carteJauneId;
+                        cj.joueurId = oCarte.joueurId;
+                        cj.isActive = oCarte.isActive;
+                        cj.matchId = oCarte.matchId;
+                        cj.minuteRecue = oCarte.minuteRecue;
+                        cj.equipeId = oCarte.equipeId;
+
                         lcj.Add(cj);
                     }
                      

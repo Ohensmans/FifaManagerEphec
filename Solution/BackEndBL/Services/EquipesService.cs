@@ -12,18 +12,21 @@ namespace BackEndBL
 {
     public class EquipesService : BackEndService
     {
-        public List<EquipesModele> ListAll()
+        public List<FifaModeles.EquipesModele> ListAll()
         {
             try
             {
-                List<EquipesModele> lEqu = new List<EquipesModele>();
+                List<FifaModeles.EquipesModele> lEqu = new List<FifaModeles.EquipesModele>();
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Equipes_GetAll())
+                    foreach (Equipes_GetAll_Result equipe in ctx.Equipes_GetAll())
                     {
-                        EquipesModele eq = new EquipesModele();
-                        eq = dyn;
+                        FifaModeles.EquipesModele eq = new FifaModeles.EquipesModele();
+                        eq.equipeId = equipe.equipeId;
+                        eq.nom = equipe.nom;
+                        eq.lastUpdate = equipe.lastUpdate;
+                        eq.logoPath = equipe.logoPath;
                         lEqu.Add(eq);
                     }
                 }
@@ -44,11 +47,11 @@ namespace BackEndBL
         }
 
         // à partir d'une liste de nom, renvoie la liste d'équipe qui correspond
-        public List<EquipesModele> ListeEquipeParticipants(List<string> lNomEquipes)
+        public List<FifaModeles.EquipesModele> ListeEquipeParticipants(List<string> lNomEquipes)
         {
             try
             {
-                List<EquipesModele> lEquipe = new List<EquipesModele>();
+                List<FifaModeles.EquipesModele> lEquipe = new List<FifaModeles.EquipesModele>();
 
                 foreach (string str in lNomEquipes)
                 {
@@ -76,7 +79,7 @@ namespace BackEndBL
         }
 
         // à partir d'un nom d'équipe, renvoie l'équipe qui correspond
-        public EquipesModele getEquipe (string nomEquipes)
+        public FifaModeles.EquipesModele getEquipe (string nomEquipes)
         {
             try
             {
@@ -97,7 +100,7 @@ namespace BackEndBL
         }
 
         // à partir de l'Id d'une équipe, renvoie l'équipe qui correspond
-        public EquipesModele getEquipe(Guid equipeId)
+        public FifaModeles.EquipesModele getEquipe(Guid equipeId)
         {
             try
             {

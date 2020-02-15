@@ -13,18 +13,20 @@ namespace BackEndBL.Services
 {
     public class EquipesParticipationService : BackEndService
     {
-        public List<EquipesParticipationModele> ListAll()
+        public List<FifaModeles.EquipesParticipationModele> ListAll()
         {
             try
             {
-                List<EquipesParticipationModele> lEquParti = new List<EquipesParticipationModele>() ;
+                List<FifaModeles.EquipesParticipationModele> lEquParti = new List<FifaModeles.EquipesParticipationModele>() ;
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.EquipeParticipation_GetAll())
+                    foreach (EquipesParticipation_GetAll_Result equipe in ctx.EquipeParticipation_GetAll())
                     {
-                        EquipesParticipationModele ep = new EquipesParticipationModele();
-                        ep = dyn;
+                        FifaModeles.EquipesParticipationModele ep = new FifaModeles.EquipesParticipationModele();
+                        ep.equipeId = equipe.equipeId;
+                        ep.championnatId = equipe.championnatId;
+                        ep.lastUpdate = equipe.lastUpdate;
                         lEquParti.Add(ep);
                     }
                 }
@@ -45,11 +47,11 @@ namespace BackEndBL.Services
         }
 
         //renvoie la liste des équipes participants à un championnat
-        public List<EquipesParticipationModele> ListeEquipeChampionnat(ChampionnatsModele championnat)
+        public List<FifaModeles.EquipesParticipationModele> ListeEquipeChampionnat(FifaModeles.ChampionnatsModele championnat)
         {
             try
             {
-                List<EquipesParticipationModele> lEquParti = this.ListAll().Where(xx => xx.championnatId == championnat.championnatId)
+                List<FifaModeles.EquipesParticipationModele> lEquParti = this.ListAll().Where(xx => xx.championnatId == championnat.championnatId)
                                                                             .ToList();
                 
                 return lEquParti;
@@ -71,13 +73,13 @@ namespace BackEndBL.Services
 
 
 
-        public void enregistrerEquipesParticipation (List<EquipesModele> lEquipe, Guid championnatId)
+        public void enregistrerEquipesParticipation (List<FifaModeles.EquipesModele> lEquipe, Guid championnatId)
         {
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    foreach (EquipesModele equipe in lEquipe)
+                    foreach (FifaModeles.EquipesModele equipe in lEquipe)
                     {
                         if (checkPasTransfertAvantParticipation(equipe, championnatId))
                         {
@@ -109,19 +111,19 @@ namespace BackEndBL.Services
         }
 
         //vérifie si il y n'a pas eu un transfert encodé d'un joueur lors de la saison avant la création de la participation de l'équipe
-        public Boolean checkPasTransfertAvantParticipation(EquipesModele equipe, Guid championnatId)
+        public Boolean checkPasTransfertAvantParticipation(FifaModeles.EquipesModele equipe, Guid championnatId)
         {
             try
             {
                 //récupère la liste des transferts
                 TransfertsService ts = new TransfertsService();
-                List<TransfertsModele> lTransferts = ts.ListAll();
+                List<FifaModeles.TransfertsModele> lTransferts = ts.ListAll();
 
                 //récupère l'année du championnat
                 ChampionnatService cs = new ChampionnatService();
                 int annee = cs.getAnnee(championnatId);
 
-                foreach (TransfertsModele transfert in lTransferts )
+                foreach (FifaModeles.TransfertsModele transfert in lTransferts )
                 {
                     //vérfie pour chaque transfert si il y a eu déjà un transfert pour l'équipe l'année du championnat en création ou renvoie une businessError
                     if ((transfert.dateDebut.Year == annee || (transfert.dateFin.HasValue && transfert.dateFin.Value.Year == annee))&&(transfert.equipeId == equipe.equipeId))
@@ -151,16 +153,16 @@ namespace BackEndBL.Services
 
     
     // vérifie si une équipe participe bien à un championnat
-    public Boolean isParticipation (EquipesModele equipe, DateTime date)
+    public Boolean isParticipation (FifaModeles.EquipesModele equipe, DateTime date)
         {
             try
             {
                 ChampionnatService cs = new ChampionnatService();
-                List<ChampionnatsModele> lChampionnat = cs.ListAll();
+                List<FifaModeles.ChampionnatsModele> lChampionnat = cs.ListAll();
 
                 //récupère le bon championnat
                 int i = 0;
-                ChampionnatsModele championnat = null;
+                FifaModeles.ChampionnatsModele championnat = null;
                 while (i < lChampionnat.Count && championnat == null)
                 {
                     if (date.Year == lChampionnat[i].annee)
@@ -177,10 +179,10 @@ namespace BackEndBL.Services
                     throw oBusiness;
                 }
 
-                List<EquipesParticipationModele> lParticipation = this.ListAll();
+                List<FifaModeles.EquipesParticipationModele> lParticipation = this.ListAll();
                 
                 //vérifie si il y a une participation de l'équipe avec le championant correspondant à la date
-                foreach (EquipesParticipationModele participation in lParticipation)
+                foreach (FifaModeles.EquipesParticipationModele participation in lParticipation)
                 {
                     if (participation.championnatId == championnat.championnatId && participation.equipeId == equipe.equipeId)
                     {

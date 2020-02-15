@@ -52,9 +52,9 @@ namespace BackEndBL.Services
             try
             {
                 // obtient la liste des intersaisons
-                List<IntersaisonsModele> lIntersaison = this.ListAll();
+                List<FifaModeles.IntersaisonsModele> lIntersaison = this.ListAll();
 
-                foreach (IntersaisonsModele intersaison in lIntersaison)
+                foreach (FifaModeles.IntersaisonsModele intersaison in lIntersaison)
                 {
                     if (date <= intersaison.dateFin && date >= intersaison.dateDebut)
                     {
@@ -82,18 +82,22 @@ namespace BackEndBL.Services
             
         }
 
-        public List<IntersaisonsModele> ListAll()
+        public List<FifaModeles.IntersaisonsModele> ListAll()
         {
             try
             {
-                List<IntersaisonsModele> lIntersaison = new List<IntersaisonsModele>() ;
+                List<FifaModeles.IntersaisonsModele> lIntersaison = new List<FifaModeles.IntersaisonsModele>() ;
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Intersaisons_GetAll())
+                    foreach (Intersaisons_GetAll_Result oInter in ctx.Intersaisons_GetAll())
                     {
-                        IntersaisonsModele inter = new IntersaisonsModele();
-                        inter = dyn;
+                        FifaModeles.IntersaisonsModele inter = new FifaModeles.IntersaisonsModele();
+                        inter.intersaisonID = oInter.intersaisonID;
+                        inter.dateDebut = oInter.dateDebut;
+                        inter.dateFin = oInter.dateFin;
+                        inter.lastUpdate = oInter.lastUpdate;
+                        inter.championnatId = oInter.championnatId;
                         lIntersaison.Add(inter);
                     }
                 }

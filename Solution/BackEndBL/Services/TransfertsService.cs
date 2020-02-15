@@ -17,18 +17,22 @@ namespace BackEndBL.Services
         private int NOMBREMINJOUEUR = 5;
         private int NOMBREMAXJOUEUR = 10;
 
-        public List<TransfertsModele> ListAll()
+        public List<FifaModeles.TransfertsModele> ListAll()
         {
             try
             {
-                List<TransfertsModele> lTransferts = new List<TransfertsModele>() ;
+                List<FifaModeles.TransfertsModele> lTransferts = new List<FifaModeles.TransfertsModele>() ;
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Transferts_GetAll())
+                    foreach (Transferts_GetAll_Result oTrans in ctx.Transferts_GetAll())
                     {
-                        TransfertsModele transfert = new TransfertsModele();
-                        transfert = dyn;
+                        FifaModeles.TransfertsModele transfert = new FifaModeles.TransfertsModele();
+                        transfert.joueurId = oTrans.joueurId;
+                        transfert.equipeId = oTrans.equipeId;
+                        transfert.dateDebut = oTrans.dateDebut;
+                        transfert.dateFin = oTrans.dateFin;
+                        transfert.lastUpdate = oTrans.lastUpdate;
                         lTransferts.Add(transfert);
                     }
                 }
@@ -48,14 +52,14 @@ namespace BackEndBL.Services
             }
         }
 
-        public List<EquipesModele> getEquipesDatees (JoueursModele joueur, ChampionnatsModele championnat)
+        public List<FifaModeles.EquipesModele> getEquipesDatees (FifaModeles.JoueursModele joueur, FifaModeles.ChampionnatsModele championnat)
         {
-            List<EquipesModele> lEquipe = new List<EquipesModele>();
-            List<EquipesModele> lEquipeAll = new EquipesService().ListAll();
+            List<FifaModeles.EquipesModele> lEquipe = new List<FifaModeles.EquipesModele>();
+            List<FifaModeles.EquipesModele> lEquipeAll = new EquipesService().ListAll();
 
-            foreach (TransfertsModele transfert in this.ListAll())
+            foreach (FifaModeles.TransfertsModele transfert in this.ListAll())
             {
-                if (transfert.joueurId == joueur.joueurId && transfert.dateDebut.Year <= championnat.annee && (!transfert.dateFin.HasValue || transfert.dateFin.Value.Year>=championnat.annee))
+                if (transfert.joueurId == joueur.joueurId && transfert.dateDebut.Year <= championnat.annee && (!transfert.dateFin.HasValue || transfert.dateFin.Value.Year>= championnat.annee))
                 {
                     int i = 0;
                     while (i < lEquipeAll.Count&& lEquipeAll[i].equipeId != transfert.equipeId)
@@ -69,17 +73,17 @@ namespace BackEndBL.Services
         }
 
         // renvoie la liste de tous les guid de joueurs participants à un championnat
-        public List<Guid> getListeJoueurChampionnat(ChampionnatsModele championnat)
+        public List<Guid> getListeJoueurChampionnat(FifaModeles.ChampionnatsModele championnat)
         {
             try
             {
-                List<EquipesParticipationModele> LEquipeParticipation = new EquipesParticipationService().ListeEquipeChampionnat(championnat);
+                List<FifaModeles.EquipesParticipationModele> LEquipeParticipation = new EquipesParticipationService().ListeEquipeChampionnat(championnat);
 
                 List<Guid> lJoueurs = new List<Guid>();
 
-                List<TransfertsModele> lAllTransferts = this.ListAll();
+                List<FifaModeles.TransfertsModele> lAllTransferts = this.ListAll();
 
-                foreach (TransfertsModele transfert in lAllTransferts)
+                foreach (FifaModeles.TransfertsModele transfert in lAllTransferts)
                 {
                     if (transfert.dateDebut.Year <= championnat.annee && (!transfert.dateFin.HasValue || transfert.dateFin.Value.Year >= championnat.annee))
                     {                       
@@ -112,11 +116,11 @@ namespace BackEndBL.Services
             }
         }
 
-        public List<TransfertsModele> ListAllWithEquipeJoueurs()
+        public List<FifaModeles.TransfertsModele> ListAllWithEquipeJoueurs()
         {
             try
             {
-                List<TransfertsModele> lJoueursTransferts;
+                List<FifaModeles.TransfertsModele> lJoueursTransferts;
 
                 // donne la liste des transfert avec entités joueurs et équipes pour lesquels il n'y pas eu de sortie (participation en cours)
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
@@ -149,7 +153,7 @@ namespace BackEndBL.Services
             {
                 //récupère l'objet qui correspond au joueur
                 JoueursService js = new JoueursService();
-                JoueursModele joueur = js.GetJoueurs(nomCompletJoueur);
+                FifaModeles.JoueursModele joueur = js.GetJoueurs(nomCompletJoueur);
 
                 //vérifie si le joueur n'a pas joué un match à une date postérieure à celle du transfert
                 JoueursParticipationService jps = new JoueursParticipationService();
@@ -186,13 +190,13 @@ namespace BackEndBL.Services
 
                         //obtient le joueur
                         JoueursService js = new JoueursService();
-                        JoueursModele joueur = js.GetJoueurs(row["Joueur :"].ToString());
+                        FifaModeles.JoueursModele joueur = js.GetJoueurs(row["Joueur :"].ToString());
 
                         
                         EquipesService es = new EquipesService();
 
                         //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew
-                        EquipesModele equipeNew = es.getEquipe(row["combo"].ToString());
+                        FifaModeles.EquipesModele equipeNew = es.getEquipe(row["combo"].ToString());
                         //obtient le nombre de transfert 
                         int nbTransfertsIn = nombreTransfertEquipeNew(oView, equipeNew.nom);
                         //obtient le nombre de joueur avant transfert
@@ -203,7 +207,7 @@ namespace BackEndBL.Services
                         int nbJoueur = NOMBREMINJOUEUR;
                         if (row["Equipe :"].ToString() != "")
                         {
-                            EquipesModele equipeOld = es.getEquipe(row["Equipe :"].ToString());
+                            FifaModeles.EquipesModele equipeOld = es.getEquipe(row["Equipe :"].ToString());
 
                             //obtient le nombre de transfert 
                             nbTransfertsOut = nombreTransfertEquipeOld(oView, equipeOld.nom);
@@ -306,11 +310,11 @@ namespace BackEndBL.Services
 
             try
             {
-                List<TransfertsModele> lTransferts = this.ListAll();
+                List<FifaModeles.TransfertsModele> lTransferts = this.ListAll();
 
-                foreach (TransfertsModele transfert in lTransferts)
+                foreach (FifaModeles.TransfertsModele transfert in lTransferts)
                 {
-                    if (transfert.equipeId == equipeId && (transfert.dateDebut<=date)&&((transfert.dateFin == null)||(transfert.dateFin<=date)))
+                    if (transfert.equipeId == equipeId && (transfert.dateDebut <= date) &&((transfert.dateFin == null)||(transfert.dateFin <= date)))
                     {
                         count++;
                     }
@@ -372,7 +376,7 @@ namespace BackEndBL.Services
                             {
                                 //récupère l'ancien transfert et le modifie
                                 DateTime dateArrivee = (DateTime)row["Date arrivee :"];
-                                TransfertsModele transfertOld = ctx.Transferts.Where(xx => xx.joueurId == joueurId)
+                                FifaModeles.TransfertsModele transfertOld = ctx.Transferts.Where(xx => xx.joueurId == joueurId)
                                                                            .Where(yy => yy.dateDebut == dateArrivee)
                                                                            .FirstOrDefault();
                                 if (transfertOld != null)

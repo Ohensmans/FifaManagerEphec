@@ -15,18 +15,20 @@ namespace BackEndBL.Services
     {
 
 
-        public List<JoueursParticipationModele> ListAll()
+        public List<FifaModeles.JoueursParticipationModele> ListAll()
         {
             try
             {
-                List<JoueursParticipationModele> lJoueursParticipation = new List<JoueursParticipationModele>() ;
+                List<FifaModeles.JoueursParticipationModele> lJoueursParticipation = new List<FifaModeles.JoueursParticipationModele>() ;
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (dynamic dyn in ctx.Intersaisons_GetAll())
+                    foreach (JoueursParticipation_GetAll_Result joueur in ctx.JoueursParticipation_GetAll())
                     {
-                        JoueursParticipationModele jpm = new JoueursParticipationModele();
-                        jpm = dyn;
+                        FifaModeles.JoueursParticipationModele jpm = new FifaModeles.JoueursParticipationModele();
+                        jpm.joueurId = joueur.joueurId;
+                        jpm.feuilleId = joueur.feuilleId;
+                        jpm.lastUpdate = joueur.lastUpdate;
                         lJoueursParticipation.Add(jpm);
                     }
                 }

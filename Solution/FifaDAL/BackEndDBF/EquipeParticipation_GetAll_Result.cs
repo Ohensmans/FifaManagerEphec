@@ -11,7 +11,7 @@ namespace FifaDAL.BackEndDBF
 {
     using System;
     
-    public partial class EquipeParticipation_GetAll_Result
+    public partial class EquipesParticipation_GetAll_Result
     {
         public System.Guid equipeId { get; set; }
         public System.Guid championnatId { get; set; }

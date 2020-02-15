@@ -37,7 +37,7 @@ namespace BackEndBL
         }
 
         //renvoie un championnat selon une année
-        public ChampionnatsModele getChampionnat(int annee)
+        public FifaModeles.ChampionnatsModele getChampionnat(int annee)
         {
             try
             {
@@ -57,18 +57,20 @@ namespace BackEndBL
             }            
         }
 
-        public List<ChampionnatsModele> ListAll()
+        public List<FifaModeles.ChampionnatsModele> ListAll()
         {
-            List<ChampionnatsModele> lch = new List<ChampionnatsModele>();
+            List<FifaModeles.ChampionnatsModele> lch = new List<FifaModeles.ChampionnatsModele>();
 
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
             {
                 try
                 {
-                    foreach (dynamic dyn in ctx.Championnats_GetAll())
+                    foreach (Championnats_GetAll_Result champ in ctx.Championnats_GetAll())
                     {
-                        ChampionnatsModele ch = new ChampionnatsModele();
-                        ch = dyn;
+                        FifaModeles.ChampionnatsModele ch = new FifaModeles.ChampionnatsModele();
+                        ch.championnatId = champ.championnatId;
+                        ch.annee = champ.annee;
+                        ch.lastUpdate = champ.lastUpdate;
                         lch.Add(ch);
                     }
 
