@@ -21,7 +21,7 @@ namespace BackEndBL.Services
 
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    foreach (EquipesParticipation_GetAll_Result equipe in ctx.EquipeParticipation_GetAll())
+                    foreach (EquipeParticipation_GetAll_Result equipe in ctx.EquipeParticipation_GetAll())
                     {
                         FifaModeles.EquipesParticipationModele ep = new FifaModeles.EquipesParticipationModele();
                         ep.equipeId = equipe.equipeId;

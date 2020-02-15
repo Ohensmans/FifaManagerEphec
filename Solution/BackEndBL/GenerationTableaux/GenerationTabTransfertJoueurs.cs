@@ -21,11 +21,17 @@ namespace BackEndBL.GenerationTableaux
                 DataTable oTable = new TableTransfertJoueurs().getTable();
                 DataRow row;
 
+                //récupère la liste des participations de joueurs en cours dans des équipes
                 TransfertsService Joueurstransferts = new TransfertsService();
                 List<TransfertsModele> lTransferts = Joueurstransferts.ListAllWithEquipeJoueurs();
 
+                //récupère la liste des joueurs
                 JoueursService js = new JoueursService();
                 List<JoueursModele> lJoueurs = js.ListAll();
+
+                //récupère la liste des équipes
+                EquipesService es = new EquipesService();
+                List<EquipesModele> lEquipes = es.ListAll();
 
 
 
@@ -34,9 +40,12 @@ namespace BackEndBL.GenerationTableaux
                 {
                     row = oTable.NewRow();
 
-                    row["Joueur :"] = (string)transferts.Joueurs.prenom + " " + (string)transferts.Joueurs.nom;
+                    // récupère le nom du joueur
+                    string prenom = lJoueurs.Where(xx => xx.joueurId == transferts.joueurId).FirstOrDefault().prenom;
+                    string nom = lJoueurs.Where(xx => xx.joueurId == transferts.joueurId).FirstOrDefault().nom;
+                    row["Joueur :"] = prenom + " " + nom;
 
-                    row["Equipe :"] = (string)transferts.Equipes.nom;
+                    row["Equipe :"] = lEquipes.Where(xx => xx.equipeId == transferts.equipeId).FirstOrDefault().nom;
 
                     row["Date arrivee :"] = (DateTime)transferts.dateDebut;
 

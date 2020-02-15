@@ -193,9 +193,9 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EquipeParticipation_Add", equipeIdParameter, championnatIdParameter);
         }
     
-        public virtual ObjectResult<EquipesParticipation_GetAll_Result> EquipeParticipation_GetAll()
+        public virtual ObjectResult<EquipeParticipation_GetAll_Result> EquipeParticipation_GetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EquipesParticipation_GetAll_Result>("EquipeParticipation_GetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EquipeParticipation_GetAll_Result>("EquipeParticipation_GetAll");
         }
     
         public virtual ObjectResult<Equipes_GetAll_Result> Equipes_GetAll()

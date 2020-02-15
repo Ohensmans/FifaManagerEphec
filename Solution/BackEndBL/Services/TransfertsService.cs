@@ -115,7 +115,7 @@ namespace BackEndBL.Services
                 }
             }
         }
-
+        
         public List<FifaModeles.TransfertsModele> ListAllWithEquipeJoueurs()
         {
             try
@@ -125,10 +125,14 @@ namespace BackEndBL.Services
                 // donne la liste des transfert avec entités joueurs et équipes pour lesquels il n'y pas eu de sortie (participation en cours)
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
+                    /*
                     lJoueursTransferts = ctx.Transferts.Include("Equipes")
                                                        .Include("Joueurs")
                                                        .Where(xx => xx.dateFin.HasValue == false)
                                                        .ToList();
+                                                       */
+                    lJoueursTransferts = this.ListAll().Where(xx => xx.dateFin.HasValue == false).ToList();
+                                                                           
                 }
                 return lJoueursTransferts;
             }

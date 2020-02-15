@@ -131,8 +131,9 @@ namespace BackEndBL.GenerationTableaux
                             {
                                 isNotSettled = false;
                             }
-                            i++;
+                            
                         }
+                        i++;
                     }
 
                     //vérifie que tous les matchs soient bien dans la liste définitive
