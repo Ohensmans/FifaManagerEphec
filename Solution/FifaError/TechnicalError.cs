@@ -57,6 +57,8 @@ namespace FifaError
                     case 50035: _Message = "Une équipe doit respecter le nombre de joueurs min et max pour s’inscrire dans un championnat"; _Number = 50035; break;
                     case 50036: _Message = "Un joueur doit quitter son équipe avant d''en rejoindre une nouvelle"; _Number = 50036; break;
                     case 50037: _Message = "Une des 2 feuilles d’équipe pour ce match n'a pas été remplie"; _Number = 50037; break;
+                    case 50038: _Message = "les années des 2 dates doivent être identiques"; _Number = 50038; break;
+                    case 50039: _Message = "L’année de date de début doit être la même année que son championnat"; _Number = 50039; break;
 
                     default:
                         _Message = exsql.Message + " -- " + exsql.Number;
