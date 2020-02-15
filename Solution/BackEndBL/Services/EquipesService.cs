@@ -34,9 +34,9 @@ namespace BackEndBL
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                if (ex.InnerException != null && ex.InnerException is SqlException)
                 {
-                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException);
                     throw oErreur;
                 }
                 else
@@ -66,9 +66,9 @@ namespace BackEndBL
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                if (ex.InnerException != null && ex.InnerException is SqlException)
                 {
-                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException);
                     throw oErreur;
                 }
                 else
@@ -87,9 +87,9 @@ namespace BackEndBL
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                if (ex.InnerException != null && ex.InnerException is SqlException)
                 {
-                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException);
                     throw oErreur;
                 }
                 else
@@ -108,9 +108,9 @@ namespace BackEndBL
             }
             catch (Exception ex)
             {
-                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException is SqlException)
+                if (ex.InnerException != null && ex.InnerException is SqlException)
                 {
-                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException.InnerException);
+                    TechnicalError oErreur = new TechnicalError((SqlException)ex.InnerException);
                     throw oErreur;
                 }
                 else
