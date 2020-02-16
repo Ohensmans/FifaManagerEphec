@@ -15,9 +15,17 @@ namespace FifaError
             this._Message = Message;
         }
 
+        public BusinessError(string Message, string rowNumber)
+        {
+            this._Message = Message;
+            this.rowNumber = rowNumber;
+        }
+
         public override string Message
         {
             get { return _Message; }
         }
+
+        public string rowNumber { get; set; }
     }
 }

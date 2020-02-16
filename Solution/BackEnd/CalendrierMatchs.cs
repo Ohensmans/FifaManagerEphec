@@ -1,5 +1,6 @@
 ﻿using BackEndBL.GenerationTableaux;
 using BackEndBL.Services;
+using FifaError;
 using FifaModeles;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace BackEnd
     {
         private int annee;
         private List<String> lEquipe;
-        private DateTimePicker dtp;
+        private DateTimePicker dtp = new DateTimePicker();
         private DataTable oTable;
 
         public CalendrierMatchs(int annee, List<string> lEquipe)
@@ -58,10 +59,26 @@ namespace BackEnd
         {
             try
             {
+                cleanColor();
                 MatchsService matchs = new MatchsService();
                 matchs.enregistrerMatchs(oTable.DefaultView);
                 this.Close();
             }
+            catch (BusinessError be)
+            {
+                if (!be.rowNumber.Equals(""))
+                {
+                    for (int i = 0; i<dg_listeMatch.Rows.Count;i++)
+                    {
+                        if (dg_listeMatch.Rows[i].Cells["Match n° :"].Value.ToString().Equals(be.rowNumber))
+                        {
+                            dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        }
+                    }
+                }
+                MessageBox.Show(be.Message);
+            }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -69,12 +86,25 @@ namespace BackEnd
 
         }
 
+        //enleve les couleurs de fond du datagrid
+        private void cleanColor ()
+        {
+            for (int i = 0; i < dg_listeMatch.Rows.Count; i++)
+            {
+                dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = DefaultBackColor;
+            }
+
+        }
+         
+
         //crée un évenèment pour afficher un datetimepicker dans la case cliquée pour changer la date
         private void dg_listeMatch_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //vérifie que la case est bien celle des dates
             if (dg_listeMatch.Columns[e.ColumnIndex].Name == "Date du Match :")
             {
+                dtp.Visible = false;
+
                 //règle le datetimepicker
                 getDateTimePicker((DateTime)(dg_listeMatch.CurrentCell.Value));
 

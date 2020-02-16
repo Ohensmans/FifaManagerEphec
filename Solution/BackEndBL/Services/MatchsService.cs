@@ -130,11 +130,11 @@ namespace BackEndBL.Services
         {
             try
             {
-                if (checkToutesDatesRemplies(oView))
+                if (checkToutesDatesRemplies(oView, out string rowNumber))
                 {
 
 
-                    if (checkDatesMatch(oView))
+                    if (checkDatesMatch(oView, out string rowNumber2))
                     {
 
                         using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
@@ -180,13 +180,13 @@ namespace BackEndBL.Services
                     }
                     else
                     {
-                        Exception ex = new Exception("Une équipe ne peut pas jouer 2 fois le même jour");
+                        BusinessError ex = new BusinessError("Une équipe ne peut pas jouer 2 fois le même jour", rowNumber2);
                         throw ex;
                     }
                 }
                 else
                 {
-                    Exception ex = new Exception("Toutes les dates de match doivent être dans un quarter");
+                    BusinessError ex = new BusinessError("Toutes les dates de match doivent être dans un quarter", rowNumber);
                     throw ex;
                 }
             }
@@ -205,9 +205,10 @@ namespace BackEndBL.Services
             }
         }
 
-        public Boolean checkDatesMatch(DataView oView)
+        public Boolean checkDatesMatch(DataView oView, out string rowNumber)
         {
             Boolean _return = true;
+            rowNumber = "";
 
             foreach (DataRowView oRow in oView)
             {
@@ -220,6 +221,7 @@ namespace BackEndBL.Services
                             && (DateTime)oRow["Date du Match :"]==(DateTime)oView[i]["Date du Match :"])
                         {
                             _return = false;
+                            rowNumber = oRow["Match n° :"].ToString();
                         }
 
                         //vérifie si un autre match avec l'équipe à l'extérieur se joue le même jour
@@ -227,6 +229,7 @@ namespace BackEndBL.Services
                                && (DateTime)oRow["Date du Match :"] == (DateTime)oView[i]["Date du Match :"])
                         {
                             _return = false;
+                            rowNumber = oRow["Match n° :"].ToString();
                         }
                     }
                 }
@@ -235,9 +238,10 @@ namespace BackEndBL.Services
             return _return;           
         }
 
-        public Boolean checkToutesDatesRemplies(DataView oView)
+        public Boolean checkToutesDatesRemplies(DataView oView, out string rowNumber)
         {
             Boolean _return = true;
+            rowNumber = "";
 
             //vérifie si toutes les dates ont bien été complétées (la date par défaut la plus élevée est 1/1/1802)
             foreach (DataRowView oRow in oView)
@@ -245,6 +249,7 @@ namespace BackEndBL.Services
                 if ((DateTime)oRow["Date du Match :"] < new DateTime(1802, 1, 2))
                 {
                     _return = false;
+                    rowNumber = oRow["Match n° :"].ToString();
                 }
             }
             return _return;

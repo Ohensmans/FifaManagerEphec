@@ -54,7 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dg_listeMatch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dg_listeMatch.Location = new System.Drawing.Point(32, 123);
+            this.dg_listeMatch.Location = new System.Drawing.Point(31, 122);
             this.dg_listeMatch.Name = "dg_listeMatch";
             this.dg_listeMatch.Size = new System.Drawing.Size(502, 356);
             this.dg_listeMatch.TabIndex = 2;
