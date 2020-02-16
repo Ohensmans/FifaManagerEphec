@@ -11,8 +11,8 @@ namespace MatchManagementBL
 {
     public class MatchManagementService
     {
-        protected string _Connection = "Data Source=(local);Initial Catalog = FifaManagerEphec; Persist Security Info=True;User ID = MatchManagement; Password=ephec01";
-        //protected string _Connection = "Data Source = DESKTOP-C7PMR28\\COURS2019;Initial Catalog = FifaManagerEphec; User ID = sa; Password=ephec";
+        //protected string _Connection = "Data Source=(local);Initial Catalog = FifaManagerEphec; Persist Security Info=True;User ID = MatchManagement; Password=ephec01";
+        protected string _Connection = "Data Source = DESKTOP-C7PMR28\\COURS2019;Initial Catalog = FifaManagerEphec; User ID = sa; Password=ephec";
         public MatchManagementService()
         {
             this.name = "";
