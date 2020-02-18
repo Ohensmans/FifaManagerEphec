@@ -123,6 +123,7 @@
     <Compile Include="BackEndCF\FifaManagerContext.cs" />
     <Compile Include="MatchManagement\GoalsData.cs" />
     <Compile Include="MatchManagement\JoueursParticipationData.cs" />
+    <Compile Include="MatchManagement\QuartersData.cs" />
     <Compile Include="MatchManagement\TransfertsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

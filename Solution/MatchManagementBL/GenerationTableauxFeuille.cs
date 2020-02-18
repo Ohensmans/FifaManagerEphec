@@ -101,8 +101,15 @@ namespace MatchManagementBL
                 CartesRougesService crs = new CartesRougesService();
                 DataView crv = crs.loadAllData();
 
+                QuartersService qs = new QuartersService();
+                QuartersModele quarter = qs.getAQuarter(matchDate);
+
+                //obtient la liste de match de l'équipe pour le quarter et triée par date ascendante
                 MatchsService ms = new MatchsService();
                 DataView mv = ms.loadAllData();
+                List<MatchsModele> lMatchs = ms.getMatchsEquipe(equipeId, quarter);
+
+                
 
                 DataTable feuille = new TableFeuilleMatch().getTable();
                 DataRow row;
@@ -134,34 +141,31 @@ namespace MatchManagementBL
 
                     row[1] = count;
 
-                    //va chercher le nombre de suspensions dues à un carton rouge dans le quarter
+                    //va chercher le nombre de suspensions restantes à un carton rouge dans le quarter
                     row[2] = 0;
 
-                    for (i = 0; i < crv.Count; i++)
+                    //récupère la liste de cartons rouge du joueur pour le quarter
+                    List<Guid> lMatchsAvecCartons = crs.getMatchsCartonsRouges((Guid)dr["joueurId"], quarter);
+                    //vérifie si il en a reçu
+                    if (lMatchsAvecCartons.Any())
                     {
-                        if (((Guid)dr["joueurId"] == (Guid)crv[i]["joueurId"]
-                             && ((DateTime)(crv[i]["matchDate"]) <= matchDate.AddDays(DureeQuartersJours))
-                            && ((DateTime)(crv[i]["matchDate"])).AddDays(DureeQuartersJours) >= matchDate))
+                        int positionMatch = lMatchs.IndexOf(lMatchs.Where(xx => xx.matchDate == matchDate)
+                                                                       .FirstOrDefault());
+                        foreach (Guid Id in lMatchsAvecCartons)
                         {
-                            row[2] = (int)crv[i]["nombreSuspensionsRestantes"];
+                            int positionCarton = lMatchs.IndexOf(lMatchs.Where(xx => xx.matchId == Id)
+                                                                        .FirstOrDefault());
+                            //vérifie que le match en cours est affecté par le carton
+                            if (positionMatch-positionCarton>0 && positionMatch-positionCarton<3)
+                            {
+                                row[2] = 4 - positionMatch - positionCarton;
+                            }
                         }
                     }
 
                     //va chercher le nombre de match restants pour l'équipe ce quarter
-                    count = 0;
-
-                    for (i = 0; i < mv.Count; i++)
-                    {
-                        if (((Guid)mv[i]["equipe1Id"] == equipeId || (Guid)mv[i]["equipe2Id"] == equipeId) 
-                            && ((Boolean)mv[i]["isPlayed"] == false) && ((DateTime)(mv[i]["matchDate"]) <= matchDate.AddDays(DureeQuartersJours)) 
-                            && ((DateTime)(mv[i]["matchDate"])).AddDays(DureeQuartersJours) >= matchDate)
-                        {
-                            count++;
-                        }
-
-                    }
-
-                    row[3] = count;
+                    row[3] = lMatchs.Where(xx => xx.isPlayed == false)
+                                    .Count();
 
 
                     // va voir si le joueur est déjà sur la feuille de match

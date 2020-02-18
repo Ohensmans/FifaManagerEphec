@@ -1,5 +1,6 @@
 ﻿using FifaDAL.MatchManagement;
 using FifaError;
+using FifaModeles;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -145,5 +146,36 @@ namespace MatchManagementBL
                 throw ex;
             }
         }
+
+        public List<Guid> getMatchsCartonsRouges(Guid joueurId, QuartersModele quarter)
+        {
+            try
+            {
+                List<Guid> lMatchId = new List<Guid>();
+                DataView lCartons = this.loadAllData();
+
+                foreach (DataRowView dr in lCartons)
+                {
+                    if (((Guid)dr["joueurId"] == joueurId)
+                         && ((DateTime)(dr["matchDate"]) <= quarter.dateFin)
+                         && ((DateTime)(dr["matchDate"]) >= quarter.dateDebut))
+                    {
+                        lMatchId.Add((Guid)dr["matchId"]);
+                    }
+                }
+                return lMatchId;
+            }
+            catch (TechnicalError oErreur)
+            {
+                throw oErreur;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }

@@ -56,6 +56,29 @@ namespace MatchManagementBL
             }
         }
 
+        public List<MatchsModele> getMatchsEquipe (Guid equipeId, QuartersModele quarter)
+        {
+            try
+            {
+                List<MatchsModele> lMatchs = this.GetListeObject()
+                                                 .Where(xx => xx.matchDate <= quarter.dateFin)
+                                                 .Where(xx => xx.matchDate >= quarter.dateDebut)
+                                                 .Where(xx => xx.equipe1Id == equipeId || xx.equipe2Id == equipeId)
+                                                 .OrderBy (xx => xx.matchDate)
+                                                 .ToList();
+                return lMatchs;
+            }
+            catch (TechnicalError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

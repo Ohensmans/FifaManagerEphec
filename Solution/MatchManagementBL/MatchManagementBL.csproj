@@ -58,6 +58,7 @@
     <Compile Include="MatchManagementService.cs" />
     <Compile Include="MatchsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuartersService.cs" />
     <Compile Include="TransfertsHistoryService.cs" />
   </ItemGroup>
   <ItemGroup>
