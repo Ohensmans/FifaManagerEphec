@@ -12,3 +12,4 @@ C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaModeles\obj\D
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaModeles\obj\Debug\FifaModeles.csproj.GenerateResource.cache
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaModeles\obj\Debug\FifaModeles.dll
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaModeles\obj\Debug\FifaModeles.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaModeles\obj\Debug\FifaModeles.csproj.CoreCompileInputs.cache

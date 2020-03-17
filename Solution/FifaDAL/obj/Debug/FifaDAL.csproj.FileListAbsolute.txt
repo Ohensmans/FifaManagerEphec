@@ -28,3 +28,4 @@ C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.csproj.CopyComplete
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.dll
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\FifaDAL\obj\Debug\FifaDAL.csproj.CoreCompileInputs.cache

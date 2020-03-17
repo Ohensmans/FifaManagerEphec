@@ -32,3 +32,4 @@ C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.csproj.CopyComplete
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.dll
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagementBL\obj\Debug\MatchManagementBL.csproj.CoreCompileInputs.cache

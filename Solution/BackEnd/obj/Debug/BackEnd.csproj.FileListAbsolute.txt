@@ -68,3 +68,4 @@ C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\BackEnd\obj\Debug
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\BackEnd\obj\Debug\BackEnd.csproj.CopyComplete
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\BackEnd\obj\Debug\BackEnd.exe
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\BackEnd\obj\Debug\BackEnd.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\BackEnd\obj\Debug\BackEnd.csproj.CoreCompileInputs.cache

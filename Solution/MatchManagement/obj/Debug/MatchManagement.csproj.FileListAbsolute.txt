@@ -50,3 +50,4 @@ C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagement\o
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagement\obj\Debug\MatchManagement.csproj.CopyComplete
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagement\obj\Debug\MatchManagement.exe
 C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagement\obj\Debug\MatchManagement.pdb
+C:\Users\Olivier\Desktop\Projets Git\FifaManagerEphec\Solution\MatchManagement\obj\Debug\MatchManagement.csproj.CoreCompileInputs.cache

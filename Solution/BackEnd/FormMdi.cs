@@ -28,7 +28,7 @@ namespace BackEnd
         private void générerUnChampionnatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GenChamp oForm = new GenChamp();
-            oForm.MdiParent = this.MdiParent;
+            oForm.MdiParent = this;
 
             oForm.Show();
         }
@@ -36,15 +36,15 @@ namespace BackEnd
         private void transférerUnJoueurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TransfertJoueurs oForm = new TransfertJoueurs();
-            oForm.MdiParent = this.MdiParent;
+            oForm.MdiParent = this;
 
             oForm.Show();
         }
 
         private void visualiserUnMatchModifierLeRésultatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MatchManagement.FormMDI oForm = new FormMDI();
-            oForm.MdiParent = this.MdiParent;
+            MatchManagement.FormAccueil oForm = new FormAccueil();
+            oForm.MdiParent = this;
 
             oForm.Show();
         }
@@ -52,7 +52,7 @@ namespace BackEnd
         private void voirLeClassementParÉquipeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClassementEquipe oForm = new ClassementEquipe();
-            oForm.MdiParent = this.MdiParent;
+            oForm.MdiParent = this;
 
             oForm.Show();
         }
@@ -60,7 +60,7 @@ namespace BackEnd
         private void voirLeClassementParJoueurToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClassementJoueur oForm = new ClassementJoueur();
-            oForm.MdiParent = this.MdiParent;
+            oForm.MdiParent = this;
 
             oForm.Show();
         }

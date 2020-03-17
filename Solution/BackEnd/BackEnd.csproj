@@ -126,6 +126,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TransfertJoueurs.resx">
       <DependentUpon>TransfertJoueurs.cs</DependentUpon>
@@ -161,6 +162,12 @@
       <Project>{468065f1-1ff6-470e-a554-78e673c3bc2b}</Project>
       <Name>MatchManagement</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Font.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\production-ballon-de-foot-football-sport-coupe-du-monde.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

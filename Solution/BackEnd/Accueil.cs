@@ -52,7 +52,8 @@ namespace BackEnd
 
         private void b_Match_Click(object sender, EventArgs e)
         {
-            MatchManagement.FormMDI oForm = new FormMDI();
+            MatchManagement.FormAccueil oForm = new FormAccueil();
+            oForm.MdiParent = this.MdiParent;
 
             oForm.Show();
 
