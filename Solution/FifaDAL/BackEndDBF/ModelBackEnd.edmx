@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FifaManagerEphecModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FifaManagerEphecModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CartonsJaunesHistory">
           <Key>
             <PropertyRef Name="carteJauneId" />
@@ -446,6 +446,9 @@
         <Function Name="Championnats_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="Annee" Type="int" Mode="In" />
         </Function>
+        <Function Name="Championnats_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="Championnats_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
         <Function Name="CreationDivisionChampionnat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="DateDebutChampionnat" Type="datetime" Mode="In" />
@@ -454,6 +457,9 @@
         <Function Name="EquipeParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="championnatId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="EquipeParticipation_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="EquipeParticipation_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
         <Function Name="Equipes_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
@@ -494,6 +500,9 @@
           <Parameter Name="dateFin" Type="datetime" Mode="In" />
           <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="Intersaisons_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="Intersaisons_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
         <Function Name="Joueurs_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
         <Function Name="JoueursParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
@@ -526,6 +535,9 @@
         <Function Name="Quarters_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="dateDebut" Type="datetime" Mode="In" />
           <Parameter Name="dateFin" Type="datetime" Mode="In" />
+          <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="Quarters_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="Quarters_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
@@ -644,8 +656,7 @@
             <End Role="TransfertsHistory" EntitySet="TransfertsHistory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FifaManagerEphecModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1223,7 +1234,7 @@
             <Parameter Name="minuteRecue" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CartonsRouges_DiminueSuspension">
-            <Parameter Name="carteRougeId" Mode="In" Type="Guid" />
+          <Parameter Name="carteRougeId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="CartonsRouges_GetAll" ReturnType="Collection(FifaManagerEphecModel.CartonsRouges_GetAll_Result)" />
           <FunctionImport Name="CartonsRouges_Update">
@@ -1235,7 +1246,7 @@
             <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Championnats_Add">
-            <Parameter Name="Annee" Mode="In" Type="Int32" />
+          <Parameter Name="Annee" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Championnats_GetAll" ReturnType="Collection(FifaManagerEphecModel.Championnats_GetAll_Result)" />
           <FunctionImport Name="CreationDivisionChampionnat">
@@ -1270,7 +1281,7 @@
             <Parameter Name="minuteMarque" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Goals_Delete">
-            <Parameter Name="goalId" Mode="In" Type="Guid" />
+          <Parameter Name="goalId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Goals_GetAll" ReturnType="Collection(FifaManagerEphecModel.Goals_GetAll_Result)" />
           <FunctionImport Name="Goals_Update">
@@ -1297,7 +1308,7 @@
           </FunctionImport>
           <FunctionImport Name="JoueursParticipation_GetAll" ReturnType="Collection(FifaManagerEphecModel.JoueursParticipation_GetAll_Result)" />
           <FunctionImport Name="JoueursParticipation_GetOne" ReturnType="Collection(FifaManagerEphecModel.JoueursParticipation_GetOne_Result)">
-            <Parameter Name="feuilleId" Mode="In" Type="Guid" />
+          <Parameter Name="feuilleId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Matchs_Add">
             <Parameter Name="matchDate" Mode="In" Type="DateTime" />
@@ -1330,6 +1341,18 @@
           <FunctionImport Name="Transferts_GetParticipants" ReturnType="Collection(FifaManagerEphecModel.Transferts_GetParticipants_Result)">
             <Parameter Name="equipeId" Mode="In" Type="Guid" />
             <Parameter Name="matchDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Championnats_Delete">
+            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="EquipeParticipation_Delete">
+            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="Intersaisons_Delete">
+            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="Quarters_Delete">
+            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CartonsJaunes_GetAll_Result">
@@ -1797,6 +1820,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Championnats_Delete" FunctionName="FifaManagerEphecModel.Store.Championnats_Delete" />
+          <FunctionImportMapping FunctionImportName="EquipeParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Delete" />
+          <FunctionImportMapping FunctionImportName="Intersaisons_Delete" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Delete" />
+          <FunctionImportMapping FunctionImportName="Quarters_Delete" FunctionName="FifaManagerEphecModel.Store.Quarters_Delete" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -441,6 +441,9 @@
   <Function Name="Championnats_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="Annee" Type="int" Mode="In" />
   </Function>
+  <Function Name="Championnats_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+  </Function>
   <Function Name="Championnats_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="CreationDivisionChampionnat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="DateDebutChampionnat" Type="datetime" Mode="In" />
@@ -449,6 +452,9 @@
   <Function Name="EquipeParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
     <Parameter Name="championnatId" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="EquipeParticipation_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
   </Function>
   <Function Name="EquipeParticipation_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="Equipes_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
@@ -489,6 +495,9 @@
     <Parameter Name="dateFin" Type="datetime" Mode="In" />
     <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
   </Function>
+  <Function Name="Intersaisons_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+  </Function>
   <Function Name="Intersaisons_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="Joueurs_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="JoueursParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
@@ -521,6 +530,9 @@
   <Function Name="Quarters_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="dateDebut" Type="datetime" Mode="In" />
     <Parameter Name="dateFin" Type="datetime" Mode="In" />
+    <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="Quarters_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
   </Function>
   <Function Name="Quarters_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />

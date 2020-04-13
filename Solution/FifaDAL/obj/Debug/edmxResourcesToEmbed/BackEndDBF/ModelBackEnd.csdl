@@ -682,6 +682,18 @@
       <Parameter Name="equipeId" Mode="In" Type="Guid" />
       <Parameter Name="matchDate" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="Championnats_Delete">
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="EquipeParticipation_Delete">
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Intersaisons_Delete">
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
+    <FunctionImport Name="Quarters_Delete">
+      <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CartonsJaunes_GetAll_Result">
     <Property Type="Guid" Name="carteJauneId" Nullable="false" />

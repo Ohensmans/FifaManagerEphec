@@ -1,4 +1,6 @@
-﻿namespace BackEnd
+﻿using System;
+
+namespace BackEnd
 {
     partial class GenChamp
     {
@@ -217,6 +219,7 @@
             this.PerformLayout();
 
         }
+
 
         #endregion
 

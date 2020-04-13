@@ -82,6 +82,7 @@
             this.Controls.Add(this.l_Titre);
             this.Name = "CalendrierMatchs";
             this.Text = "Calendrier des Matchs";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalendrierMatchs_FormClosing);
             this.Load += new System.EventHandler(this.CalendrierMatchs_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dg_listeMatch)).EndInit();
             this.ResumeLayout(false);

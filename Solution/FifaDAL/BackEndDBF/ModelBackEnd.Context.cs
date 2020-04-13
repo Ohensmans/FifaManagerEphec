@@ -18,11 +18,11 @@ namespace FifaDAL.BackEndDBF
 
     public partial class FifaManagerEphecEntities : DbContext
     {
-        public FifaManagerEphecEntities(string _Connection)
+        public FifaManagerEphecEntities(string _connection)
             : base("name=FifaManagerEphecEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -199,7 +199,6 @@ namespace FifaDAL.BackEndDBF
         }
     
         public virtual ObjectResult<Equipes_GetAll_Result> Equipes_GetAll()
-        
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Equipes_GetAll_Result>("Equipes_GetAll");
         }
@@ -217,9 +216,9 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FeuilleDeMatch_Add", matchIdParameter, equipeIdParameter);
         }
     
-        public virtual ObjectResult<FeuillesDeMatch_GetAll_Result> FeuilleDeMatch_GetAll()
+        public virtual ObjectResult<FeuilleDeMatch_GetAll_Result> FeuilleDeMatch_GetAll()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FeuillesDeMatch_GetAll_Result>("FeuilleDeMatch_GetAll");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FeuilleDeMatch_GetAll_Result>("FeuilleDeMatch_GetAll");
         }
     
         public virtual ObjectResult<FeuilleDeMatch_GetNombreJoueursInscrits_Result> FeuilleDeMatch_GetNombreJoueursInscrits(Nullable<System.Guid> matchId, Nullable<System.Guid> equipeId)
@@ -374,14 +373,14 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoueursParticipation_GetAll_Result>("JoueursParticipation_GetAll");
         }
     
-        /*public virtual ObjectResult<JoueursParticipation_GetOne_Result> JoueursParticipation_GetOne(Nullable<System.Guid> feuilleId)
+        public virtual ObjectResult<JoueursParticipation_GetOne_Result> JoueursParticipation_GetOne(Nullable<System.Guid> feuilleId)
         {
             var feuilleIdParameter = feuilleId.HasValue ?
                 new ObjectParameter("feuilleId", feuilleId) :
                 new ObjectParameter("feuilleId", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoueursParticipation_GetOne_Result>("JoueursParticipation_GetOne", feuilleIdParameter);
-        }*/
+        }
     
         public virtual int Matchs_Add(Nullable<System.DateTime> matchDate, Nullable<System.Guid> equipe1Id, Nullable<System.Guid> equipe2Id)
         {
@@ -486,7 +485,7 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transferts_GetAll_Result>("Transferts_GetAll");
         }
     
-        /*public virtual ObjectResult<Transferts_GetParticipants_Result> Transferts_GetParticipants(Nullable<System.Guid> equipeId, Nullable<System.DateTime> matchDate)
+        public virtual ObjectResult<Transferts_GetParticipants_Result> Transferts_GetParticipants(Nullable<System.Guid> equipeId, Nullable<System.DateTime> matchDate)
         {
             var equipeIdParameter = equipeId.HasValue ?
                 new ObjectParameter("equipeId", equipeId) :
@@ -497,6 +496,42 @@ namespace FifaDAL.BackEndDBF
                 new ObjectParameter("matchDate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transferts_GetParticipants_Result>("Transferts_GetParticipants", equipeIdParameter, matchDateParameter);
-        }*/
+        }
+    
+        public virtual int Championnats_Delete(Nullable<System.Guid> championnatId)
+        {
+            var championnatIdParameter = championnatId.HasValue ?
+                new ObjectParameter("ChampionnatId", championnatId) :
+                new ObjectParameter("ChampionnatId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Championnats_Delete", championnatIdParameter);
+        }
+    
+        public virtual int EquipeParticipation_Delete(Nullable<System.Guid> championnatId)
+        {
+            var championnatIdParameter = championnatId.HasValue ?
+                new ObjectParameter("ChampionnatId", championnatId) :
+                new ObjectParameter("ChampionnatId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EquipeParticipation_Delete", championnatIdParameter);
+        }
+    
+        public virtual int Intersaisons_Delete(Nullable<System.Guid> championnatId)
+        {
+            var championnatIdParameter = championnatId.HasValue ?
+                new ObjectParameter("ChampionnatId", championnatId) :
+                new ObjectParameter("ChampionnatId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Intersaisons_Delete", championnatIdParameter);
+        }
+    
+        public virtual int Quarters_Delete(Nullable<System.Guid> championnatId)
+        {
+            var championnatIdParameter = championnatId.HasValue ?
+                new ObjectParameter("ChampionnatId", championnatId) :
+                new ObjectParameter("ChampionnatId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Quarters_Delete", championnatIdParameter);
+        }
     }
 }

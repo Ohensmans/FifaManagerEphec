@@ -53,16 +53,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackEndDBF\CartonsJaunesHistory.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\CartonsJaunes_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\CartonsRougesHistory.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\CartonsRouges_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Championnats.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\Championnats_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\EquipeParticipation_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Equipes.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\EquipesParticipationHistory.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\Equipes_GetAll_Result.cs">
@@ -74,10 +89,25 @@
     <Compile Include="BackEndDBF\FeuilleDeMatch_GetNombreJoueursInscrits_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\FeuillesDeMatch.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\GoalsHistory.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\Goals_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\Intersaisons.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\Intersaisons_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Joueurs.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\JoueursParticipationHistory.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\JoueursParticipation_GetAll_Result.cs">
@@ -87,6 +117,9 @@
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\Joueurs_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\Matchs.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\Matchs_GetAll_Result.cs">
@@ -107,7 +140,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelBackEnd.edmx</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\Quarters.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\Quarters_GetAll_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\sysdiagrams.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BackEndDBF\TransfertsHistory.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
     <Compile Include="BackEndDBF\Transferts_GetAll_Result.cs">

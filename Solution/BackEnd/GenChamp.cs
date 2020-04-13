@@ -20,6 +20,7 @@ namespace BackEnd
         private int DUREEQUARTER = 35; // en jours
         private int dureeIntersaison = 6; // en mois
         private int PREMIEREANNEE = 1900;
+        private int DERNIEREANNEE = 9998;
 
         private DateTime dateDebut;
         private DateTime dateFinQ1;
@@ -47,10 +48,9 @@ namespace BackEnd
             
             if (Int32.TryParse(tb_Annee.Text, out annee))
             {
-                if (annee >= PREMIEREANNEE)
+                if (annee >= PREMIEREANNEE && annee <9999)
                 {
                     int dureePresaison = PRESAISON;
-
 
                     //vérifie si l'année est bissextile
                     if ((Convert.ToInt32(tb_Annee.Text) % 4 == 0 && Convert.ToInt32(tb_Annee.Text) % 100 != 0) || Convert.ToInt32(tb_Annee.Text) % 400 == 0)
@@ -58,8 +58,8 @@ namespace BackEnd
                         dureePresaison += +1;
                     }
 
-                    dtp_DateDebut.MinDate = new DateTime(1900, 1, 1);
-                    dtp_DateDebut.MaxDate = new DateTime(3000, 1, 1);
+                    dtp_DateDebut.MinDate = new DateTime(PREMIEREANNEE, 1, 1);
+                    dtp_DateDebut.MaxDate = new DateTime(DERNIEREANNEE, 1, 1);
 
                     DateTime dateDebut = new DateTime(Convert.ToInt32(tb_Annee.Text), 1, 1);
                     dtp_DateDebut.Enabled = true;
@@ -70,7 +70,7 @@ namespace BackEnd
                 }
                 else
                 {
-                    MessageBox.Show("L'année encodée doit être supérieure à " + PREMIEREANNEE);
+                    MessageBox.Show("L'année encodée doit être supérieure ou égale à " + PREMIEREANNEE+" et inférieure ou égale à "+ DERNIEREANNEE);
                     tb_Annee.Text = "";
                 }
             }
@@ -79,9 +79,6 @@ namespace BackEnd
 
         private void dtp_DateDebut_ValueChanged(object sender, EventArgs e)
         {
-            dtp_DateDebut.MinDate = new DateTime(1900, 1, 1);
-            dtp_DateDebut.MaxDate = new DateTime(3000, 1, 1);
-
             getResume();
         }
 
@@ -135,7 +132,20 @@ namespace BackEnd
                 {
                     if (annee >= PREMIEREANNEE)
                     {
-                        checkAnnee();
+                        ChampionnatService cs = new ChampionnatService();
+
+                        if (cs.getChampionnat(annee)==null)
+                        {
+                            checkAnnee();
+                        }
+                        else
+                        {
+                            dg_EquipesSelection.DataSource = "";
+                            dtp_DateDebut.Enabled = false;
+                            resetLabels();
+                            MessageBox.Show("Ce championnat existe déjà");
+                        }
+                        
                     }
                     else
                     {
@@ -144,6 +154,14 @@ namespace BackEnd
                         resetLabels();
                     }
                 }
+                else
+                {
+                    dg_EquipesSelection.DataSource = "";
+                    dtp_DateDebut.Enabled = false;
+                    resetLabels();
+                    MessageBox.Show("Le format de l'année doit être valide en 4 chiffres");
+                }
+
             }
             catch(Exception ex)
             {
@@ -252,5 +270,6 @@ namespace BackEnd
         {
             this.Close();
         }
+
     }
 }

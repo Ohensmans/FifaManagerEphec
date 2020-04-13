@@ -349,5 +349,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Championnats_Delete" FunctionName="FifaManagerEphecModel.Store.Championnats_Delete" />
+    <FunctionImportMapping FunctionImportName="EquipeParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Delete" />
+    <FunctionImportMapping FunctionImportName="Intersaisons_Delete" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Delete" />
+    <FunctionImportMapping FunctionImportName="Quarters_Delete" FunctionName="FifaManagerEphecModel.Store.Quarters_Delete" />
   </EntityContainerMapping>
 </Mapping>

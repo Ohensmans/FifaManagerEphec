@@ -37,6 +37,8 @@ namespace BackEnd
                 oTable = tab.generationCalendrier(annee, lEquipe);
                 dg_listeMatch.DataSource = oTable;
                 datagridRules();
+                cleanColor();
+                modifsAFaire();
             }
             catch (Exception ex)
             {
@@ -94,6 +96,25 @@ namespace BackEnd
                 dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = DefaultBackColor;
             }
 
+        }
+
+        // mets en rouges les lignes pour lesquelles une date doit être modifiée
+        private void modifsAFaire()
+        {
+            DateTime d1 = new DateTime(1801, 1, 1);
+            DateTime d2 = new DateTime(1802, 1, 1);
+
+            for (int i = 0; i < dg_listeMatch.Rows.Count; i++)
+            {
+                if ((DateTime)dg_listeMatch.Rows[i].Cells["Date du Match :"].Value == d1 || (DateTime)dg_listeMatch.Rows[i].Cells["Date du Match :"].Value == d2)
+                {
+                    dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = Color.Green;
+                }
+            }
         }
          
 
@@ -187,6 +208,11 @@ namespace BackEnd
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+
+        private void CalendrierMatchs_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
         }
     }
