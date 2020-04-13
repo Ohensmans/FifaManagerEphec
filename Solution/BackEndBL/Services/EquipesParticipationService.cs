@@ -13,6 +13,30 @@ namespace BackEndBL.Services
 {
     public class EquipesParticipationService : BackEndService
     {
+
+        public void Delete(Guid championnatId)
+        {
+
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
+            {
+                try
+                {
+                    ctx.EquipeParticipation_Delete(championnatId);
+
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+
         public List<FifaModeles.EquipesParticipationModele> ListAll()
         {
             try

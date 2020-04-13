@@ -13,6 +13,29 @@ namespace BackEndBL.Services
 {
     public class QuartersService : BackEndService
     {
+        public void Delete(Guid championnatId)
+        {
+
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
+            {
+                try
+                {
+                    ctx.Quarters_Delete(championnatId);
+
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+
 
         public Boolean checkPasDansQuarter (DateTime date)
         {

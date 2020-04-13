@@ -1,4 +1,5 @@
-﻿using BackEndBL.GenerationTableaux;
+﻿using BackEndBL;
+using BackEndBL.GenerationTableaux;
 using BackEndBL.Services;
 using FifaError;
 using FifaModeles;
@@ -20,6 +21,8 @@ namespace BackEnd
         private List<String> lEquipe;
         private DateTimePicker dtp = new DateTimePicker();
         private DataTable oTable;
+        private bool estSave;
+        private bool aideDemandee;
 
         public CalendrierMatchs(int annee, List<string> lEquipe)
         {
@@ -37,8 +40,8 @@ namespace BackEnd
                 oTable = tab.generationCalendrier(annee, lEquipe);
                 dg_listeMatch.DataSource = oTable;
                 datagridRules();
-                cleanColor();
-                modifsAFaire();
+                estSave = false;
+                aideDemandee = false;
             }
             catch (Exception ex)
             {
@@ -64,6 +67,7 @@ namespace BackEnd
                 cleanColor();
                 MatchsService matchs = new MatchsService();
                 matchs.enregistrerMatchs(oTable.DefaultView);
+                estSave = true;
                 this.Close();
             }
             catch (BusinessError be)
@@ -98,7 +102,7 @@ namespace BackEnd
 
         }
 
-        // mets en rouges les lignes pour lesquelles une date doit être modifiée
+        // mets en jaune les lignes pour lesquelles une date doit être modifiée
         private void modifsAFaire()
         {
             DateTime d1 = new DateTime(1801, 1, 1);
@@ -109,10 +113,6 @@ namespace BackEnd
                 if ((DateTime)dg_listeMatch.Rows[i].Cells["Date du Match :"].Value == d1 || (DateTime)dg_listeMatch.Rows[i].Cells["Date du Match :"].Value == d2)
                 {
                     dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                }
-                else
-                {
-                    dg_listeMatch.Rows[i].DefaultCellStyle.BackColor = Color.Green;
                 }
             }
         }
@@ -213,7 +213,46 @@ namespace BackEnd
 
         private void CalendrierMatchs_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!estSave)
+            {
+                try
+                {
+                    MessageBox.Show("Pour information : en sortant sans sauvegarder, le championnat crée est effacé");
 
+                    ChampionnatService cs = new ChampionnatService();
+                    QuartersService qs = new QuartersService();
+                    IntersaisonsService intS = new IntersaisonsService();
+                    EquipesParticipationService es = new EquipesParticipationService();
+
+                    Guid championnatId = cs.getChampionnat(annee).championnatId;
+
+                    qs.Delete(championnatId);
+                    intS.Delete(championnatId);
+                    es.Delete(championnatId);
+                    cs.Delete(championnatId);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void dg_listeMatch_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (aideDemandee)
+            {
+                cleanColor();
+                modifsAFaire();
+            }
+            
+        }
+
+        private void b_Aide_Click(object sender, EventArgs e)
+        {
+            aideDemandee = true;
+            cleanColor();
+            modifsAFaire();
         }
     }
 }

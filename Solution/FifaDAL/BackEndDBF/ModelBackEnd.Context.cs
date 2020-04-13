@@ -19,10 +19,11 @@ namespace FifaDAL.BackEndDBF
     public partial class FifaManagerEphecEntities : DbContext
     {
         public FifaManagerEphecEntities(string _connection)
-            : base("name=FifaManagerEphecEntities")
+            : base(_connection)
         {
+            // 
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

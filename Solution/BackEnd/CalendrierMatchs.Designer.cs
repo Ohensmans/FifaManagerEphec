@@ -31,6 +31,7 @@
             this.l_Titre = new System.Windows.Forms.Label();
             this.dg_listeMatch = new System.Windows.Forms.DataGridView();
             this.b_Save = new System.Windows.Forms.Button();
+            this.b_Aide = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dg_listeMatch)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +60,7 @@
             this.dg_listeMatch.Size = new System.Drawing.Size(502, 356);
             this.dg_listeMatch.TabIndex = 2;
             this.dg_listeMatch.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_listeMatch_CellClick);
+            this.dg_listeMatch.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_listeMatch_CellValueChanged);
             // 
             // b_Save
             // 
@@ -72,11 +74,22 @@
             this.b_Save.UseVisualStyleBackColor = true;
             this.b_Save.Click += new System.EventHandler(this.b_Save_Click);
             // 
+            // b_Aide
+            // 
+            this.b_Aide.Location = new System.Drawing.Point(459, 84);
+            this.b_Aide.Name = "b_Aide";
+            this.b_Aide.Size = new System.Drawing.Size(75, 23);
+            this.b_Aide.TabIndex = 4;
+            this.b_Aide.Text = "Aide";
+            this.b_Aide.UseVisualStyleBackColor = true;
+            this.b_Aide.Click += new System.EventHandler(this.b_Aide_Click);
+            // 
             // CalendrierMatchs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 552);
+            this.Controls.Add(this.b_Aide);
             this.Controls.Add(this.b_Save);
             this.Controls.Add(this.dg_listeMatch);
             this.Controls.Add(this.l_Titre);
@@ -95,5 +108,6 @@
         private System.Windows.Forms.Label l_Titre;
         private System.Windows.Forms.DataGridView dg_listeMatch;
         private System.Windows.Forms.Button b_Save;
+        private System.Windows.Forms.Button b_Aide;
     }
 }

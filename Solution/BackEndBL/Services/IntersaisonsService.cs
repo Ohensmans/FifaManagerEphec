@@ -14,6 +14,30 @@ namespace BackEndBL.Services
 {
     public class IntersaisonsService : BackEndService
     {
+        public void Delete(Guid championnatId)
+        {
+
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
+            {
+                try
+                {
+                    ctx.Intersaisons_Delete(championnatId);
+
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+
+
         public void enregistrerNewIntersaison(DateTime dateDebut, DateTime dateFin, Guid championnatId)
         {
             using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))

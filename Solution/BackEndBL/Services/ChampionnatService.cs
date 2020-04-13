@@ -57,6 +57,29 @@ namespace BackEndBL
             }            
         }
 
+        public void Delete(Guid championnatId)
+        {
+
+            using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
+            {
+                try
+                {
+                    ctx.Championnats_Delete(championnatId);
+
+                    using (TransactionScope scope = new TransactionScope())
+                    {
+                        ctx.SaveChanges();
+                        scope.Complete();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            
+        }
+
         public List<FifaModeles.ChampionnatsModele> ListAll()
         {
             List<FifaModeles.ChampionnatsModele> lch = new List<FifaModeles.ChampionnatsModele>();
