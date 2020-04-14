@@ -59,11 +59,7 @@ namespace BackEndBL.Services
                 int countJoueursParticipation;
                 using (FifaManagerEphecEntities ctx = new FifaManagerEphecEntities(_Connection))
                 {
-                    countJoueursParticipation = ctx.JoueursParticipation
-                                               .Where(xx => xx.joueurId == joueurId)
-                                               .Include("FeuillesDeMatch.Matchs")
-                                               .Where(yy => yy.FeuillesDeMatch.Matchs.matchDate > date)
-                                               .Count();
+                    countJoueursParticipation = ctx.NombreParticipationJoueurApresDate(joueurId, date);
                 }
                 if (countJoueursParticipation>0)
                 {

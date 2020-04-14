@@ -532,6 +532,10 @@
           <Parameter Name="equipe2Points" Type="int" Mode="In" />
           <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="NombreParticipationJoueurApresDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="date" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="Quarters_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="dateDebut" Type="datetime" Mode="In" />
           <Parameter Name="dateFin" Type="datetime" Mode="In" />
@@ -548,9 +552,19 @@
           <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
         </Function>
         <Function Name="Transferts_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
+        <Function Name="Transferts_GetIdByPlayerByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="date" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="Transferts_GetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
           <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="matchDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="Transferts_UpdateDateFin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+          <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="dateDebut" Type="datetime" Mode="In" />
+          <Parameter Name="dateFin" Type="datetime" Mode="In" />
+          <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="FifaManagerEphecModelStoreContainer">
           <EntitySet Name="CartonsJaunesHistory" EntityType="Self.CartonsJaunesHistory" Schema="dbo" store:Type="Tables" />
@@ -1343,16 +1357,30 @@
             <Parameter Name="matchDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Championnats_Delete">
-            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="EquipeParticipation_Delete">
-            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Intersaisons_Delete">
-            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="Quarters_Delete">
-            <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="NombreParticipationJoueurApresDate" ReturnType="Collection(Int32)">
+            <Parameter Name="joueurId" Mode="In" Type="Guid" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Transferts_GetIdByPlayerByDate" ReturnType="Collection(FifaManagerEphecModel.Transferts_GetIdByPlayerByDate_Result)">
+            <Parameter Name="joueurId" Mode="In" Type="Guid" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Transferts_UpdateDateFin">
+            <Parameter Name="joueurId" Mode="In" Type="Guid" />
+            <Parameter Name="dateDebut" Mode="In" Type="DateTime" />
+            <Parameter Name="dateFin" Mode="In" Type="DateTime" />
+            <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CartonsJaunes_GetAll_Result">
@@ -1460,6 +1488,13 @@
           <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
         </ComplexType>
         <ComplexType Name="Transferts_GetParticipants_Result">
+          <Property Type="Guid" Name="joueurId" Nullable="false" />
+          <Property Type="Guid" Name="equipeId" Nullable="false" />
+          <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="dateFin" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="Transferts_GetIdByPlayerByDate_Result">
           <Property Type="Guid" Name="joueurId" Nullable="false" />
           <Property Type="Guid" Name="equipeId" Nullable="false" />
           <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
@@ -1824,6 +1859,19 @@
           <FunctionImportMapping FunctionImportName="EquipeParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Delete" />
           <FunctionImportMapping FunctionImportName="Intersaisons_Delete" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Delete" />
           <FunctionImportMapping FunctionImportName="Quarters_Delete" FunctionName="FifaManagerEphecModel.Store.Quarters_Delete" />
+          <FunctionImportMapping FunctionImportName="NombreParticipationJoueurApresDate" FunctionName="FifaManagerEphecModel.Store.NombreParticipationJoueurApresDate" />
+          <FunctionImportMapping FunctionImportName="Transferts_GetIdByPlayerByDate" FunctionName="FifaManagerEphecModel.Store.Transferts_GetIdByPlayerByDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FifaManagerEphecModel.Transferts_GetIdByPlayerByDate_Result">
+                <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+                <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+                <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Transferts_UpdateDateFin" FunctionName="FifaManagerEphecModel.Store.Transferts_UpdateDateFin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

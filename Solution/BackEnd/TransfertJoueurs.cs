@@ -110,7 +110,7 @@ namespace BackEnd
                     }
                     else
                     {
-                        transfertPossible = new DateTime(1900, 1, 1);
+                        transfertPossible = DateTime.Now;
                     }
 
                     //règle le datetimepicker               

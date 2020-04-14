@@ -527,6 +527,10 @@
     <Parameter Name="equipe2Points" Type="int" Mode="In" />
     <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="NombreParticipationJoueurApresDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="date" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="Quarters_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="dateDebut" Type="datetime" Mode="In" />
     <Parameter Name="dateFin" Type="datetime" Mode="In" />
@@ -543,9 +547,19 @@
     <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
   </Function>
   <Function Name="Transferts_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
+  <Function Name="Transferts_GetIdByPlayerByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="date" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="Transferts_GetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
     <Parameter Name="matchDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="Transferts_UpdateDateFin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
+    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="dateDebut" Type="datetime" Mode="In" />
+    <Parameter Name="dateFin" Type="datetime" Mode="In" />
+    <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
   </Function>
   <EntityContainer Name="FifaManagerEphecModelStoreContainer">
     <EntitySet Name="CartonsJaunesHistory" EntityType="Self.CartonsJaunesHistory" Schema="dbo" store:Type="Tables" />

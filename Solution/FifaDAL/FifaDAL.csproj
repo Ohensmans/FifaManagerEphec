@@ -155,6 +155,9 @@
     <Compile Include="BackEndDBF\Transferts_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\Transferts_GetIdByPlayerByDate_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\Transferts_GetParticipants_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>

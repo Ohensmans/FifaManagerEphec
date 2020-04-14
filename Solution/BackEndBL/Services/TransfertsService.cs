@@ -199,12 +199,20 @@ namespace BackEndBL.Services
                         
                         EquipesService es = new EquipesService();
 
-                        //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew
-                        FifaModeles.EquipesModele equipeNew = es.getEquipe(row["combo"].ToString());
-                        //obtient le nombre de transfert 
-                        int nbTransfertsIn = nombreTransfertEquipeNew(oView, equipeNew.nom);
-                        //obtient le nombre de joueur avant transfert
-                        int nbJoueurNew = nombreJoueurEquipe(equipeNew.equipeId, (DateTime)row["Date du transfert :"]);
+                        //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew si elle existe
+                        int nbTransfertsIn = 0;
+                        int nbJoueurNew = NOMBREMINJOUEUR;
+                        EquipesModele equipeNew = new EquipesModele();
+
+                        if (row["combo"].ToString() != "")
+                        {
+                            //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew
+                            equipeNew = es.getEquipe(row["combo"].ToString());
+                            //obtient le nombre de transfert 
+                            nbTransfertsIn = nombreTransfertEquipeNew(oView, equipeNew.nom);
+                            //obtient le nombre de joueur avant transfert
+                            nbJoueurNew = nombreJoueurEquipe(equipeNew.equipeId, (DateTime)row["Date du transfert :"]);
+                        }
 
                         //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeOld si elle existe
                         int nbTransfertsOut = 0;
@@ -233,10 +241,13 @@ namespace BackEndBL.Services
 
                                 if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
                                 {
-
-                                    ClassementEquipe classement = new ClassementEquipe();
-                                    if (classement.isLastThree(equipeNew, (DateTime)row["Date du transfert :"]))
+                                    if (equipeNew != null)
                                     {
+                                        ClassementEquipe classement = new ClassementEquipe();
+                                        if (classement.isLastThree(equipeNew, (DateTime)row["Date du transfert :"]))
+                                        {
+
+                                        }
                                     }
                                 }
                             }
@@ -255,15 +266,15 @@ namespace BackEndBL.Services
                         }
                         
                     }
-                    return true;
+                    
                 }
                 else
                 {
                     // retourne un BusinessError si il n'y aurait plus assez de joueurs
-                    BusinessError bErreur = new BusinessError("Toutes les cellules de date de transfert et d'équipes d'arrivée ne sont pas remplies");
+                    BusinessError bErreur = new BusinessError("Toutes les cellules de date de transfert ne sont pas remplies");
                     throw bErreur;
                 }
-
+                return true;
 
             }
             catch (Exception ex)
@@ -343,12 +354,12 @@ namespace BackEndBL.Services
 
         }
 
-        //vérifie que les cellules nécessaires (date transfert et équipe arrivée) soient bien remplies
+        //vérifie que les cellules nécessaires (équipe arrivée) soient bien remplies
         public Boolean checkTableTransfert(DataView oView)
         {
             foreach (DataRowView row in oView)
             {
-                if (row["Date du transfert :"].ToString() == "" || row["combo"].ToString() == "")
+                if (row["Date du transfert :"].ToString() == "")
                 {
                     return false;
                 }
@@ -374,25 +385,22 @@ namespace BackEndBL.Services
                             //récupère l'id du joueur
                             Guid joueurId = new JoueursService().GetJoueurs(row["Joueur :"].ToString()).joueurId;
                             DateTime dateTransfert = (DateTime)row["Date du transfert :"];
-                            Guid equipeInId = new EquipesService().getEquipe(row["combo"].ToString()).equipeId;
 
-                            if (row["Date arrivee :"].ToString() != "")
+                            //mets fin au précedent transfert si il existe et rajoute un jour à la date du transfert
+                            if (row["Date arrivee :"].ToString() != ""&& row["Equipe :"].ToString()!="")
                             {
-                                //récupère l'ancien transfert et le modifie
-                                DateTime dateArrivee = (DateTime)row["Date arrivee :"];
-                                FifaModeles.TransfertsModele transfertOld = ctx.Transferts.Where(xx => xx.joueurId == joueurId)
-                                                                           .Where(yy => yy.dateDebut == dateArrivee)
-                                                                           .FirstOrDefault();
-                                if (transfertOld != null)
-                                {
-                                    transfertOld.dateFin = dateTransfert;
-                                    transfertOld.lastUpdate = DateTime.Now;
-                                }
+                                ctx.Transferts_UpdateDateFin(joueurId, (DateTime)row["Date arrivee :"], dateTransfert, DateTime.Now);
 
                                 dateTransfert = dateTransfert.AddDays(1);
                             }
 
-                            ctx.Tansferts_Add(joueurId, equipeInId, dateTransfert, DateTime.Now);                      
+                            //crée un nouveau transfert
+                            if (row["combo"].ToString() != "")
+                            {
+                                Guid equipeInId = new EquipesService().getEquipe(row["combo"].ToString()).equipeId;
+                                ctx.Tansferts_Add(joueurId, equipeInId, dateTransfert, DateTime.Now);
+                            }
+
                         }
                         using (TransactionScope scope = new TransactionScope())
                         {

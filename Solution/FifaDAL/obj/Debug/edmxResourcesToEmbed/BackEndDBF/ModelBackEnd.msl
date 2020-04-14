@@ -353,5 +353,18 @@
     <FunctionImportMapping FunctionImportName="EquipeParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Delete" />
     <FunctionImportMapping FunctionImportName="Intersaisons_Delete" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Delete" />
     <FunctionImportMapping FunctionImportName="Quarters_Delete" FunctionName="FifaManagerEphecModel.Store.Quarters_Delete" />
+    <FunctionImportMapping FunctionImportName="NombreParticipationJoueurApresDate" FunctionName="FifaManagerEphecModel.Store.NombreParticipationJoueurApresDate" />
+    <FunctionImportMapping FunctionImportName="Transferts_GetIdByPlayerByDate" FunctionName="FifaManagerEphecModel.Store.Transferts_GetIdByPlayerByDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Transferts_GetIdByPlayerByDate_Result">
+          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
+          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
+          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Transferts_UpdateDateFin" FunctionName="FifaManagerEphecModel.Store.Transferts_UpdateDateFin" />
   </EntityContainerMapping>
 </Mapping>

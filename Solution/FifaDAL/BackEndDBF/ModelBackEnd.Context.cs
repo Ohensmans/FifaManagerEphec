@@ -19,7 +19,7 @@ namespace FifaDAL.BackEndDBF
     public partial class FifaManagerEphecEntities : DbContext
     {
         public FifaManagerEphecEntities(string _connection)
-            : base(_connection)
+    : base(_connection)
         {
             // 
         }
@@ -30,18 +30,18 @@ namespace FifaDAL.BackEndDBF
         }
 
         public virtual DbSet<CartonsJaunesModele> CartonsJaunes { get; set; }
-        public virtual DbSet<FifaModeles.CartonsRougesModele> CartonsRouges { get; set; }
-        public virtual DbSet<FifaModeles.ChampionnatsModele> Championnats { get; set; }
-        public virtual DbSet<FifaModeles.EquipesModele> Equipes { get; set; }
-        public virtual DbSet<FifaModeles.EquipesParticipationModele> EquipesParticipation { get; set; }
-        public virtual DbSet<FifaModeles.FeuillesDeMatchModele> FeuillesDeMatch { get; set; }
-        public virtual DbSet<FifaModeles.GoalsModele> GoalsHistory { get; set; }
-        public virtual DbSet<FifaModeles.IntersaisonsModele> Intersaisons { get; set; }
-        public virtual DbSet<FifaModeles.JoueursModele> Joueurs { get; set; }
-        public virtual DbSet<FifaModeles.JoueursParticipationModele> JoueursParticipation { get; set; }
-        public virtual DbSet<FifaModeles.MatchsModele> Matchs { get; set; }
-        public virtual DbSet<FifaModeles.QuartersModele> Quarters { get; set; }
-        public virtual DbSet<FifaModeles.TransfertsModele> Transferts { get; set; }
+        public virtual DbSet<CartonsRougesModele> CartonsRouges { get; set; }
+        public virtual DbSet<ChampionnatsModele> Championnats { get; set; }
+        public virtual DbSet<EquipesModele> Equipes { get; set; }
+        public virtual DbSet<EquipesParticipationModele> EquipesParticipation { get; set; }
+        public virtual DbSet<FeuillesDeMatchModele> FeuillesDeMatch { get; set; }
+        public virtual DbSet<GoalsModele> GoalsHistory { get; set; }
+        public virtual DbSet<IntersaisonsModele> Intersaisons { get; set; }
+        public virtual DbSet<JoueursModele> Joueurs { get; set; }
+        public virtual DbSet<JoueursParticipationModele> JoueursParticipation { get; set; }
+        public virtual DbSet<MatchsModele> Matchs { get; set; }
+        public virtual DbSet<QuartersModele> Quarters { get; set; }
+        public virtual DbSet<TransfertsModele> Transferts { get; set; }
 
         public virtual int CartonsJaunes_Add(Nullable<System.Guid> joueurId, Nullable<System.Guid> matchId, Nullable<int> minuteRecue)
         {
@@ -533,6 +533,53 @@ namespace FifaDAL.BackEndDBF
                 new ObjectParameter("ChampionnatId", typeof(System.Guid));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Quarters_Delete", championnatIdParameter);
+        }
+    
+        public virtual int NombreParticipationJoueurApresDate(Nullable<System.Guid> joueurId, Nullable<System.DateTime> date)
+        {
+            var joueurIdParameter = joueurId.HasValue ?
+                new ObjectParameter("joueurId", joueurId) :
+                new ObjectParameter("joueurId", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NombreParticipationJoueurApresDate", joueurIdParameter, dateParameter);
+        }
+    
+        public virtual ObjectResult<TransfertsModele> Transferts_GetIdByPlayerByDate(Nullable<System.Guid> joueurId, Nullable<System.DateTime> date)
+        {
+            var joueurIdParameter = joueurId.HasValue ?
+                new ObjectParameter("joueurId", joueurId) :
+                new ObjectParameter("joueurId", typeof(System.Guid));
+    
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TransfertsModele>("Transferts_GetIdByPlayerByDate", joueurIdParameter, dateParameter);
+        }
+    
+        public virtual int Transferts_UpdateDateFin(Nullable<System.Guid> joueurId, Nullable<System.DateTime> dateDebut, Nullable<System.DateTime> dateFin, Nullable<System.DateTime> lastUpdate)
+        {
+            var joueurIdParameter = joueurId.HasValue ?
+                new ObjectParameter("joueurId", joueurId) :
+                new ObjectParameter("joueurId", typeof(System.Guid));
+    
+            var dateDebutParameter = dateDebut.HasValue ?
+                new ObjectParameter("dateDebut", dateDebut) :
+                new ObjectParameter("dateDebut", typeof(System.DateTime));
+    
+            var dateFinParameter = dateFin.HasValue ?
+                new ObjectParameter("dateFin", dateFin) :
+                new ObjectParameter("dateFin", typeof(System.DateTime));
+    
+            var lastUpdateParameter = lastUpdate.HasValue ?
+                new ObjectParameter("lastUpdate", lastUpdate) :
+                new ObjectParameter("lastUpdate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Transferts_UpdateDateFin", joueurIdParameter, dateDebutParameter, dateFinParameter, lastUpdateParameter);
         }
     }
 }

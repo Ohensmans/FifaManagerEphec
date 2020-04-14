@@ -694,6 +694,20 @@
     <FunctionImport Name="Quarters_Delete">
       <Parameter Name="ChampionnatId" Mode="In" Type="Guid" />
     </FunctionImport>
+    <FunctionImport Name="NombreParticipationJoueurApresDate" ReturnType="Collection(Int32)">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Transferts_GetIdByPlayerByDate" ReturnType="Collection(FifaManagerEphecModel.Transferts_GetIdByPlayerByDate_Result)">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Transferts_UpdateDateFin">
+      <Parameter Name="joueurId" Mode="In" Type="Guid" />
+      <Parameter Name="dateDebut" Mode="In" Type="DateTime" />
+      <Parameter Name="dateFin" Mode="In" Type="DateTime" />
+      <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="CartonsJaunes_GetAll_Result">
     <Property Type="Guid" Name="carteJauneId" Nullable="false" />
@@ -800,6 +814,13 @@
     <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
   </ComplexType>
   <ComplexType Name="Transferts_GetParticipants_Result">
+    <Property Type="Guid" Name="joueurId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
+    <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="dateFin" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="Transferts_GetIdByPlayerByDate_Result">
     <Property Type="Guid" Name="joueurId" Nullable="false" />
     <Property Type="Guid" Name="equipeId" Nullable="false" />
     <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
