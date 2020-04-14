@@ -32,17 +32,26 @@ namespace BackEnd
             {
                 List<ChampionnatsModele> lChampionnats = new ChampionnatService().ListAll();
 
-                foreach (ChampionnatsModele championnat in lChampionnats)
+                if (lChampionnats.Count != 0)
                 {
-                    cb_Championnat.Items.Add(championnat.annee);
+
+                    foreach (ChampionnatsModele championnat in lChampionnats)
+                    {
+                        cb_Championnat.Items.Add(championnat.annee);
+                    }
+                    cb_Championnat.Sorted = true;
+
+                    cb_Classement.Items.Add("Goals");
+                    cb_Classement.Items.Add("Cartes");
+
+                    cb_Championnat.SelectedIndex = 0;
+                    cb_Classement.SelectedItem = "Goals";
                 }
-                cb_Championnat.Sorted = true;
-
-                cb_Classement.Items.Add("Goals");
-                cb_Classement.Items.Add("Cartes");
-
-                cb_Championnat.SelectedIndex = 0;
-                cb_Classement.SelectedItem = "Goals";
+                else
+                {
+                    MessageBox.Show("Pour afficher les classements, il faut au moins qu'un championnat existe");
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
