@@ -1,4 +1,5 @@
-﻿using FifaError;
+﻿using FifaDAL.MatchManagement;
+using FifaError;
 using FifaModeles;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,25 @@ namespace MatchManagementBL
             {
                 throw ex;
             }
+        }
+
+        public void UpdateIsPlayed (Guid matchId)
+        {
+            try
+            {
+                MatchData md = new MatchData(_Connection);
+                md.UpdateIsPlayed(matchId);
+            }
+            catch (TechnicalError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
 

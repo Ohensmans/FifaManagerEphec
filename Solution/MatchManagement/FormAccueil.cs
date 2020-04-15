@@ -22,18 +22,67 @@ namespace MatchManagement
 
         private void b_FeuMatch_Click(object sender, EventArgs e)
         {
-            if ((Boolean)dataGridListeMatchs.SelectedRows[0].Cells[4].Value)
+
+            if (!checkMatchJoueApres(dataGridListeMatchs.SelectedRows[0].Index))
             {
-                MessageBox.Show("Ce match a déjà une feuille de match remplie");
+                if (!checkMatchPasJoueAvant(dataGridListeMatchs.SelectedRows[0].Index))
+                {
+                    if ((Boolean)dataGridListeMatchs.SelectedRows[0].Cells[4].Value)
+                    {
+                        MessageBox.Show("Ce match a déjà une feuille de match remplie");
+                    }
+                    else
+                    {
+
+                        FormFeuilleDeMatch oForm = new FormFeuilleDeMatch((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value);
+                        oForm.MdiParent = this.MdiParent;
+
+                        oForm.Show();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Il faut remplir de manière chronologique les matchs, une des 2 équipes n'a pas joué un match précédent");
+                }
+
             }
             else
             {
-
-                FormFeuilleDeMatch oForm = new FormFeuilleDeMatch((Guid)dataGridListeMatchs.SelectedRows[0].Cells[6].Value);
-                oForm.MdiParent = this.MdiParent;
-
-                oForm.Show();
+                MessageBox.Show("Un match postérieur a déjà été joué par une des 2 équipes, il n'est pas possible de modifier cette feuille de match");
             }
+        }
+
+        // vérifie si il y a un match joué pour une des 2 équipes postérieure à celle sélectionnée
+        private bool checkMatchJoueApres(int indexSelectedRow)
+        {
+            for (int i = indexSelectedRow + 1; i < dataGridListeMatchs.Rows.Count; i++)
+            {
+                if ((dataGridListeMatchs.Rows[i].Cells["Equipe A :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe A :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe B :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe A :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe A :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe B :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe B :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe B :"].Value))
+                    && (bool)dataGridListeMatchs.Rows[i].Cells["Match Joué : "].Value)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool checkMatchPasJoueAvant(int indexSelectedRow)
+        {
+            for (int i = indexSelectedRow - 1; i >= 0; i--)
+            {
+                if ((dataGridListeMatchs.Rows[i].Cells["Equipe A :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe A :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe B :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe A :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe A :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe B :"].Value)
+                    || dataGridListeMatchs.Rows[i].Cells["Equipe B :"].Value.Equals(dataGridListeMatchs.Rows[indexSelectedRow].Cells["Equipe B :"].Value))
+                    && !(bool)dataGridListeMatchs.Rows[i].Cells["Match Joué : "].Value)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void FormAccueil_Load(object sender, EventArgs e)

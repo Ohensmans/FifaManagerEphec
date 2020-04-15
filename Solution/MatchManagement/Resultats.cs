@@ -401,22 +401,32 @@ namespace MatchManagement
                     {
                         if (checkCartesRougesA((DataView)dg_GoalsEq1.DataSource)&& checkCartesRougesB((DataView)dg_GoalsEq2.DataSource))
                             {
-                            DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
-                            if (dialogResult == DialogResult.OK)
+                            if (checkCartesRougesA((DataView)dg_CartJauEq1.DataSource) && checkCartesRougesB((DataView)dg_CartJaunEq2.DataSource))
                             {
-                                GoalsService gs = new GoalsService();
-                                gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
-                                gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
+                                DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
+                                if (dialogResult == DialogResult.OK)
+                                {
+                                    GoalsService gs = new GoalsService();
+                                    gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
+                                    gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
 
-                                CartesJaunesService cjs = new CartesJaunesService();
-                                cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
-                                cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
+                                    CartesJaunesService cjs = new CartesJaunesService();
+                                    cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
+                                    cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
 
-                                CartesRougesService crs = new CartesRougesService();
-                                crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
-                                crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+                                    CartesRougesService crs = new CartesRougesService();
+                                    crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
+                                    crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
 
-                                refresh();
+                                    MatchsService ms = new MatchsService();
+                                    ms.UpdateIsPlayed(matchId);
+
+                                    this.Close();
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de recevoir un carton jaune");
                             }
                         }
                         else
