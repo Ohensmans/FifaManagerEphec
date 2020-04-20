@@ -4,11 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Common;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MatchManagement
@@ -20,13 +16,17 @@ namespace MatchManagement
         private Guid equipeBId;
         private List<JoueursModele> lJoueursEqA;
         private List<JoueursModele> lJoueursEqB;
-        DataView GoalA;
-        DataView GoalB;
-        DataView carteJ;
-        DataView carteJ2;
-        DataView carteR;
-        DataView carteR2;
-        Boolean isPlayed;
+        private DataView GoalA;
+        private DataView GoalB;
+        private DataView carteJ;
+        private DataView carteJ2;
+        private DataView carteR;
+        private DataView carteR2;
+        private Boolean isPlayed;
+        private Boolean pasAssezJoueurSurFeuilleMatch;
+        private Boolean transfertApresMatch;
+        private Boolean feuilleApres;
+
 
         public Resultats(Guid matchId, Boolean isPlayed)
         {
@@ -66,9 +66,15 @@ namespace MatchManagement
                 dg_GoalsEq1.Sort(this.dg_GoalsEq1.Columns["minute"], ListSortDirection.Ascending);
                 dg_GoalsEq1.Columns["lastUpdate"].Visible = false;
 
-                if (lJoueursEqA.Count < 5 || lJoueursEqB.Count<5)
+                if (transfertApresMatch)
                 {
                     dg_GoalsEq1.ReadOnly = true;
+                    MessageBox.Show("Un transfert a eu lieu lors de l'intersaison qui suit ce match, il n'est plus possible de modifier les résultats");
+                }
+                else if (pasAssezJoueurSurFeuilleMatch)
+                {
+                    dg_GoalsEq1.ReadOnly = true;
+                    MessageBox.Show("La match est considéré comme un forfait, il n'est pas possible de remplir les scores");
                 }
                 else
                 {
@@ -116,7 +122,7 @@ namespace MatchManagement
                 dg_GoalsEq2.Sort(this.dg_GoalsEq2.Columns["minute"], ListSortDirection.Ascending);
                 dg_GoalsEq2.Columns["lastUpdate"].Visible = false;
 
-                if (lJoueursEqA.Count < 5 || lJoueursEqB.Count < 5)
+                if (transfertApresMatch || pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_GoalsEq2.ReadOnly = true;
                 }
@@ -165,7 +171,12 @@ namespace MatchManagement
                 dg_CartJauEq1.Sort(this.dg_CartJauEq1.Columns["minute"], ListSortDirection.Ascending);
                 dg_CartJauEq1.Columns["lastUpdate"].Visible = false;
 
-                if (isPlayed)
+                if (feuilleApres)
+                {
+                    dg_CartJauEq1.ReadOnly = true;
+                    MessageBox.Show("Une feuille de match a été crée pour une des 2 équipes à une date postérieur, la modification des cartons n'est plus possible");
+                }
+                else if (pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_CartJauEq1.ReadOnly = true;
                 }
@@ -214,7 +225,7 @@ namespace MatchManagement
                 dg_CartJaunEq2.Sort(this.dg_CartJaunEq2.Columns["minute"], ListSortDirection.Ascending);
                 dg_CartJaunEq2.Columns["lastUpdate"].Visible = false;
 
-                if (isPlayed)
+                if (feuilleApres || pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_CartJaunEq2.ReadOnly = true;
                 }
@@ -265,7 +276,7 @@ namespace MatchManagement
                 dg_CartRougEq1.Sort(this.dg_CartRougEq1.Columns["minute"], ListSortDirection.Ascending);
                 dg_CartRougEq1.Columns["lastUpdate"].Visible = false;
 
-                if (isPlayed)
+                if (feuilleApres || pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_CartRougEq1.ReadOnly = true;
                 }
@@ -314,7 +325,7 @@ namespace MatchManagement
                 dg_CartRougEq2.Sort(this.dg_CartRougEq2.Columns["minute"], ListSortDirection.Ascending);
                 dg_CartRougEq2.Columns["lastUpdate"].Visible = false;
 
-                if (isPlayed)
+                if (feuilleApres || pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_CartRougEq2.ReadOnly = true;
                 }
@@ -379,74 +390,93 @@ namespace MatchManagement
             carteR2 = GenerationTablesResults.fillInCartesRouges(equipeBId, matchId);
             lJoueursEqA = GenerationTablesResults.getJoueurs(matchId, equipeAId);
             lJoueursEqB = GenerationTablesResults.getJoueurs(matchId, equipeBId);
+
+           
+        }
+
+        private void getConditionsRemplissage()
+        {
+            pasAssezJoueurSurFeuilleMatch = CheckConditionsResultats.CheckNombreJoueurFeuillePasAssez(equipeAId, equipeBId, matchId);
+            transfertApresMatch = CheckConditionsResultats.checkTransfertApres(matchId);
+            feuilleApres = CheckConditionsResultats.CheckFeuilleApres(equipeAId, equipeBId, matchId);
         }
 
         private void Resultats_Load(object sender, EventArgs e)
-        {
-            refresh();          
+        {                      
+            refresh();
         }
 
         private void b_Save_Click(object sender, EventArgs e)
         {
             try
             {
-                if (checkFull((DataView)dg_GoalsEq1.DataSource) && checkFull((DataView)dg_GoalsEq2.DataSource)
-                    && checkFull((DataView)dg_CartJauEq1.DataSource)&& checkFull((DataView)dg_CartJaunEq2.DataSource)
-                    && checkFull((DataView)dg_CartRougEq1.DataSource)&&checkFull((DataView)dg_CartRougEq2.DataSource))
-
+                if (checkFeuilleExiste())
                 {
-                    if(checkMin((DataView)dg_GoalsEq1.DataSource) && checkMin((DataView)dg_GoalsEq2.DataSource)
-                    && checkMin((DataView)dg_CartJauEq1.DataSource) && checkMin((DataView)dg_CartJaunEq2.DataSource)
-                    && checkMin((DataView)dg_CartRougEq1.DataSource) && checkMin((DataView)dg_CartRougEq2.DataSource))
+
+                    if (checkFull((DataView)dg_GoalsEq1.DataSource) && checkFull((DataView)dg_GoalsEq2.DataSource)
+                        && checkFull((DataView)dg_CartJauEq1.DataSource) && checkFull((DataView)dg_CartJaunEq2.DataSource)
+                        && checkFull((DataView)dg_CartRougEq1.DataSource) && checkFull((DataView)dg_CartRougEq2.DataSource))
+
                     {
-                        if (checkCartesRougesA((DataView)dg_GoalsEq1.DataSource)&& checkCartesRougesB((DataView)dg_GoalsEq2.DataSource))
+                        if (checkMin((DataView)dg_GoalsEq1.DataSource) && checkMin((DataView)dg_GoalsEq2.DataSource)
+                        && checkMin((DataView)dg_CartJauEq1.DataSource) && checkMin((DataView)dg_CartJaunEq2.DataSource)
+                        && checkMin((DataView)dg_CartRougEq1.DataSource) && checkMin((DataView)dg_CartRougEq2.DataSource))
+                        {
+                            if (checkCartesRougesA((DataView)dg_GoalsEq1.DataSource) && checkCartesRougesB((DataView)dg_GoalsEq2.DataSource))
                             {
-                            if (checkCartesRougesA((DataView)dg_CartJauEq1.DataSource) && checkCartesRougesB((DataView)dg_CartJaunEq2.DataSource))
-                            {
-                                DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
-                                if (dialogResult == DialogResult.OK)
+                                if (checkCartesRougesA((DataView)dg_CartJauEq1.DataSource) && checkCartesRougesB((DataView)dg_CartJaunEq2.DataSource))
                                 {
-                                    GoalsService gs = new GoalsService();
-                                    gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
-                                    gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
+                                    DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
+                                    if (dialogResult == DialogResult.OK)
+                                    {
+                                        GoalsService gs = new GoalsService();
+                                        gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
+                                        gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
 
-                                    CartesJaunesService cjs = new CartesJaunesService();
-                                    cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
-                                    cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
+                                        CartesJaunesService cjs = new CartesJaunesService();
+                                        cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
+                                        cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
 
-                                    CartesRougesService crs = new CartesRougesService();
-                                    crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
-                                    crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+                                        CartesRougesService crs = new CartesRougesService();
+                                        crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
+                                        crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
 
-                                    MatchsService ms = new MatchsService();
-                                    ms.UpdateIsPlayed(matchId);
+                                        MatchsService ms = new MatchsService();
+                                        ms.UpdateIsPlayed(matchId);
 
-                                    this.Close();
+                                        this.Close();
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de recevoir un carton jaune");
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de recevoir un carton jaune");
+                                MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de marquer");
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Un ou des joueurs ont reçu des cartons rouges avant de marquer");
+                            MessageBox.Show("Tous les champs minutes doivent être compris entre 0 et 120");
+
                         }
+
                     }
                     else
                     {
-                        MessageBox.Show("Tous les champs minutes doivent être compris entre 0 et 120");
-
+                        MessageBox.Show("Tous les champs doivent être soit remplis soit vides");
                     }
-
                 }
                 else
                 {
-                    MessageBox.Show("Tous les champs doivent être soit remplis soit vides");
+                    MessageBox.Show("Pour enregistrer des résultats il faut que les feuilles de matchs soient créées");
                 }
 
             }
+
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -519,6 +549,23 @@ namespace MatchManagement
                 }
             }
             return noCard;
+        }
+
+        public Boolean checkFeuilleExiste ()
+        {
+            try
+            {
+                FeuillesMatchService fms = new FeuillesMatchService();
+                if (fms.FeuilleExiste(matchId))
+                {
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return false;
         }
 
 
@@ -629,9 +676,13 @@ namespace MatchManagement
         private void refresh ()
         {
             getListeJoueurs();
+            getConditionsRemplissage();
             getDataGrid();
             getNames();
+            
         }
+
+
 
     }
 }

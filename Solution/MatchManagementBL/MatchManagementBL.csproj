@@ -46,6 +46,8 @@
     <Compile Include="CartesJaunesService.cs" />
     <Compile Include="CartesRougesService.cs" />
     <Compile Include="ChampionnatsService.cs" />
+    <Compile Include="CheckConditionsResultats.cs" />
+    <Compile Include="EquipesParticipationsService.cs" />
     <Compile Include="EquipesService.cs" />
     <Compile Include="FeuillesMatchService.cs" />
     <Compile Include="GenerationInfosMatchs.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="GenerationTableauxFeuille.cs" />
     <Compile Include="GenerationTablesResults.cs" />
     <Compile Include="GoalsService.cs" />
+    <Compile Include="IntersaisonsService.cs" />
     <Compile Include="JoueursParticipationService.cs" />
     <Compile Include="JoueursService.cs" />
     <Compile Include="MatchManagementService.cs" />

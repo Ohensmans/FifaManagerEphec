@@ -40,16 +40,8 @@ namespace MatchManagementBL
         {
             try
             {
-                DataView mv = this.loadAllData();
-
-                int i = 0;
-
-                while ((Guid)mv[i]["matchId"] != matchId || i <= mv.Count)
-                {
-                    i++;
-                }
-
-                return (DateTime)mv[i]["matchDate"];
+                return this.GetListeObject().FirstOrDefault(x => x.matchId == matchId).matchDate;
+                                            
             }
             catch (Exception ex)
             {
@@ -99,6 +91,57 @@ namespace MatchManagementBL
 
         }
 
+        public List<MatchsModele> getMatchParticipationParUnJoueurParQuarter (Guid joueurId, DateTime dateDebut, DateTime dateFin)
+        {
+            try
+            {
+                List<dynamic> ldyn = new List<dynamic>();
+                ldyn.Add(dateDebut);
+                ldyn.Add(dateFin);
+                ldyn.Add(joueurId);
+                
+                MatchData mData = new MatchData(_Connection);
+                DataTable oTable = mData.getMatchUnJoueurUnQuarter(ldyn, "MatchsUnJoueur").Tables["MatchsUnJoueur"];
+
+                List<MatchsModele> listeMatchs = new List<MatchsModele>();
+                return listeMatchs = ConvertDataTable<MatchsModele>(oTable);
+            }
+            catch (TechnicalError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<MatchsModele> getMatchParticipationParUneEquipeParQuarter(Guid equipeId, DateTime dateDebut, DateTime dateFin)
+        {
+            try
+            {
+                List<dynamic> ldyn = new List<dynamic>();
+                ldyn.Add(dateDebut);
+                ldyn.Add(dateFin);
+                ldyn.Add(equipeId);
+
+                MatchData mData = new MatchData(_Connection);
+                DataTable oTable = mData.getMatchUneEquipeUnQuarter(ldyn, "MatchsUneEquipe").Tables["MatchsUneEquipe"];
+
+                List<MatchsModele> listeMatchs = new List<MatchsModele>();
+                return listeMatchs = ConvertDataTable<MatchsModele>(oTable); ;
+            }
+            catch (TechnicalError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }

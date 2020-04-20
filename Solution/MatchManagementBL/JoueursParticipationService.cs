@@ -156,6 +156,24 @@ namespace MatchManagementBL
             }
         }
 
+        public int getCountJoueur(Guid feuilleId)
+        {
+            try
+            {
+                if (this.GetListeObject().Any(x => x.feuilleId == feuilleId))
+                {
+                    return this.GetListeObject().Where(x => x.feuilleId == feuilleId)
+                                     .ToList()
+                                     .Count;
+                }
+                return 0;              
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

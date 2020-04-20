@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace MatchManagementBL
 {
-    class FeuillesMatchService : MatchManagementService
+    public class FeuillesMatchService : MatchManagementService
     {
         public FeuillesMatchService()
         {
@@ -82,6 +82,35 @@ namespace MatchManagementBL
                 throw ce;
             }
 
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Boolean FeuilleExiste (Guid matchID)
+        {
+            try
+            {
+                List<FeuillesDeMatchModele> lFeuilles = this.GetListeObject();
+                if (lFeuilles.Any(x => x.matchId == matchID))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public FeuillesDeMatchModele GetFeuille(Guid matchId, Guid equipeId)
+        {
+            try
+            {
+                return this.GetListeObject().FirstOrDefault(x => x.equipeId == equipeId && x.matchId == matchId);
+            }
             catch (Exception ex)
             {
                 throw ex;

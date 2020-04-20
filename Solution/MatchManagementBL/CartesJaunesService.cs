@@ -1,5 +1,6 @@
 ﻿using FifaDAL.MatchManagement;
 using FifaError;
+using FifaModeles;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -145,6 +146,39 @@ namespace MatchManagementBL
                 throw ex;
             }
         }
+
+        public List<CartonsJaunesModele> GetListeObject()
+        {
+            try
+            {
+                List<CartonsJaunesModele> listeCJ = new List<CartonsJaunesModele>();
+                return listeCJ = ConvertDataTable<CartonsJaunesModele>(this.loadAllData().ToTable());
+            }
+
+            catch (TechnicalError ce)
+            {
+                throw ce;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<CartonsJaunesModele> getCartonsDuJoueur(Guid joueurId)
+        {
+            try
+            {
+                return this.GetListeObject().Where(x => x.joueurId == joueurId)
+                                            .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

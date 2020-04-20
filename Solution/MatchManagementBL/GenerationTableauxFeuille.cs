@@ -128,18 +128,7 @@ namespace MatchManagementBL
                     row[0] = (String)jv[i]["prenom"] + " " + (String)jv[i]["nom"];
 
                     //va chercher le nombre de cartons jaunes actifs dans le quarter
-                    int count = 0;
-                    for (i = 0; i < cjv.Count; i++)
-                    {
-                        if ((Guid)dr["joueurId"] == (Guid)cjv[i]["joueurId"] && (Boolean)cjv[i]["isActive"] == true
-                            && ((DateTime)(cjv[i]["matchDate"]) <= matchDate.AddDays(DureeQuartersJours))
-                            && ((DateTime)(cjv[i]["matchDate"])).AddDays(DureeQuartersJours) >= matchDate)
-                        {
-                            count++;
-                        }
-                    }
-
-                    row[1] = count;
+                    row[1] = CountCartesJaunesActives((Guid)dr["joueurId"], equipeId, quarter);
 
                     //va chercher le nombre de suspensions restantes à un carton rouge dans le quarter
                     row[2] = 0;
@@ -201,6 +190,72 @@ namespace MatchManagementBL
         }
 
         //
+        public static int CountCartesJaunesActives(Guid joueurId, Guid equipeId, QuartersModele quarter)
+        {
+            try
+            {
+
+                MatchsService ms = new MatchsService();
+                CartesJaunesService cjs = new CartesJaunesService();
+
+                //obtient la liste des matchs joués par le joueur en ordre chronologique ce quarter
+                List<MatchsModele> lMatchsJoueur = ms.getMatchParticipationParUnJoueurParQuarter(joueurId, quarter.dateDebut, quarter.dateFin).OrderBy(x => x.matchDate).ToList();
+
+                //obtient la liste des matchs joués par l'équipe du joueur en ordre chronologique ce quarter
+                List<MatchsModele> lMatchsEquipe = ms.getMatchParticipationParUneEquipeParQuarter(equipeId, quarter.dateDebut, quarter.dateFin).OrderBy(x => x.matchDate).ToList();
+
+                //obtient la liste des cartons jaunes du joueur
+                List<CartonsJaunesModele> lCartonsJoueur = cjs.getCartonsDuJoueur(joueurId);
+                List<MatchsModele> lMatchAvecCartonDansQuarter = new List<MatchsModele>();
+
+                //rempli la liste des index des matchs dnas lesquels des cartons jaunes ont été obtenus par le joueur lors du quarter
+                foreach (CartonsJaunesModele carton in lCartonsJoueur)
+                {
+                    if (lMatchsEquipe.Any(x => x.matchId == carton.matchId))
+                    {
+                        lMatchAvecCartonDansQuarter.Add(lMatchsEquipe.First(x => x.matchId == carton.matchId));
+                    }
+                }
+
+                int count = lMatchAvecCartonDansQuarter.Count;
+
+                if (lMatchsEquipe.Count != lMatchsJoueur.Count)
+                {
+
+                    if (lMatchAvecCartonDansQuarter.Any())
+                    {
+                        //trie par ordre chronologique les matchs avec cartons
+                        lMatchAvecCartonDansQuarter = lMatchAvecCartonDansQuarter.OrderBy(x => x.matchDate).ToList();
+
+                        List<MatchsModele> lMatchsSansLeJoueur = new List<MatchsModele>();
+
+                        foreach (MatchsModele match in lMatchsEquipe)
+                        {
+                            if (!lMatchsJoueur.Contains(match))
+                            {
+                                lMatchsSansLeJoueur.Add(match);
+                            }
+                        }
+
+                        for (int j = 0; j < lMatchAvecCartonDansQuarter.Count; j++)
+                        {
+                            if (lMatchsSansLeJoueur.Any(x => x.matchDate > lMatchAvecCartonDansQuarter[j].matchDate))
+                            {
+                                lMatchsSansLeJoueur.Remove(lMatchsSansLeJoueur.First(x => x.matchDate > lMatchAvecCartonDansQuarter[j].matchDate));
+                                count--;
+                            }
+
+                        }
+
+                    }
+                }
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }
