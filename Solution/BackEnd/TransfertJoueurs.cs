@@ -142,10 +142,17 @@ namespace BackEnd
         //change la valeur dans le tableau après tout changement
         private void dtp_OnTextChange(object sender, EventArgs e)
         {
-            TransfertsService ts = new TransfertsService();
-            if (ts.checkDateTransfert(dg_TransfertJoueurs.CurrentRow.Cells["Joueur :"].Value.ToString(), dtp.Value))
+            try
             {
-                dg_TransfertJoueurs.CurrentCell.Value = dtp.Value;
+                TransfertsService ts = new TransfertsService();
+                if (ts.checkDateTransfert(dg_TransfertJoueurs.CurrentRow.Cells["Joueur :"].Value.ToString(), dtp.Value))
+                {
+                    dg_TransfertJoueurs.CurrentCell.Value = dtp.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             
         }
