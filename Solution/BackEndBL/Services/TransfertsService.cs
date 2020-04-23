@@ -179,6 +179,29 @@ namespace BackEndBL.Services
             }
         }
 
+        public Boolean checkMatchEstApresChampionnat(DateTime dateTransfert)
+        {
+            try
+            {
+                MatchsService ms = new MatchsService();
+                List<MatchsModele> lMatchs = ms.ListAll();
+
+                if (lMatchs.Any(x => x.matchDate.Year == dateTransfert.Year
+                                && x.matchDate>dateTransfert))
+                {
+                    return false;
+                }
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+
         public Boolean checkMatchsAllPlayedBefore (DateTime dateTransfert, EquipesModele equipeNew, EquipesModele equipeOld)
         {
             try
@@ -198,6 +221,7 @@ namespace BackEndBL.Services
                         return false;
                     }
                 }
+
                 if (equipeOld != null)
                 {
                     if (lMatchs.Any(x => x.isPlayed == false
@@ -234,7 +258,7 @@ namespace BackEndBL.Services
                         JoueursService js = new JoueursService();
                         FifaModeles.JoueursModele joueur = js.GetJoueurs(row["Joueur :"].ToString());
 
-                        
+
                         EquipesService es = new EquipesService();
 
                         //obtient l'équipe et le nombre de joueur avant transfert et le nombre de transfert pour l'équipeNew si elle existe
@@ -266,7 +290,7 @@ namespace BackEndBL.Services
                             nbJoueur = nombreJoueurEquipe(equipeOld.equipeId, (DateTime)row["Date du transfert :"]);
                         }
 
-                        
+
                         IntersaisonsService inter = new IntersaisonsService();
 
                         //vérifie si tous les matchs antérieurs sont jouées
@@ -274,13 +298,14 @@ namespace BackEndBL.Services
                         {
                             if ((nbJoueurNew + nbTransfertsIn) <= NOMBREMAXJOUEUR)
                             {
-                                if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
-                                {
-                                    //vérifie si l'équipe d'arrivée est bien les x derniers du championnat à la date xx 
-                                    //si l'équipe d'arrivée n'est pas inscrite dans le championnat renvoie également true
-                                    //sinon renvoie une Business erreur
 
-                                    if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                                //vérifie si l'équipe d'arrivée est bien les x derniers du championnat à la date xx 
+                                //si l'équipe d'arrivée n'est pas inscrite dans le championnat renvoie également true
+                                //sinon renvoie une Business erreur
+
+                                if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                                {
+                                    if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
                                     {
                                         if (equipeNew != null)
                                         {
@@ -291,30 +316,31 @@ namespace BackEndBL.Services
                                             }
                                         }
                                     }
+                                    else
+                                    {
+                                        // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                                        BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe de départ");
+                                        throw bErreur;
+                                    }
+                                }
 
-                                }
-                                else
-                                {
-                                    // retourne un BusinessError si il n'y aurait plus assez de joueurs
-                                    BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe de départ");
-                                    throw bErreur;
-                                }
                             }
                             else
                             {
-                                // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                                // retourne un BusinessError si il y aurait trop de joueurs
                                 BusinessError bErreur = new BusinessError("Il y a trop de transferts d'entrée pour l'équipe d'arrivée");
                                 throw bErreur;
                             }
                         }
                         else
                         {
-                            // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                            // retourne un BusinessError si il y a des matchs antérieurs non joués
                             BusinessError bErreur = new BusinessError("Tous les matchs antérieurs (de la saison) des équipes sélectionnées doivent être joués");
                             throw bErreur;
                         }
-                        
+
                     }
+
                     
                 }
                 else
@@ -323,6 +349,7 @@ namespace BackEndBL.Services
                     BusinessError bErreur = new BusinessError("Toutes les cellules de date de transfert ne sont pas remplies");
                     throw bErreur;
                 }
+                
                 return true;
 
             }

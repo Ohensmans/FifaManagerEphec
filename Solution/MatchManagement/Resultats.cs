@@ -69,12 +69,12 @@ namespace MatchManagement
                 if (transfertApresMatch)
                 {
                     dg_GoalsEq1.ReadOnly = true;
-                    MessageBox.Show("Un transfert a eu lieu lors de l'intersaison qui suit ce match, il n'est plus possible de modifier les résultats");
+                    
                 }
                 else if (pasAssezJoueurSurFeuilleMatch)
                 {
                     dg_GoalsEq1.ReadOnly = true;
-                    MessageBox.Show("La match est considéré comme un forfait, il n'est pas possible de remplir les scores");
+                   
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace MatchManagement
                 if (feuilleApres)
                 {
                     dg_CartJauEq1.ReadOnly = true;
-                    MessageBox.Show("Une feuille de match a été crée pour une des 2 équipes à une date postérieur, la modification des cartons n'est plus possible");
+                    
                 }
                 else if (pasAssezJoueurSurFeuilleMatch)
                 {
@@ -396,9 +396,29 @@ namespace MatchManagement
 
         private void getConditionsRemplissage()
         {
-            pasAssezJoueurSurFeuilleMatch = CheckConditionsResultats.CheckNombreJoueurFeuillePasAssez(equipeAId, equipeBId, matchId);
-            transfertApresMatch = CheckConditionsResultats.checkTransfertApres(matchId);
-            feuilleApres = CheckConditionsResultats.CheckFeuilleApres(equipeAId, equipeBId, matchId);
+            try
+            {
+                pasAssezJoueurSurFeuilleMatch = CheckConditionsResultats.CheckNombreJoueurFeuillePasAssez(equipeAId, equipeBId, matchId);
+                transfertApresMatch = CheckConditionsResultats.checkTransfertApres(matchId);
+                feuilleApres = CheckConditionsResultats.CheckFeuilleApres(equipeAId, equipeBId, matchId);
+
+                if (transfertApresMatch)
+                {
+                    MessageBox.Show("Un transfert a eu lieu lors de l'intersaison qui suit ce match, il n'est plus possible de modifier les résultats");
+                }
+                if (pasAssezJoueurSurFeuilleMatch)
+                {
+                    MessageBox.Show("La match est considéré comme un forfait, il n'est pas possible de remplir les scores");
+                }
+                if (feuilleApres)
+                {
+                    MessageBox.Show("Une feuille de match a été crée pour une des 2 équipes à une date postérieur, la modification des cartons n'est plus possible");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Resultats_Load(object sender, EventArgs e)
@@ -426,25 +446,32 @@ namespace MatchManagement
                             {
                                 if (checkCartesRougesA((DataView)dg_CartJauEq1.DataSource) && checkCartesRougesB((DataView)dg_CartJaunEq2.DataSource))
                                 {
-                                    DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
-                                    if (dialogResult == DialogResult.OK)
+                                    if (checkPasDoubleCarteRouge((DataView)dg_CartRougEq1.DataSource) && checkPasDoubleCarteRouge((DataView)dg_CartRougEq2.DataSource))
                                     {
-                                        GoalsService gs = new GoalsService();
-                                        gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
-                                        gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
+                                        DialogResult dialogResult = MessageBox.Show("Pour des raisons de sécurité, on ne peut encoder qu'une seule fois les cartes, une fois sorti de la fenêtre vous ne pourrez plus les modifier, êtes vous sûrs que tout est bon ?", "Confirm", MessageBoxButtons.OKCancel);
+                                        if (dialogResult == DialogResult.OK)
+                                        {
+                                            GoalsService gs = new GoalsService();
+                                            gs.SaveAll((DataView)dg_GoalsEq1.DataSource, matchId, equipeAId);
+                                            gs.SaveAll((DataView)dg_GoalsEq2.DataSource, matchId, equipeBId);
 
-                                        CartesJaunesService cjs = new CartesJaunesService();
-                                        cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
-                                        cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
+                                            CartesJaunesService cjs = new CartesJaunesService();
+                                            cjs.SaveAll((DataView)dg_CartJauEq1.DataSource, matchId, equipeAId);
+                                            cjs.SaveAll((DataView)dg_CartJaunEq2.DataSource, matchId, equipeBId);
 
-                                        CartesRougesService crs = new CartesRougesService();
-                                        crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
-                                        crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
+                                            CartesRougesService crs = new CartesRougesService();
+                                            crs.SaveAll((DataView)dg_CartRougEq1.DataSource, matchId, equipeAId);
+                                            crs.SaveAll((DataView)dg_CartRougEq2.DataSource, matchId, equipeBId);
 
-                                        MatchsService ms = new MatchsService();
-                                        ms.UpdateIsPlayed(matchId);
+                                            MatchsService ms = new MatchsService();
+                                            ms.UpdateIsPlayed(matchId);
 
-                                        this.Close();
+                                            this.Close();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Un ou des joueurs ont plusieurs cartes rouges");
                                     }
                                 }
                                 else
@@ -549,6 +576,26 @@ namespace MatchManagement
                 }
             }
             return noCard;
+        }
+
+        private Boolean checkPasDoubleCarteRouge(DataView oView)
+        {
+            foreach (DataRowView dr in oView)
+            {
+                int count = 0;
+                foreach (DataRowView dr2 in oView)
+                {
+                    if ((Guid)dr["joueurId"]== (Guid)dr2["joueurId"])
+                    {
+                        count++;
+                        if (count>=2)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public Boolean checkFeuilleExiste ()

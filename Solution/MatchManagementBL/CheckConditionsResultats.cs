@@ -1,4 +1,5 @@
-﻿using FifaModeles;
+﻿using FifaError;
+using FifaModeles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +109,11 @@ namespace MatchManagementBL
                     {
                         return false;
                     }
+                }
+                else
+                {
+                    BusinessError be = new BusinessError("Aucune feuille de match n'existe pour ce match, merci de les remplir avant");
+                    throw be;
                 }
 
                 return true;

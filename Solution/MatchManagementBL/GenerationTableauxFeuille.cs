@@ -206,42 +206,46 @@ namespace MatchManagementBL
 
                 //obtient la liste des cartons jaunes du joueur
                 List<CartonsJaunesModele> lCartonsJoueur = cjs.getCartonsDuJoueur(joueurId);
-                List<MatchsModele> lMatchAvecCartonDansQuarter = new List<MatchsModele>();
+                List<MatchsModele> lMatchAvecCartonJauneDansQuarter = new List<MatchsModele>();
+
 
                 //rempli la liste des index des matchs dnas lesquels des cartons jaunes ont été obtenus par le joueur lors du quarter
                 foreach (CartonsJaunesModele carton in lCartonsJoueur)
                 {
                     if (lMatchsEquipe.Any(x => x.matchId == carton.matchId))
                     {
-                        lMatchAvecCartonDansQuarter.Add(lMatchsEquipe.First(x => x.matchId == carton.matchId));
+                        lMatchAvecCartonJauneDansQuarter.Add(lMatchsEquipe.First(x => x.matchId == carton.matchId));
                     }
                 }
 
-                int count = lMatchAvecCartonDansQuarter.Count;
+                int count = lMatchAvecCartonJauneDansQuarter.Count;
 
                 if (lMatchsEquipe.Count != lMatchsJoueur.Count)
                 {
 
-                    if (lMatchAvecCartonDansQuarter.Any())
+                    if (lMatchAvecCartonJauneDansQuarter.Any())
                     {
                         //trie par ordre chronologique les matchs avec cartons
-                        lMatchAvecCartonDansQuarter = lMatchAvecCartonDansQuarter.OrderBy(x => x.matchDate).ToList();
+                        lMatchAvecCartonJauneDansQuarter = lMatchAvecCartonJauneDansQuarter.OrderBy(x => x.matchDate).ToList();
 
                         List<MatchsModele> lMatchsSansLeJoueur = new List<MatchsModele>();
 
+                        //récupère la liste des exclusions du joueurs 
+                        List<MatchsModele> lMatchsExclusionJoueur = getListeMatchExclusionCartonRouge(joueurId, equipeId, quarter);
+
                         foreach (MatchsModele match in lMatchsEquipe)
                         {
-                            if (!lMatchsJoueur.Contains(match))
+                            if (!lMatchsJoueur.Contains(match)&& !lMatchsExclusionJoueur.Contains(match))
                             {
                                 lMatchsSansLeJoueur.Add(match);
                             }
                         }
 
-                        for (int j = 0; j < lMatchAvecCartonDansQuarter.Count; j++)
+                        for (int j = 0; j < lMatchAvecCartonJauneDansQuarter.Count; j++)
                         {
-                            if (lMatchsSansLeJoueur.Any(x => x.matchDate > lMatchAvecCartonDansQuarter[j].matchDate))
+                            if (lMatchsSansLeJoueur.Any(x => x.matchDate > lMatchAvecCartonJauneDansQuarter[j].matchDate))
                             {
-                                lMatchsSansLeJoueur.Remove(lMatchsSansLeJoueur.First(x => x.matchDate > lMatchAvecCartonDansQuarter[j].matchDate));
+                                lMatchsSansLeJoueur.Remove(lMatchsSansLeJoueur.First(x => x.matchDate > lMatchAvecCartonJauneDansQuarter[j].matchDate));
                                 count--;
                             }
 
@@ -256,6 +260,46 @@ namespace MatchManagementBL
                 throw ex;
             }
         }
+
+        public static List<MatchsModele> getListeMatchExclusionCartonRouge(Guid joueurId, Guid equipeId, QuartersModele quarter)
+        {
+            try
+            {
+                MatchsService ms = new MatchsService();
+
+                //obtient la liste des matchs joués par l'équipe du joueur en ordre chronologique ce quarter
+                List<MatchsModele> lMatchsEquipe = ms.getMatchParticipationParUneEquipeParQuarter(equipeId, quarter.dateDebut, quarter.dateFin).OrderBy(x => x.matchDate).ToList();
+
+                CartesRougesService cs = new CartesRougesService();
+
+                //obtient la liste des matchs avec cartons rouges du joueur dans le quarter
+                List<Guid> lmatchsAvecCartonsRouges = cs.getMatchsCartonsRouges(joueurId, quarter);
+
+                List<MatchsModele> lMatchsExclusionJoueur = new List<MatchsModele>();
+
+                //vérifie si il y a des matchs avec cartons rouges
+                if (lmatchsAvecCartonsRouges.Any())
+                {
+                    foreach (Guid matchId in lmatchsAvecCartonsRouges)
+                    {
+                        int ind = lMatchsEquipe.IndexOf(lMatchsEquipe.First(x => x.matchId == matchId));
+                        int i = ind++;
+                        while (i<lMatchsEquipe.Count&&i<ind+3)
+                        {
+                            lMatchsExclusionJoueur.Add(lMatchsEquipe[i]);
+                            i++;
+                        }
+                    }
+                }
+
+                return lMatchsExclusionJoueur;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
     }
