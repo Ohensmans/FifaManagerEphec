@@ -46,8 +46,9 @@ namespace FifaDAL.MatchManagement
             {
                 List<SqlParameter> lstSqlParam = new List<SqlParameter>();
 
-                lstSqlParam.Add(new SqlParameter("@matchId", lst[0]));
-                lstSqlParam.Add(new SqlParameter("@equipeId", lst[1]));
+                lstSqlParam.Add(new SqlParameter("@feuilleId", lst[0]));
+                lstSqlParam.Add(new SqlParameter("@matchId", lst[1]));
+                lstSqlParam.Add(new SqlParameter("@equipeId", lst[2]));
                 return Execute("FeuilleDeMatch_Add", lstSqlParam);
 
             }

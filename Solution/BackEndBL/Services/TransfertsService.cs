@@ -241,6 +241,41 @@ namespace BackEndBL.Services
             }
         }
 
+        public Boolean checkNoMatchswithFeuilleAfter(DateTime dateTransfert, EquipesModele equipeNew, EquipesModele equipeOld)
+        {
+            try
+            {
+                FeuillesDeMatchService fms = new FeuillesDeMatchService();
+                List<FeuillesDeMatchModele> lFeuilleMatch = fms.ListAll();
+
+                if (equipeNew != null)
+                {
+                    if (lFeuilleMatch.Any(x => x.Matchs.matchDate > dateTransfert
+                    && (x.Matchs.equipe1Id == equipeNew.equipeId
+                    || x.Matchs.equipe2Id == equipeNew.equipeId)))
+                   
+                    {
+                        return false;
+                    }
+                }
+
+                if (equipeOld != null)
+                {
+                    if (lFeuilleMatch.Any(x => x.Matchs.matchDate > dateTransfert
+                    && (x.Matchs.equipe1Id == equipeOld.equipeId
+                    || x.Matchs.equipe2Id == equipeOld.equipeId)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public Boolean checkTransferts (DataTable oTable)
         {
             try
@@ -296,39 +331,49 @@ namespace BackEndBL.Services
                         //vérifie si tous les matchs antérieurs sont jouées
                         if (checkMatchsAllPlayedBefore((DateTime)row["Date du transfert :"], equipeNew, equipeOld))
                         {
-                            if ((nbJoueurNew + nbTransfertsIn) <= NOMBREMAXJOUEUR)
+                            if (checkNoMatchswithFeuilleAfter((DateTime)row["Date du transfert :"], equipeNew, equipeOld))
                             {
-
-                                //vérifie si l'équipe d'arrivée est bien les x derniers du championnat à la date xx 
-                                //si l'équipe d'arrivée n'est pas inscrite dans le championnat renvoie également true
-                                //sinon renvoie une Business erreur
-
-                                if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                                if ((nbJoueurNew + nbTransfertsIn) <= NOMBREMAXJOUEUR)
                                 {
-                                    if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
-                                    {
-                                        if (equipeNew != null)
-                                        {
-                                            ClassementEquipe classement = new ClassementEquipe();
-                                            if (classement.isLastThree(equipeNew, (DateTime)row["Date du transfert :"]))
-                                            {
 
+                                    //vérifie si l'équipe d'arrivée est bien les x derniers du championnat à la date xx 
+                                    //si l'équipe d'arrivée n'est pas inscrite dans le championnat renvoie également true
+                                    //sinon renvoie une Business erreur
+
+                                    if (!inter.checkPasDansIntersaison((DateTime)row["Date du transfert :"]))
+                                    {
+                                        if ((nbJoueur - nbTransfertsOut) >= NOMBREMINJOUEUR)
+                                        {
+                                            if (equipeNew != null)
+                                            {
+                                                ClassementEquipe classement = new ClassementEquipe();
+                                                if (classement.isLastThree(equipeNew, (DateTime)row["Date du transfert :"]))
+                                                {
+
+                                                }
                                             }
                                         }
+                                        else
+                                        {
+                                            // retourne un BusinessError si il n'y aurait plus assez de joueurs
+                                            BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe de départ");
+                                            throw bErreur;
+                                        }
                                     }
-                                    else
-                                    {
-                                        // retourne un BusinessError si il n'y aurait plus assez de joueurs
-                                        BusinessError bErreur = new BusinessError("Il y a trop de transferts de sortie pour l'équipe de départ");
-                                        throw bErreur;
-                                    }
-                                }
 
+
+                                }
+                                else
+                                {
+                                    // retourne un BusinessError si il y aurait trop de joueurs
+                                    BusinessError bErreur = new BusinessError("Il y a trop de transferts d'entrée pour l'équipe d'arrivée");
+                                    throw bErreur;
+                                }
                             }
                             else
                             {
-                                // retourne un BusinessError si il y aurait trop de joueurs
-                                BusinessError bErreur = new BusinessError("Il y a trop de transferts d'entrée pour l'équipe d'arrivée");
+                                // retourne un BusinessError si il y a des matchs joués postérieurs
+                                BusinessError bErreur = new BusinessError("Une des équipes a déjà rempli une feuille de match après la date de transfert");
                                 throw bErreur;
                             }
                         }
@@ -405,7 +450,7 @@ namespace BackEndBL.Services
 
                 foreach (FifaModeles.TransfertsModele transfert in lTransferts)
                 {
-                    if (transfert.equipeId == equipeId && (transfert.dateDebut <= date) &&((transfert.dateFin == null)||(transfert.dateFin <= date)))
+                    if (transfert.equipeId == equipeId && (transfert.dateDebut <= date) &&((transfert.dateFin == null)||(transfert.dateFin >= date)))
                     {
                         count++;
                     }

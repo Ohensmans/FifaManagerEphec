@@ -407,37 +407,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="CartonsJaunes_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="minuteRecue" Type="int" Mode="In" />
-  </Function>
   <Function Name="CartonsJaunes_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="CartonsJaunes_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="carteJauneId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="minuteRecue" Type="int" Mode="In" />
-    <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="CartonsRouges_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="nombreSuspensionsRestantes" Type="int" Mode="In" />
-    <Parameter Name="minuteRecue" Type="int" Mode="In" />
-  </Function>
-  <Function Name="CartonsRouges_DiminueSuspension" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="carteRougeId" Type="uniqueidentifier" Mode="In" />
-  </Function>
   <Function Name="CartonsRouges_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="CartonsRouges_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="carteRougeId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="nombreSuspensionsRestantes" Type="int" Mode="In" />
-    <Parameter Name="minuteRecue" Type="int" Mode="In" />
-    <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
-  </Function>
   <Function Name="Championnats_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="Annee" Type="int" Mode="In" />
   </Function>
@@ -445,10 +416,6 @@
     <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
   </Function>
   <Function Name="Championnats_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="CreationDivisionChampionnat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="DateDebutChampionnat" Type="datetime" Mode="In" />
-    <Parameter Name="ChampionnatId" Type="uniqueidentifier" Mode="In" />
-  </Function>
   <Function Name="EquipeParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
     <Parameter Name="championnatId" Type="uniqueidentifier" Mode="In" />
@@ -458,38 +425,8 @@
   </Function>
   <Function Name="EquipeParticipation_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="Equipes_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="FeuilleDeMatch_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
-  </Function>
   <Function Name="FeuilleDeMatch_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="FeuilleDeMatch_GetNombreJoueursInscrits" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
-  </Function>
-  <Function Name="FeuilleDeMatch_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="feuilleId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
-  </Function>
-  <Function Name="Goals_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="minuteMarque" Type="int" Mode="In" />
-  </Function>
-  <Function Name="Goals_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="goalId" Type="uniqueidentifier" Mode="In" />
-  </Function>
   <Function Name="Goals_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="Goals_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="goalId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="matchId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="minuteMarque" Type="int" Mode="In" />
-    <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
-  </Function>
   <Function Name="Intersaisons_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="dateDebut" Type="datetime" Mode="In" />
     <Parameter Name="dateFin" Type="datetime" Mode="In" />
@@ -500,14 +437,6 @@
   </Function>
   <Function Name="Intersaisons_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="Joueurs_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="JoueursParticipation_Add" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="feuilleId" Type="uniqueidentifier" Mode="In" />
-  </Function>
-  <Function Name="JoueursParticipation_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="feuilleId" Type="uniqueidentifier" Mode="In" />
-  </Function>
   <Function Name="JoueursParticipation_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
   <Function Name="JoueursParticipation_GetOne" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="feuilleId" Type="uniqueidentifier" Mode="In" />
@@ -547,10 +476,6 @@
     <Parameter Name="lastUpdate" Type="datetime" Mode="In" />
   </Function>
   <Function Name="Transferts_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd" />
-  <Function Name="Transferts_GetIdByPlayerByDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
-    <Parameter Name="joueurId" Type="uniqueidentifier" Mode="In" />
-    <Parameter Name="date" Type="datetime" Mode="In" />
-  </Function>
   <Function Name="Transferts_GetParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="BackEnd">
     <Parameter Name="equipeId" Type="uniqueidentifier" Mode="In" />
     <Parameter Name="matchDate" Type="datetime" Mode="In" />

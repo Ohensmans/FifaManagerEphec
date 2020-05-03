@@ -43,6 +43,7 @@ namespace FifaDAL.BackEndDBF
         public virtual DbSet<QuartersModele> Quarters { get; set; }
         public virtual DbSet<TransfertsModele> Transferts { get; set; }
 
+
         public virtual int CartonsJaunes_Add(Nullable<System.Guid> joueurId, Nullable<System.Guid> matchId, Nullable<int> minuteRecue)
         {
             var joueurIdParameter = joueurId.HasValue ?
@@ -548,7 +549,7 @@ namespace FifaDAL.BackEndDBF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NombreParticipationJoueurApresDate", joueurIdParameter, dateParameter);
         }
     
-        public virtual ObjectResult<TransfertsModele> Transferts_GetIdByPlayerByDate(Nullable<System.Guid> joueurId, Nullable<System.DateTime> date)
+        public virtual ObjectResult<Transferts_GetIdByPlayerByDate_Result> Transferts_GetIdByPlayerByDate(Nullable<System.Guid> joueurId, Nullable<System.DateTime> date)
         {
             var joueurIdParameter = joueurId.HasValue ?
                 new ObjectParameter("joueurId", joueurId) :
@@ -558,7 +559,7 @@ namespace FifaDAL.BackEndDBF
                 new ObjectParameter("date", date) :
                 new ObjectParameter("date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TransfertsModele>("Transferts_GetIdByPlayerByDate", joueurIdParameter, dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Transferts_GetIdByPlayerByDate_Result>("Transferts_GetIdByPlayerByDate", joueurIdParameter, dateParameter);
         }
     
         public virtual int Transferts_UpdateDateFin(Nullable<System.Guid> joueurId, Nullable<System.DateTime> dateDebut, Nullable<System.DateTime> dateFin, Nullable<System.DateTime> lastUpdate)
@@ -580,6 +581,11 @@ namespace FifaDAL.BackEndDBF
                 new ObjectParameter("lastUpdate", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Transferts_UpdateDateFin", joueurIdParameter, dateDebutParameter, dateFinParameter, lastUpdateParameter);
+        }
+    
+        public virtual ObjectResult<FeuilleDeMatch_GetAll1_Result> FeuilleDeMatch_GetAll1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FeuilleDeMatch_GetAll1_Result>("FeuilleDeMatch_GetAll1");
         }
     }
 }

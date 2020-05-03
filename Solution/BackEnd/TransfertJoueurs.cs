@@ -107,14 +107,14 @@ namespace BackEnd
                         transfertPossible = (DateTime)(dg_TransfertJoueurs.CurrentRow.Cells["Date arrivee :"].Value);
                         // on ne peut pas être transferé dans 2 clubs le même jour
                         transfertPossible = transfertPossible.AddDays(1);
+                        dtp.MinDate = transfertPossible;
                     }
                     else
                     {
                         transfertPossible = DateTime.Now;
+                        dtp.MinDate = new DateTime(1900, 1, 1);
                     }
 
-                    //règle le datetimepicker               
-                    dtp.MinDate = transfertPossible;
                     dtp.MaxDate = DateTime.MaxValue;
                     dtp.Value = transfertPossible;
                     dtp.Visible = true;

@@ -708,6 +708,7 @@
       <Parameter Name="dateFin" Mode="In" Type="DateTime" />
       <Parameter Name="lastUpdate" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="FeuilleDeMatch_GetAll1" ReturnType="Collection(FifaManagerEphecModel.FeuilleDeMatch_GetAll1_Result)" />
   </EntityContainer>
   <ComplexType Name="CartonsJaunes_GetAll_Result">
     <Property Type="Guid" Name="carteJauneId" Nullable="false" />
@@ -825,6 +826,12 @@
     <Property Type="Guid" Name="equipeId" Nullable="false" />
     <Property Type="DateTime" Name="dateDebut" Nullable="false" Precision="23" />
     <Property Type="DateTime" Name="dateFin" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="FeuilleDeMatch_GetAll1_Result">
+    <Property Type="Guid" Name="feuilleId" Nullable="false" />
+    <Property Type="Guid" Name="matchId" Nullable="false" />
+    <Property Type="Guid" Name="equipeId" Nullable="false" />
     <Property Type="DateTime" Name="lastUpdate" Nullable="false" Precision="23" />
   </ComplexType>
 </Schema>

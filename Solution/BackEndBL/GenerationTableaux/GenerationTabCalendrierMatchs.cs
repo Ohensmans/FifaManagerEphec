@@ -210,9 +210,30 @@ namespace BackEndBL.GenerationTableaux
         {
             List<MatchsModele> lMatchsQuarter = new List<MatchsModele>();
 
-            for (int i = numeroQuarter % 2; i < lMatchs.Count; i += 2)
+            if (lMatchs.Count > 6)
             {
-                lMatchsQuarter.Add(lMatchs[i]);
+                for (int i = numeroQuarter % 2; i < lMatchs.Count; i += 2)
+                {
+                    lMatchsQuarter.Add(lMatchs[i]);
+                }
+                
+            }
+            else
+            {
+                int i = numeroQuarter % 2;
+                while (i<lMatchs.Count)
+                {
+                    lMatchsQuarter.Add(lMatchs[i]);
+                    if (i%2==0)
+                    {
+                        i = i + 3;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+
+                }
             }
             return lMatchsQuarter;
         }

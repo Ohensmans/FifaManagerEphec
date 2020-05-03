@@ -45,6 +45,7 @@ namespace MatchManagementBL
                         FeuilleMatchData fmd = new FeuilleMatchData(_Connection);
 
                         List<dynamic> lParam = new List<dynamic>();
+                        lParam.Add(feuilleId);
                         lParam.Add(matchId);
                         lParam.Add(equipeId);
 
@@ -52,7 +53,6 @@ namespace MatchManagementBL
 
                         scope.Complete();
                     }
-
                 }
                 return feuilleId;
             }

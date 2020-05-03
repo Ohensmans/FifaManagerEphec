@@ -83,6 +83,9 @@
     <Compile Include="BackEndDBF\Equipes_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>
+    <Compile Include="BackEndDBF\FeuilleDeMatch_GetAll1_Result.cs">
+      <DependentUpon>ModelBackEnd.tt</DependentUpon>
+    </Compile>
     <Compile Include="BackEndDBF\FeuilleDeMatch_GetAll_Result.cs">
       <DependentUpon>ModelBackEnd.tt</DependentUpon>
     </Compile>

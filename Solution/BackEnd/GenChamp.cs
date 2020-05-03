@@ -204,24 +204,31 @@ namespace BackEnd
                 // enregistre le nouveau championnat 
                 ChampionnatService cs = new ChampionnatService();
                 Guid championnatId;
-                
 
-                //vérifie si le championnat a pu être créé et si oui lance la création de quarters et d'intersaison
-                if (cs.enregistrerNewChampionnat(Convert.ToInt32(tb_Annee.Text), out championnatId))
-                 {
-                    //enregistre la nouvelle intersaison
-                    IntersaisonsService interS = new IntersaisonsService();
-                    interS.enregistrerNewIntersaison(dateDebutInt, dateFinInt, championnatId);
+                EquipesParticipationService eps = new EquipesParticipationService();
+                EquipesService es = new EquipesService();
 
-                    //enregistre les nouveaux quarters
-                    QuartersService qs = new QuartersService();
-                    qs.enregistrerNewQuarter(dateDebut, dateFinQ1, championnatId);
-                    qs.enregistrerNewQuarter(dateDebutQ2, dateFinQ2, championnatId);
+                //vérifie qu'il n'y ait pas de transfert dans l'année pour une des équipes
+                if (eps.checkPasTransfertAvantParticipation(es.ListeEquipeParticipants(lEquipe), Convert.ToInt32(tb_Annee.Text)))
+                {
 
-                    //enregistre les équipes
-                    enregistrerEquipes(lEquipe, championnatId);
+                    //vérifie si le championnat a pu être créé et si oui lance la création de quarters et d'intersaison
+                    if (cs.enregistrerNewChampionnat(Convert.ToInt32(tb_Annee.Text), out championnatId))
+                    {
+                        //enregistre la nouvelle intersaison
+                        IntersaisonsService interS = new IntersaisonsService();
+                        interS.enregistrerNewIntersaison(dateDebutInt, dateFinInt, championnatId);
 
-                    _return = true;
+                        //enregistre les nouveaux quarters
+                        QuartersService qs = new QuartersService();
+                        qs.enregistrerNewQuarter(dateDebut, dateFinQ1, championnatId);
+                        qs.enregistrerNewQuarter(dateDebutQ2, dateFinQ2, championnatId);
+
+                        //enregistre les équipes
+                        enregistrerEquipes(lEquipe, championnatId);
+
+                        _return = true;
+                    }
                 }
                 return _return;
 

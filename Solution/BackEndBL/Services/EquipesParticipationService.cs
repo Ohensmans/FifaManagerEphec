@@ -105,10 +105,7 @@ namespace BackEndBL.Services
                 {
                     foreach (FifaModeles.EquipesModele equipe in lEquipe)
                     {
-                        if (checkPasTransfertAvantParticipation(equipe, championnatId))
-                        {
-                            ctx.EquipeParticipation_Add(equipe.equipeId, championnatId);
-                        }
+                            ctx.EquipeParticipation_Add(equipe.equipeId, championnatId);                       
                     }
 
                     using (TransactionScope scope = new TransactionScope())
@@ -135,7 +132,7 @@ namespace BackEndBL.Services
         }
 
         //vérifie si il y n'a pas eu un transfert encodé d'un joueur lors de la saison avant la création de la participation de l'équipe
-        public Boolean checkPasTransfertAvantParticipation(FifaModeles.EquipesModele equipe, Guid championnatId)
+        public Boolean checkPasTransfertAvantParticipation(List<EquipesModele> lEquipes, int annee)
         {
             try
             {
@@ -143,14 +140,10 @@ namespace BackEndBL.Services
                 TransfertsService ts = new TransfertsService();
                 List<FifaModeles.TransfertsModele> lTransferts = ts.ListAll();
 
-                //récupère l'année du championnat
-                ChampionnatService cs = new ChampionnatService();
-                int annee = cs.getAnnee(championnatId);
-
                 foreach (FifaModeles.TransfertsModele transfert in lTransferts )
                 {
                     //vérfie pour chaque transfert si il y a eu déjà un transfert pour l'équipe l'année du championnat en création ou renvoie une businessError
-                    if ((transfert.dateDebut.Year == annee || (transfert.dateFin.HasValue && transfert.dateFin.Value.Year == annee))&&(transfert.equipeId == equipe.equipeId))
+                    if ((transfert.dateDebut.Year == annee || (transfert.dateFin.HasValue && transfert.dateFin.Value.Year == annee))&&(lEquipes.Any(x => x.equipeId == transfert.equipeId)))
                     {
                         BusinessError oBusiness = new BusinessError("Il y a déjà eu des transferts de joueurs enregistrés cette année, l'équipe ne peut pas être inscrite dans le championnat");
                         throw oBusiness;

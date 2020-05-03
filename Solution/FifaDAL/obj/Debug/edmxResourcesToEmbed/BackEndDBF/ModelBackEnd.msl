@@ -154,7 +154,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="CartonsJaunes_Add" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_Add" />
     <FunctionImportMapping FunctionImportName="CartonsJaunes_GetAll" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_GetAll">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FifaManagerEphecModel.CartonsJaunes_GetAll_Result">
@@ -168,9 +167,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="CartonsJaunes_Update" FunctionName="FifaManagerEphecModel.Store.CartonsJaunes_Update" />
-    <FunctionImportMapping FunctionImportName="CartonsRouges_Add" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_Add" />
-    <FunctionImportMapping FunctionImportName="CartonsRouges_DiminueSuspension" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_DiminueSuspension" />
     <FunctionImportMapping FunctionImportName="CartonsRouges_GetAll" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_GetAll">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FifaManagerEphecModel.CartonsRouges_GetAll_Result">
@@ -184,7 +180,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="CartonsRouges_Update" FunctionName="FifaManagerEphecModel.Store.CartonsRouges_Update" />
     <FunctionImportMapping FunctionImportName="Championnats_Add" FunctionName="FifaManagerEphecModel.Store.Championnats_Add" />
     <FunctionImportMapping FunctionImportName="Championnats_GetAll" FunctionName="FifaManagerEphecModel.Store.Championnats_GetAll">
       <ResultMapping>
@@ -195,7 +190,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="CreationDivisionChampionnat" FunctionName="FifaManagerEphecModel.Store.CreationDivisionChampionnat" />
     <FunctionImportMapping FunctionImportName="EquipeParticipation_Add" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_Add" />
     <FunctionImportMapping FunctionImportName="EquipeParticipation_GetAll" FunctionName="FifaManagerEphecModel.Store.EquipeParticipation_GetAll">
       <ResultMapping>
@@ -216,33 +210,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_Add" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_Add" />
-    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_GetAll" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_GetAll">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="FifaManagerEphecModel.FeuilleDeMatch_GetAll_Result">
-          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
-          <ScalarProperty Name="matchId" ColumnName="matchId" />
-          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
-          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_GetNombreJoueursInscrits" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_GetNombreJoueursInscrits">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="FifaManagerEphecModel.FeuilleDeMatch_GetNombreJoueursInscrits_Result">
-          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
-          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
-          <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
-          <ScalarProperty Name="feuilleId1" ColumnName="feuilleId1" />
-          <ScalarProperty Name="matchId" ColumnName="matchId" />
-          <ScalarProperty Name="equipeId" ColumnName="equipeId" />
-          <ScalarProperty Name="lastUpdate1" ColumnName="lastUpdate1" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_Update" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_Update" />
-    <FunctionImportMapping FunctionImportName="Goals_Add" FunctionName="FifaManagerEphecModel.Store.Goals_Add" />
-    <FunctionImportMapping FunctionImportName="Goals_Delete" FunctionName="FifaManagerEphecModel.Store.Goals_Delete" />
     <FunctionImportMapping FunctionImportName="Goals_GetAll" FunctionName="FifaManagerEphecModel.Store.Goals_GetAll">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FifaManagerEphecModel.Goals_GetAll_Result">
@@ -255,7 +222,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Goals_Update" FunctionName="FifaManagerEphecModel.Store.Goals_Update" />
     <FunctionImportMapping FunctionImportName="Intersaisons_Add" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Add" />
     <FunctionImportMapping FunctionImportName="Intersaisons_GetAll" FunctionName="FifaManagerEphecModel.Store.Intersaisons_GetAll">
       <ResultMapping>
@@ -278,8 +244,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="JoueursParticipation_Add" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_Add" />
-    <FunctionImportMapping FunctionImportName="JoueursParticipation_Delete" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_Delete" />
     <FunctionImportMapping FunctionImportName="JoueursParticipation_GetAll" FunctionName="FifaManagerEphecModel.Store.JoueursParticipation_GetAll">
       <ResultMapping>
         <ComplexTypeMapping TypeName="FifaManagerEphecModel.JoueursParticipation_GetAll_Result">
@@ -354,17 +318,16 @@
     <FunctionImportMapping FunctionImportName="Intersaisons_Delete" FunctionName="FifaManagerEphecModel.Store.Intersaisons_Delete" />
     <FunctionImportMapping FunctionImportName="Quarters_Delete" FunctionName="FifaManagerEphecModel.Store.Quarters_Delete" />
     <FunctionImportMapping FunctionImportName="NombreParticipationJoueurApresDate" FunctionName="FifaManagerEphecModel.Store.NombreParticipationJoueurApresDate" />
-    <FunctionImportMapping FunctionImportName="Transferts_GetIdByPlayerByDate" FunctionName="FifaManagerEphecModel.Store.Transferts_GetIdByPlayerByDate">
+    <FunctionImportMapping FunctionImportName="Transferts_UpdateDateFin" FunctionName="FifaManagerEphecModel.Store.Transferts_UpdateDateFin" />
+    <FunctionImportMapping FunctionImportName="FeuilleDeMatch_GetAll1" FunctionName="FifaManagerEphecModel.Store.FeuilleDeMatch_GetAll">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="FifaManagerEphecModel.Transferts_GetIdByPlayerByDate_Result">
-          <ScalarProperty Name="joueurId" ColumnName="joueurId" />
+        <ComplexTypeMapping TypeName="FifaManagerEphecModel.FeuilleDeMatch_GetAll1_Result">
+          <ScalarProperty Name="feuilleId" ColumnName="feuilleId" />
+          <ScalarProperty Name="matchId" ColumnName="matchId" />
           <ScalarProperty Name="equipeId" ColumnName="equipeId" />
-          <ScalarProperty Name="dateDebut" ColumnName="dateDebut" />
-          <ScalarProperty Name="dateFin" ColumnName="dateFin" />
           <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Transferts_UpdateDateFin" FunctionName="FifaManagerEphecModel.Store.Transferts_UpdateDateFin" />
   </EntityContainerMapping>
 </Mapping>

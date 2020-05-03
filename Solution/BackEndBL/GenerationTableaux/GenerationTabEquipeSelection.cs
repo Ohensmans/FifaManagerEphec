@@ -35,7 +35,7 @@ namespace BackEndBL.GenerationTableaux
 
                     foreach  (TransfertsModele tm in lTransferts)
                     {
-                        if (em.equipeId == tm.equipeId && tm.dateDebut<debutChamp && (tm.dateFin== null || tm.dateFin>debutChamp))
+                        if (em.equipeId == tm.equipeId && tm.dateDebut.Year<debutChamp.Year && (tm.dateFin== null || tm.dateFin>debutChamp))
                         {
                             count++;
                         }
